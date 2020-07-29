@@ -218,7 +218,7 @@
 								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
 									<div class="intro_icon"><img src="{% static '/images/beach.svg' %}" alt=""></div>
 									<div class="intro_content">
-										<div class="intro_title">High Speed Internet</div>
+										<div class="intro_title"><a href="destinations">High Speed Internet</a></div>
 										<div class="intro_subtitle">
 											<p>FTTH is a unique technology first time in India.</p>
 
@@ -228,9 +228,9 @@
 							</div>
 							<div class="col-lg-4 intro_col">
 								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
-									<div class="intro_icon"><img src="{% static '/images/beach.svg' %}" alt=""></div>
+									<div class="intro_icon"><img src="{% static 'images/mountain.svg' %}" alt=""></div>
 									<div class="intro_content">
-										<div class="intro_title">Landline Services</div>
+										<div class="intro_title"><a href="destinations">Landline Services</a></div>
 										<div class="intro_subtitle"><p>BSNL Landline New Telephone Connection</p></div>
 									</div>
 								</div>
@@ -240,7 +240,8 @@
 								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
 									<div class="intro_icon"><img src="{% static 'images/wallet.svg' %}" alt=""></div>
 									<div class="intro_content">
-										<div class="intro_title">The Best Prices</div>
+										<div class="intro_title"><a href="destinations">The Best Prices</a></div>
+
 										<div class="intro_subtitle">
 										<p> Unlimited Data @ True Speed.Plan starting@INR-580</p></div>
 
@@ -253,7 +254,7 @@
 								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
 									<div class="intro_icon"><img src="{% static 'images/suitcase.svg' %}" alt=""></div>
 									<div class="intro_content">
-										<div class="intro_title">Amazing Services</div>
+										<div class="intro_title"><a href="destinations">Amazing Services</a></div>
 										<div class="intro_subtitle"><p>Customer Care - 24x7</p></div>
 									</div>
 								</div>
@@ -263,14 +264,23 @@
 								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
 									<div class="intro_icon"><img src="{% static 'images/wallet.svg' %}" alt=""></div>
 									<div class="intro_content">
-										<div class="intro_title">Quick Pay Bill</div>
+										<div class="intro_title"><a href="destinations">Quick Pay Bill</a></div>
 										<div class="intro_subtitle">
 										<p> Pay your bills online</p></div>
 
 									</div>
 								</div>
 							</div>
-
+                            <!-- Intro Item -->
+							<div class="col-lg-4 intro_col">
+								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
+									<div class="intro_icon"><img src="{% static 'images/camera.svg' %}" alt=""></div>
+									<div class="intro_content">
+										<div class="intro_title"><a href="destinations">Covid19</a></div>
+										<div class="intro_subtitle"><p>Prayers of all affected.</p></div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -303,9 +313,9 @@
                                 {% endif %}
 							</div>
 							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">{{dest.name}}</a></div>
+								<div class="destination_title"><a href="destinations">{{dest.name}}</a></div>
 								<div class="destination_subtitle"><p>{{dest.desc}}</p></div>
-								<div class="destination_price">Start From INR{{dest.price}}</div>
+								<div class="destination_price">Start From Itravello/destinations.htmlNR{{dest.price}}</div>
 							</div>
 						</div>
 						{% endfor %}

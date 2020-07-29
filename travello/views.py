@@ -14,6 +14,11 @@ def index(request):
     return render(request, "travello/home.html", {"dests": dests})
 
 
+def destinations(request):
+    dests = Destination.objects.all()
+    return render(request, "travello/destinations.html", {"dests": dests})
+
+
 def contact(request):
     if request.method == "POST":
         input_name = request.POST[ 'input_name' ]

@@ -7,6 +7,7 @@ urlpatterns=[
     path('', views.index, name='index'),
     path('home', views.home, name='home'),
     path('contact', views.contact, name='contact'),
+    path('destinations', views.destinations, name='destinations'),
     path('about', views.about, name='about'),
     path('managecustomer', views.managecustomer, name='managecustomer'),
     url(r'^display_contact$', display_contact, name="display_contact"),

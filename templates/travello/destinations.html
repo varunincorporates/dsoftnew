@@ -1,0 +1,78 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% static "images" as baseUrl %}
+
+{% block body %}
+<head>
+ <title>COVID-19</title>
+</head>
+<div class="super_container">
+
+ <div class="breadcumb--con">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="home"><i class="fa fa-home"></i> Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">About us</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+
+	<div class="about">
+		<div class="container">
+			<div class="row">
+				<div class="col text-center">
+					<div class="section_subtitle">simply amazing products</div>
+					<div class="section_title"><h2>Resources for Managing Work and Life During COVID-19</h2></div>
+	                <div class="section_title"><h12>The COVID-19 virus is changing the world in which we live and work. The pandemic has prompted a wide range of businesses to (at least temporarily) ask their employees to work from home. It restricts us all from enjoying our normal activities and spending time with friends, family, and others.</h12></div>
+
+
+                </div>
+			</div>
+			<div class="row about_row">
+				<div class="col-lg-6">
+					<div class="about_content">
+						<div class="about_text">
+							<div class="text_highlight"><center>Our commitment to society:</center></div>
+							<p>To help you make the best of your situation, we’d like to share a growing list of tips and stories from DSoft and the wider DSoft community. We hope you find them inspiring, useful, or simply a nice distraction. Kind request to subscribe to our newsletter and community</p>
+						</div>
+						<div class="about_text">
+							<div class="text_highlight"><center>On giving back:</center></div>
+							<p>Participate in Active for Good’s monthly activity challenges and make an impact. It's free — and every minute of your activity goes towards unlocking meals for malnourished children.</p>
+						</div>
+						<div class="about_text">
+							<div class="text_highlight"><center>On working from home:</center></div>
+							<p>Providing best access speed in the world all the time to help you work effortlessly from home as if you are in your office.When I mention our remote to onsite ratio to friends, I get the same look of incredulity normally followed by a “how does that work?!”. The truth is it works great. We’re productive, communicative, and happy, but that’s not to say it’s easy or without its sacrifices.</p>
+						</div>
+						<div class="about_text">
+							<div class="text_highlight"><center>Environment</center></div>
+							<p>Environment is the other part of the equation. That’s all changed. Most people who have figured out how to successfully work from home have tech arrangements that support their effectiveness. </p>
+							<p>Without robust technology support, don’t expect the same performance. </p>
+							<p>It takes time to learn to how to work effectively from home. What training is the company providing?  Are people addressing how to have effective remote meetings?. Contact us to know more.....</p>
+						</div>
+					</div>
+
+				</div>
+				<div class="col-lg-6">
+					<div class="about_image"><img src="{% static 'images/covid.jpg' %}" alt=""></div>
+					<p>Our thoughts are with all those who have been affected by the COVID-19 pandemic.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+	<div class="destination_content">
+		<div class="destination_title"><a href="contact"><center><h4>Submit a Comment<h4></h4></center></a></div>
+		<div class="destination_subtitle"><p>-</p></div>
+		<div class="destination_price"><center><h8><strong>Deadlines are going to shift. So be it. If the government can move the tax filing date, a company can move a target date. (And by the way, it is probably a good time to examine the importance and sequencing of work.)</strong></h8></center>></div>
+		<div class="destination_price"><center><h8><strong>We’ll get through this, together. Above all, be kind and stay safe.</h8></h12></center></div>
+	</div>
+</div>
+
+{% endblock %}
