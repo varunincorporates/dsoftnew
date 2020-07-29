@@ -1,0 +1,132 @@
+{%  extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+<head>
+ <title>Register</title>
+</head>
+
+<div class="menu">
+		<div class="menu_header d-flex flex-row align-items-center justify-content-start">
+			<div class="menu_logo"><a href="index.html">Travello</a></div>
+			<div class="menu_close_container ml-auto"><div class="menu_close"><div></div><div></div></div></div>
+		</div>
+		<div class="menu_content">
+			<ul>
+				<li><a href="inex.html">Home</a></li>
+				<li><a href="about.html">About us</a></li>
+				<li><a href="#">Services</a></li>
+				<li><a href="news.html">News</a></li>
+				<li><a href="contact.html">Contact</a></li>
+			</ul>
+		</div>
+		<div class="menu_social">
+			<div class="menu_phone ml-auto">Call us: 00-56 445 678 33</div>
+			<ul class="d-flex flex-row align-items-start justify-content-start">
+				<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- Home -->
+
+
+
+
+	  <!-- ***** Breadcrumb Area Start ***** -->
+  <div class="breadcumb-area bg-img bg-gradient-overlay" style="background-image: url({% static 'img/bg-img/12.jpg' %});">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12">
+          <h2 class="title">Registration</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="breadcumb--con">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="home"><i class="fa fa-home"></i> Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Register</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ***** Breadcrumb Area End ***** -->
+
+		<div class="contact">
+			<div class="container">
+				<div class="row">
+					<!-- Get in touch -->
+					<div class="col-lg-6">
+						<div class="contact_content">
+							<div class="contact_title">New User Registration Form</div>
+							<div class="contact_text">
+								<p>Your details will not be shared. Registration will help us to be in touch with you.</p>
+								<p>We've got everything covered for your needs.</p>
+							</div>
+						</div>
+						<div class="contact_form_container"   >
+							<form action="register" method="post"  id="contact_form" class="contact_form">
+								{% csrf_token %}
+                            <div class="contact_list">
+								<div class="row">
+									<div class="col-lg-6" style="margin-bottom: 18px">
+										<div><strong>First Name:</strong></div>
+										<div  style="margin-bottom: 18px">  <input type="text" name="first_name"  class="contact_input contact_input_name inpt" placeholder="First Name" required="required"><div class="input_border"></div></div>
+									</div>
+									<div class="col-lg-6" style="margin-bottom: 18px">
+										<div><strong>Last Name:</strong></div>
+										<div style="margin-bottom: 18px"><input type="text" name="last_name"  class="contact_input contact_input_name inpt" placeholder="Last Name" required="required"><div class="input_border"></div></div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-6" style="margin-bottom: 18px">
+										<div><strong>eMail:</strong></div>
+										<div style="margin-bottom: 18px"><input type="text" name="email"  class="contact_input contact_input_name inpt" placeholder="Your E-mail" required="required"><div class="input_border"></div></div>
+									</div>
+									<div class="col-lg-6" style="margin-bottom: 18px">
+										<div><strong>User Name:</strong></div>
+										<div style="margin-bottom: 18px"><input type="text" name="username"  class="contact_input contact_input_name inpt" placeholder="User Name" required="required"><div class="input_border"></div></div>
+									</div>
+								</div>
+						        <div class="row">
+									<div class="col-lg-6" style="margin-bottom: 18px">
+                                        <div><strong>Password:</strong></div>
+										<div><input type="password" name="password1" class="contact_input contact_input_email inpt" placeholder="Password" required="required"><div class="input_border"></div></div>
+									</div>
+									<div class="col-lg-6" style="margin-bottom: 18px">
+                                        <div><strong>Confirm Password:</strong></div>
+										<div><input type="password" name="password2" class="contact_input contact_input_subject inpt" placeholder="Confirm Password" required="required"><div class="input_border"></div></div>
+									</div>
+								</div>
+                 				<button class="contact_button">Submit</button>
+                            </div>
+							</form>
+						</div>
+					</div>
+
+                   <div>
+                        {% for message in messages %}
+                          <h3> {{message}}  </h3>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
+
+
+

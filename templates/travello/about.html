@@ -1,0 +1,211 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% static "images" as baseUrl %}
+
+{% block body %}
+<head>
+ <title>About Us</title>
+</head>
+<div class="super_container">
+
+ <div class="breadcumb--con">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="home"><i class="fa fa-home"></i> Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">About us</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+
+	<div class="about">
+		<div class="container">
+			<div class="row">
+				<div class="col text-center">
+					<div class="section_subtitle">simply amazing products</div>
+					<div class="section_title"><h2>A few words about us</h2></div>
+				</div>
+			</div>
+			<div class="row about_row">
+				<div class="col-lg-6">
+					<div class="about_content">
+						<div class="about_text">
+							<div class="text_highlight"><center>OUR MISSION</center></div>
+							<p>D-Soft mission is to raise the benchmarks of customers experience in India for all times to come. D-Soft will endeavor to deliver enhanced customer experience through innovation, by use of cutting edge technology and by extensive knowledge dissemination to members of its customer support teams.</p>
+						</div>
+						<div class="about_text">
+							<div class="text_highlight"><center>OUR VISION</center></div>
+							<p>D-Soft vision is to be a leading internet and IT services company, offering innovative products and solutions to home, enterprise and other customers in India and globally. We believe that our next generation services will transform the way India lives, transacts, and communicates and we believe that we can make a significant contribution towards a powerful internet enabled India.</p>
+						</div>
+						<div class="about_text">
+							<div class="text_highlight"><center>WIN-WIN FOR ALL</center></div>
+							<p>We work for the success of our customers, investors, employees and our ecosystem partners. We believe in empowering, motivating, appreciating and inculcating a sense of ownership among the members of D-Soft eco-system</p>
+						</div>
+					</div>
+
+				</div>
+				<div class="col-lg-6">
+					<div class="about_image"><img src="{% static 'images/prof09.jpg' %}" alt=""></div>
+					<p>By engaging with the best-in-class technology partners, the company would be building a comprehensive services framework that can deliver leading edge voice, video, IT applications and multimedia content services over any broadband or IP-centric network. Such a framework is targeted towards global internet service providers, who desire to offer next generation services to customers.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Milestones -->
+
+	<div class="milestones">
+		<div class="container">
+			<div class="row">
+				
+				<!-- Milestone -->
+				<div class="col-lg-3 milestone_col">
+					<div class="milestone text-center">
+						<div class="milestone_icon"><img src="{% static 'images/mountain.svg' %}" alt=""></div>
+						<div class="milestone_counter" data-end-value="17">0</div>
+						<div class="milestone_text">Online Courses</div>
+					</div>
+				</div>
+
+				<!-- Milestone -->
+				<div class="col-lg-3 milestone_col">
+					<div class="milestone text-center">
+						<div class="milestone_icon"><img src="{% static 'images/island.svg' %}" alt=""></div>
+						<div class="milestone_counter" data-end-value="213">0</div>
+						<div class="milestone_text">Corporate House</div>
+					</div>
+				</div>
+
+				<!-- Milestone -->
+				<div class="col-lg-3 milestone_col">
+					<div class="milestone text-center">
+						<div class="milestone_icon"><img src="{% static 'images/camera.svg' %}" alt=""></div>
+						<div class="milestone_counter" data-end-value="11923">0</div>
+						<div class="milestone_text">Families</div>
+					</div>
+				</div>
+
+				<!-- Milestone -->
+				<div class="col-lg-3 milestone_col">
+					<div class="milestone text-center">
+						<div class="milestone_icon"><img src="{% static 'images/boat.svg' %}" alt=""></div>
+						<div class="milestone_counter" data-end-value="115">0</div>
+						<div class="milestone_text">Societies</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Why Choose Us -->
+
+	<div class="why">
+		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="{% static 'images/prof06.jpg' %}" data-speed="0.8"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col text-center">
+					<div class="section_subtitle">simply amazing products</div>
+					<div class="section_title"><h2>Why choose us?</h2></div>
+				</div>
+			</div>
+			<div class="row why_row">
+				
+				<!-- Why item -->
+				<div class="col-lg-4 why_col">
+					<div class="why_item">
+						<div class="why_image">
+							<img src="{% static 'images/prof04.jpg' %}" alt="">
+							<div class="why_icon d-flex flex-column align-items-center justify-content-center">
+								<img src="{% static 'images/why_1.svg' %}" alt="">
+							</div>
+						</div>
+						<div class="why_content text-center">
+							<div class="why_title">Fast Services</div>
+							<div class="why_text">
+								<p>Today we touch people's lives with our Mobile services, Telemedia services, Internet services to connecting India's leading corporates , office and home. </p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Why item -->
+				<div class="col-lg-4 why_col">
+					<div class="why_item">
+						<div class="why_image">
+							<img src="{% static 'images/prof03.jpg' %}" alt="">
+							<div class="why_icon d-flex flex-column align-items-center justify-content-center">
+								<img src="{% static 'images/why_2.svg' %}" alt="">
+							</div>
+						</div>
+						<div class="why_content text-center">
+							<div class="why_title">Great Team</div>
+							<div class="why_text">
+								<p>A team driven “to seize the day” with an ambition to become the most admired telecom service provider globally. In just few years of operations, team rose to the pinnacle of achievement and continues to lead.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Why item -->
+				<div class="col-lg-4 why_col">
+					<div class="why_item">
+						<div class="why_image">
+							<img src="{% static 'images/prof05.jpg' %}" alt="">
+							<div class="why_icon d-flex flex-column align-items-center justify-content-center">
+								<img src="{% static 'images/why_3.svg' %}" alt="">
+							</div>
+						</div>
+						<div class="why_content text-center">
+							<div class="why_title">Best Deals</div>
+							<div class="why_text">
+								<p>Our best plans, Our best prices, on the best network for homes and offices. Get exclusive offers & account information at one place.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+<!---- ---->
+<!----  ---->
+
+	<!-- Team -->
+
+	<div class="team">
+		<div class="container">
+			<div class="row">
+				<div class="col text-center">
+					<div class="section_subtitle">Simply Amazing Internet Life Style Packages. </div>
+					<div class="section_title"><h2>Meet the Team</h2></div>
+				</div>
+			</div>
+			<div class="row team_row">
+				
+
+
+				<!-- Team Item -->
+				<div class="col-xl-3 col-md-6 team_col">
+					<div class="team_item d-flex flex-column align-items-center justify-content-start text-center">
+						<div class="team_image"><img src="{% static 'images/team_2.jpg' %}" alt=""></div>
+						<div class="team_content">
+							<div class="team_title"><a href="#">Tushar Dhawale</a></div>
+							<div class="team_text">
+								<p>Young dynamic MBA graduate devoted his life to the entertainment world. Tushar  was born free, a force unleashed into the market with a relentless and unwavering determination to succeed.  </p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+{% endblock %}

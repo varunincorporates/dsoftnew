@@ -1,0 +1,71 @@
+{%  extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+
+
+<body>
+<div class="super_container">
+<head>
+ <title>Login</title>
+</head>
+
+	  <!-- ***** Breadcrumb Area Start ***** -->
+  <div class="breadcumb-area bg-img bg-gradient-overlay" style="background-image: url({% static 'img/bg-img/12.jpg' %});">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12">
+          <h2 class="title">Login</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="breadcumb--con">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="home"><i class="fa fa-home"></i> Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Login</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ***** Breadcrumb Area End ***** -->
+<div class="contact">
+			<div class="container">
+				<div class="row">
+					<!-- Get in touch -->
+					<div class="col-lg-6">
+						<div class="contact_content">
+							<div class="contact_title">Login in the system to explore more</div>
+							<div class="contact_text">
+								<p>New Internet Lifestyle. </p>
+								<p>We've got everything covered for your needs.</p>
+							</div>
+							<div class="contact_form_container">
+                                     <form action="login" method="post"  id="contact_form" class="contact_form">
+                                       {% csrf_token  %}
+                                         <div style="margin-bottom: 18px"><input type="text" name="username"  class="contact_input contact_input_name inpt" placeholder="Your Login Name" required="required"><div class="input_border"></div></div>
+                                        <div style="margin-bottom: 18px"><input type="password" name="password"  class="contact_input contact_input_name inpt" placeholder="Your Password" required="required"><div class="input_border"></div></div>
+	                                    <button class="contact_button">Submit</button>
+                                    </form>
+                                    <div>
+                                            {% for message in messages %}
+                                              <h3> {{message}}  </h3>
+                                            {% endfor %}
+                                    </div>
+  							</div>
+						</div>
+					</div>
+                </div>
+            </div>
+</div>
+
+
+</div>
+{% endblock %}
