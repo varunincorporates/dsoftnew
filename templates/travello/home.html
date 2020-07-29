@@ -9,7 +9,7 @@
 <title>DSoft</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="DSoft template project">
+<meta name="description" content="DSoft Communications">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="{% static 'styles/bootstrap4/bootstrap.min.css' %} " rel="stylesheet" type="text/css" >
 <link href="{% static 'plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/">
@@ -90,7 +90,7 @@
 			</ul>
 		</div>
 		<div class="menu_social">
-			<div class="menu_phone ml-auto">Call us: 00-56 445 678 33</div>
+			<div class="menu_phone ml-auto">Call us: +91-75882 91801</div>
 			<ul class="d-flex flex-row align-items-start justify-content-start">
 				<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
 				<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
@@ -135,7 +135,7 @@
 							<div class="row">
 								<div class="col">
 									<div class="home_slider_content">
-										<div class="home_title"><h2>Let us take you away</h2></div>
+										<div class="home_title"><h2>Internet Life Style</h2></div>
 									</div>
 								</div>
 							</div>
@@ -151,7 +151,7 @@
 							<div class="row">
 								<div class="col">
 									<div class="home_slider_content">
-										<div class="home_title"><h2>8888888888888</h2></div>
+										<div class="home_title"><h2>DSoft Communications</h2></div>
 									</div>
 								</div>
 							</div>
@@ -302,7 +302,23 @@
 				<div class="col">
 					<div class="destinations_container item_grid">
 
+                        {% for dest in dests %}
+						<!-- Destination -->
+						<div class="destination item">
+							<div class="destination_image">
+								<img src="{{dest.img.url}}" alt="">
 
+							    {% if dest.offer %}
+							 	   <div class="spec_offer text-center"><a href="#">Special Offer</a></div>
+                                {% endif %}
+							</div>
+							<div class="destination_content">
+								<div class="destination_title"><a href="destinations">{{dest.name}}</a></div>
+								<div class="destination_subtitle"><p>{{dest.desc}}</p></div>
+								<div class="destination_price">Start From Itravello/destinations.htmlNR{{dest.price}}</div>
+							</div>
+						</div>
+						{% endfor %}
 
 					</div>
 				</div>
