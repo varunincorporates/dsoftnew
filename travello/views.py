@@ -107,6 +107,7 @@ def add_contact(request):
 def add_feasable(request):
     return add_item(request, FeasableForm)
 
+
 def edit_device(request, pk, model, cls):
     item = get_object_or_404(model, pk=pk)
     if request.method == "POST":

@@ -7,7 +7,7 @@
  <title>Register</title>
 </head>
 
-<div class="menu">
+	<div class="menu">
 		<div class="menu_header d-flex flex-row align-items-center justify-content-start">
 			<div class="menu_logo"><a href="index.html">Travello</a></div>
 			<div class="menu_close_container ml-auto"><div class="menu_close"><div></div><div></div></div></div>
@@ -65,66 +65,86 @@
   </div>
   <!-- ***** Breadcrumb Area End ***** -->
 
-		<div class="contact">
-			<div class="container">
-				<div class="row">
-					<!-- Get in touch -->
-					<div class="col-lg-6">
-						<div class="contact_content">
-							<div class="contact_title">New User Registration Form</div>
-							<div class="contact_text">
-								<p>Your details will not be shared. Registration will help us to be in touch with you.</p>
-								<p>We've got everything covered for your needs.</p>
-							</div>
-						</div>
-						<div class="contact_form_container"   >
-							<form action="register" method="post"  id="contact_form" class="contact_form">
-								{% csrf_token %}
-                            <div class="contact_list">
-								<div class="row">
-									<div class="col-lg-6" style="margin-bottom: 18px">
-										<div><strong>Name:</strong></div>
-										<div  style="margin-bottom: 18px">  <input type="text" name="first_name"  class="contact_input contact_input_name inpt" placeholder="Name" required="required"><div class="input_border"></div></div>
-									</div>
-									<div class="col-lg-6" style="margin-bottom: 18px">
-										<div><strong>Mobile:</strong></div>
-										<div style="margin-bottom: 18px"><input type="text" name="last_name"  class="contact_input contact_input_name inpt" placeholder="Mobile" required="required"><div class="input_border"></div></div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-6" style="margin-bottom: 18px">
-										<div><strong>eMail:</strong></div>
-										<div style="margin-bottom: 18px"><input type="text" name="email"  class="contact_input contact_input_name inpt" placeholder="Your E-mail" required="required"><div class="input_border"></div></div>
-									</div>
-									<div class="col-lg-6" style="margin-bottom: 18px">
-										<div><strong>User Name:</strong></div>
-										<div style="margin-bottom: 18px"><input type="text" name="username"  class="contact_input contact_input_name inpt" placeholder="User Name" required="required"><div class="input_border"></div></div>
-									</div>
-								</div>
-						        <div class="row">
-									<div class="col-lg-6" style="margin-bottom: 18px">
-                                        <div><strong>Password:</strong></div>
-										<div><input type="password" name="password1" class="contact_input contact_input_email inpt" placeholder="Password" required="required"><div class="input_border"></div></div>
-									</div>
-									<div class="col-lg-6" style="margin-bottom: 18px">
-                                        <div><strong>Confirm Password:</strong></div>
-										<div><input type="password" name="password2" class="contact_input contact_input_subject inpt" placeholder="Confirm Password" required="required"><div class="input_border"></div></div>
-									</div>
-								</div>
-                 				<button class="contact_button">Submit</button>
-                            </div>
-							</form>
-						</div>
-					</div>
-
-                   <div>
-                        {% for message in messages %}
-                          <h3> {{message}}  </h3>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
+<!-- Book An Oppointment Area Start -->
+  <section class="book-an-oppointment-area section-padding-100 bg-img bg-gradient-overlay jarallax clearfix" style="background-image: url({% static 'images/prof01.jpg' %});">
+    <div class="container">
+      <div class="row">
+        <!-- Section Heading -->
+        <div class="col-12">
+          <div class="section-heading text-center white">
+            <h2>New User Registration</h2>
+			  <div class="contact_text">
+				  <p><strong>Your details will not be shared. Registration will help us to be in touch with you.</strong></p>
+				  <p><strong>We've got everything covered for your needs.</strong></p>
+			   </div>
+            <div class="line"></div>
+          </div>
         </div>
+      </div>
+	 <form action="register" method="post"  id="contact_form" class="contact_form">
+      {% csrf_token  %}
+      <div class="row">
+        <div class="col-12">
+          <!-- Appointment Form -->
+          <div class="appointment-form">
+            <form action="#" method="post">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-30">
+			    	 <div><strong>Your Name</strong></div>
+                    <input type="text" name="first_name" class="form-control" placeholder="Your Name" required>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-30">
+					<div><strong>Your Phone</strong></div>
+                    <input type="text" name="last_name" class="form-control" placeholder="Your Phone" required>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-30">
+					  <div><strong>Your Email</strong></div>
+                    <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-30">
+					<div><strong>LogIn Name</strong></div>
+                    <input type="text" name="username" class="form-control" placeholder="LogIn Name ">
+                  </div>
+                </div>
+				 <div class="col-md-6">
+					  <div class="form-group mb-30">
+						 <div><strong>Password:</strong></div>
+						<div><input type="password" name="password1" class="contact_input contact_input_email inpt" placeholder="Password" required="required"><div class="input_border"></div></div>
+					</div>
+				 </div>
+				<div class="col-md-6">
+					 <div class="form-group mb-30">
+						<div><strong>Confirm Password:</strong></div>
+						<div><input type="password" name="password2" class="contact_input contact_input_subject inpt" placeholder="Confirm Password" required="required"><div class="input_border"></div></div>
+					</div>
+				</div>
+
+                <div class="col-12 text-center">
+		  		  <button class="contact_button">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+		   <div>
+				{% for message in messages %}
+				  <h3> {{message}}  </h3>
+				{% endfor %}
+			</div> <br>
+        </div>
+      </div>
+ 	</form>
+    </div>
+  </section>
+<br><br>
+
+  <!-- Book An Oppointment Area End -->
 
 {% endblock %}
 
