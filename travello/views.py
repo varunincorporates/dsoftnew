@@ -14,6 +14,11 @@ def index(request):
     return render(request, "travello/home.html", {"dests": dests})
 
 
+def friends(request):
+    plan = Plan.objects.all()
+    return render(request, "travello/friends.html", {"plan": plan})
+
+
 def destinations(request):
     dests = Destination.objects.all()
     return render(request, "travello/destinations.html", {"dests": dests})
@@ -70,10 +75,10 @@ def about(request):
 
 
 def display_contact(request):
-    items = Contactme.objects.all()
+    items = Contactme.objects.all().order_by('-id')
     context = {
         'items': items,
-        'header': 'Contact',
+        'header': 'Contact Customer',
     }
     return render(request, 'travello/managecustomer.html', context)
 
@@ -85,6 +90,15 @@ def display_feasable(request):
         'header': 'Feasable',
     }
     return render(request, 'travello/feasablty.html', context)
+
+
+def display_plan(request):
+    items = Plan.objects.all()
+    context = {
+        'items': items,
+        'header': 'Plan',
+    }
+    return render(request, 'travello/plan.html', context)
 
 
 def add_item(request, cls):
@@ -108,6 +122,10 @@ def add_feasable(request):
     return add_item(request, FeasableForm)
 
 
+def add_plan(request):
+    return add_item(request, PlanForm)
+
+
 def edit_device(request, pk, model, cls):
     item = get_object_or_404(model, pk=pk)
     if request.method == "POST":
@@ -126,3 +144,32 @@ def edit_contact(request, pk):
 
 def edit_feasable(request, pk):
     return edit_device(request, pk, Feasable, FeasableForm)
+
+
+def edit_plan(request, pk):
+    return edit_device(request, pk, Plan, PlanForm)
+
+
+def delete_plan(request, pk):
+
+    template = 'travello/plan.html'
+    Plan.objects.filter(id=pk).delete()
+    items = Plan.objects.all()
+
+    context = {
+        'items': items,
+    }
+
+    return render(request, template, context)
+
+def delete_feasable(request, pk):
+
+    template = 'travello/feasablty.html'
+    Feasable.objects.filter(id=pk).delete()
+    items = Feasable.objects.all()
+
+    context = {
+        'items': items,
+    }
+
+    return render(request, template, context)

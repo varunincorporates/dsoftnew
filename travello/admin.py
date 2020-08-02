@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Destination, Contactme, Offer, Engineer, Feasable
+from .models import Destination, Contactme, Offer, Engineer, Feasable, Plan, Referal
 
 
 class DestinationAdmin(admin.ModelAdmin):
@@ -15,11 +15,13 @@ class ContactmeAdmin(admin.ModelAdmin):
 
 admin.site.register(Contactme, ContactmeAdmin)
 
+
 class OfferAdmin(admin.ModelAdmin):
     list_display = ('name', 'img' ,'desc','tempelate')
 
 
 admin.site.register(Offer, OfferAdmin)
+
 
 class EngineerAdmin(admin.ModelAdmin):
     list_displaye = ('name')
@@ -33,3 +35,17 @@ class FeasableAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Feasable, FeasableAdmin)
+
+
+class PlanAdmin(admin.ModelAdmin):
+    list_displaye = ('benefits', 'validity', 'value')
+
+
+admin.site.register(Plan, PlanAdmin)
+
+
+class ReferalAdmin(admin.ModelAdmin):
+    list_displaye = ('myname', 'mymobile', 'referalname','referalmobile')
+
+
+admin.site.register(Referal, ReferalAdmin)

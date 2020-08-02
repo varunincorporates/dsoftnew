@@ -36,7 +36,7 @@
     </div>
   </div>
   <!-- ***** Breadcrumb Area End ***** -->
-<div class="contact">
+<div class="contact" style="background-image: url({% static 'images/prof01.jpg' %});">
 			<div class="container">
 				<div class="row">
 					<!-- Get in touch -->
@@ -50,8 +50,10 @@
 							<div class="contact_form_container">
                                      <form action="login" method="post"  id="contact_form" class="contact_form">
                                        {% csrf_token  %}
+                                         <div><strong>Login Name</strong></div>
                                          <div style="margin-bottom: 18px"><input type="text" name="username"  class="contact_input contact_input_name inpt" placeholder="Your Login Name" required="required"><div class="input_border"></div></div>
-                                        <div style="margin-bottom: 18px"><input type="password" name="password"  class="contact_input contact_input_name inpt" placeholder="Your Password" required="required"><div class="input_border"></div></div>
+                                        <div><strong>Password</strong></div>
+                                         <div style="margin-bottom: 18px"><input type="password" name="password"  class="contact_input contact_input_name inpt" placeholder="Your Password" required="required"><div class="input_border"></div></div>
 	                                    <button class="contact_button">Submit</button>
                                     </form>
                                     <div>
