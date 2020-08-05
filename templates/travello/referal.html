@@ -1,0 +1,51 @@
+ {% extends 'basecustomer.html'%}
+
+{% block body %}
+    {% include 'basecustomernav.html'%}
+    <div>
+        <div class="card card-body">
+            <h5>Currently Viewing {{ header }}</h5>
+        </div>
+    </div>
+ 	<div class="row">
+    <div class="card card-body">
+        <div class="card card-body">
+        <table class="table table-hover">
+
+             <thead>
+               <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Time</th>
+                    <th>Ref.By Name</th>
+                   <th>Ref.By Mobile</th>
+                   <th>Ref.Date</th>
+                </tr>
+             </thead>
+
+            <tbody>
+                 {% for item in items %}
+                     <tr>
+                        <td>{{ item.pk }}
+                        <td>{{ item.referalname}}</td>
+
+                        <td>{{ item.referalmobile}}</td>
+                         <td>{{ item.contacttime}}</td>
+                         <td>{{ item.myname}}</td>
+                         <td>{{ item.mymobile}}</td>
+                         <td>{{ item.date_reg1}}</td>
+                         <td>
+                                <a href="{% url 'edit_referal' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
+                         </td>
+
+                    </tr>
+                  {% endfor %}
+
+            </tbody>
+        </table>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

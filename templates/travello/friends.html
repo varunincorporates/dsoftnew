@@ -249,147 +249,155 @@
     </div>
   </section>
   <!-- Cool Facts Area End -->
+	<!-- Contact -->
+	{% if your_name %}
+		<center>
+		<h2> Thanks  {{ your_name }} for referring {{ friend_name }} </h2>
+		  <p>We received your friends reference  and will respond shortly....</p>
+          <p>You have added rewards points. Contact to know more details.</p>
+	 	 </center><br/><br/><br/>
+	{% else %}
 
-
-  <!-- Dento Pricing Table Area Start -->
-  <section class="dento-pricing-table-area section-padding-100">
-    <div class="container">
-      <div class="row">
-        <!-- Section Heading -->
-        <div class="col-12">
-          <div class="section-heading text-center">
-            <h2>Popular Plans</h2>
-            <div class="line"></div>
+      <!-- Dento Pricing Table Area Start -->
+      <section class="dento-pricing-table-area section-padding-100">
+        <div class="container">
+          <div class="row">
+            <!-- Section Heading -->
+            <div class="col-12">
+              <div class="section-heading text-center">
+                <h2>Popular Plans</h2>
+                <div class="line"></div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12">
-          <div class="dento-price-table table-responsive">
-            <table class="table table-borderless mb-0">
-              <thead>
-                <tr>
-                  <th scope="col">Benefits</th>
-                  <th scope="col">Validity</th>
-                  <th scope="col">Plan INR</th>
-                </tr>
-              </thead>
-              <tbody>
-               {% for plan in plan %}
-                <tr>
-                  <th scope="row">{{plan.benefits}}</th>
-                  <td>{{plan.validity}}</td>
-                  <td>{{plan.value}}</td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="col-12">
-          <div class="more-btn text-center mt-50">
-            <a href="#" class="btn dento-btn">Read More <i class="fa fa-angle-double-right"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- Dento Pricing Table Area End -->
-
-  <!-- Book An Oppointment Area Start -->
-  <section class="book-an-oppointment-area section-padding-100 bg-img bg-gradient-overlay jarallax clearfix" style="background-image: url({% static 'images/contact2.jpg' %});">
-
-    <div class="container">
-      <div class="row">
-        <!-- Section Heading -->
-        <div class="col-12">
-          <div class="section-heading text-center white">
-            <h2>Refer A Friend</h2>
-            <div class="line"></div>
-          </div>
-        </div>
-      </div>
 
           <div class="row">
             <div class="col-12">
-              <!-- Appointment Form -->
-              <div class="appointment-form">
-              <form action="friends" method="post"  id="contact_form" class="contact_form">
-                {% csrf_token  %}
-                <div class="row">
-                   <div class="col-md-6">
-                    <div class="form-group mb-30">
-                      <input type="text" name="your-name" class="form-control" placeholder="Your Name" required>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group mb-30">
-                      <input type="text" name="your-phone" class="form-control" placeholder="Your Phone" required>
-                    </div>
-                  </div>
+              <div class="dento-price-table table-responsive">
+                <table class="table table-borderless mb-0">
+                  <thead>
+                    <tr>
+                      <th scope="col">Benefits</th>
+                      <th scope="col">Validity</th>
+                      <th scope="col">Plan INR</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                   {% for plan in plan %}
+                    <tr>
+                      <th scope="row">{{plan.benefits}}</th>
+                      <td>{{plan.validity}}</td>
+                      <td>{{plan.value}}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
-                  <div class="col-md-6">
-                    <div class="form-group mb-30">
-                      <input type="text" name="friend-name" class="form-control" placeholder="Friends Name" required>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group mb-30">
-                      <input type="text" name="friend-phone" class="form-control" placeholder="Friends Phone" required>
-                    </div>
-                  </div>
-
-
-                  <div class="col-md-6">
-                    <div class="form-group mb-30">
-                      <input type="email" name="friend-email" class="form-control" placeholder="Friend Email" required>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group mb-30">
-                      <input type="text" name="fiend-address" class="form-control" placeholder="Friend Address">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group mb-30">
-                      <select name="category" class="form-control">
-                        <option value="Choose Your Category">Category</option>
-                        <option value="same society">same society</option>
-                        <option value="near by society">near by society</option>
-                        <option value="other society">other society</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group mb-30">
-                      <select name="your-time" class="form-control">
-                        <option value="Choose contact Time">Choose contact time</option>
-                        <option value="9 AM to 10 AM">9 AM to 10 AM</option>
-                        <option value="11 AM to 12 PM">11 AM to 12 PM</option>
-                        <option value="2 PM to 4 PM">2 PM to 4 PM</option>
-                        <option value="8 PM to 10 PM">8 PM to 10 PM</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <div class="form-group mb-30">
-                      <textarea name="your-message" class="form-control" placeholder="Your Message"></textarea>
-                    </div>
-                  </div>
-                  <div class="col-12 text-center">
-                    <button type="submit" class="btn dento-btn">Submit</button>
-                  </div>
-                  <div class="row h-100 align-items-center">
-                    <p><center><h6><font color="white">The person I have referred agrees to receive follow up calls from company representatives.</font> </h6></center></p>
-                  </div>
-                  </div>
-
-              </form>
+            <div class="col-12">
+              <div class="more-btn text-center mt-50">
+                <a href="#" class="btn dento-btn">Read More <i class="fa fa-angle-double-right"></i></a>
+              </div>
             </div>
           </div>
         </div>
+      </section>
+      <!-- Dento Pricing Table Area End -->
+
+      <!-- Book An Oppointment Area Start -->
+      <section class="book-an-oppointment-area section-padding-100 bg-img bg-gradient-overlay jarallax clearfix" style="background-image: url({% static 'images/contact2.jpg' %});">
+
+        <div class="container">
+          <div class="row">
+            <!-- Section Heading -->
+            <div class="col-12">
+              <div class="section-heading text-center white">
+                <h2>Refer A Friend</h2>
+                <div class="line"></div>
+              </div>
+            </div>
+          </div>
+
+              <div class="row">
+                <div class="col-12">
+                  <!-- Appointment Form -->
+                  <div class="appointment-form">
+                  <form action="friends" method="post"  id="contact_form" class="contact_form">
+                    {% csrf_token  %}
+                    <div class="row">
+                       <div class="col-md-6">
+                        <div class="form-group mb-30">
+                          <input type="text" name="your_name" class="form-control" placeholder="Your Name" required>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group mb-30">
+                          <input type="text" name="your_phone" class="form-control" placeholder="Your Phone" required>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group mb-30">
+                          <input type="text" name="friend_name" class="form-control" placeholder="Friends Name" required>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group mb-30">
+                          <input type="text" name="friend_phone" class="form-control" placeholder="Friends Phone" required>
+                        </div>
+                      </div>
+
+
+                      <div class="col-md-6">
+                        <div class="form-group mb-30">
+                          <input type="email" name="friend_email" class="form-control" placeholder="Friend Email" required>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group mb-30">
+                          <input type="text" name="fiend_address" class="form-control" placeholder="Friend Address">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group mb-30">
+                          <select name="category" class="form-control">
+                            <option value="Choose Your Category">Category</option>
+                            <option value="same society">same society</option>
+                            <option value="near by society">near by society</option>
+                            <option value="other society">other society</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group mb-30">
+                          <select name="your_time" class="form-control">
+                            <option value="Choose contact Time">Choose contact time</option>
+                            <option value="9 AM to 10 AM">9 AM to 10 AM</option>
+                            <option value="11 AM to 12 PM">11 AM to 12 PM</option>
+                            <option value="2 PM to 4 PM">2 PM to 4 PM</option>
+                            <option value="8 PM to 10 PM">8 PM to 10 PM</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group mb-30">
+                          <textarea name="your_message" class="form-control" placeholder="Your Message"></textarea>
+                        </div>
+                      </div>
+                      <div class="col-12 text-center">
+                        <button type="submit" class="btn dento-btn">Submit</button>
+                      </div>
+                      <div class="row h-100 align-items-center">
+                        <p><center><h6><font color="white">The person I have referred agrees to receive follow up calls from company representatives.</font> </h6></center></p>
+                      </div>
+                      </div>
+
+                  </form>
+                </div>
+              </div>
+            </div>
+	{% endif %}
 
     </div>
   </section>

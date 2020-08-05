@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Destination, Contactme, Offer, Engineer, Feasable, Plan, Referal
+from .models import *
 
 
 class DestinationAdmin(admin.ModelAdmin):
@@ -7,6 +7,14 @@ class DestinationAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Destination, DestinationAdmin)
+
+
+class NewcustomerAdmin(admin.ModelAdmin):
+    list_display = ('name', 'address','mobileno','email')
+
+
+admin.site.register(Newcustomer, NewcustomerAdmin)
+
 
 
 class ContactmeAdmin(admin.ModelAdmin):

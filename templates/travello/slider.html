@@ -1,0 +1,160 @@
+
+{% load static %}
+{% static "images" as baseUrl %}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>My Slider</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            background: #e6e6e6;
+        }
+        .showSlide {
+            display: none
+        }
+            .showSlide img {
+                width: 100%;
+            }
+        .slidercontainer {
+            max-width: 1000px;
+            position: relative;
+            margin: auto;
+        }
+        .left, .right {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+        }
+        .right {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+            .left:hover, .right:hover {
+                background-color: rgba(115, 115, 115, 0.8);
+            }
+        .content {
+            color: #eff5d4;
+            font-size: 30px;
+            padding: 8px 12px;
+            position: absolute;
+            top: 10px;
+            width: 100%;
+            text-align: center;
+        }
+        .active {
+            background-color: #717171;
+        }
+        /* Fading animation */
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 1.5s;
+            animation-name: fade;
+            animation-duration: 1.5s;
+        }
+        @-webkit-keyframes fade {
+            from {
+                opacity: .4
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes fade {
+            from {
+                opacity: .4
+            }
+            to {
+                opacity: 1
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="super_container">
+	  <!-- ***** Breadcrumb Area Start ***** -->
+  <div class="breadcumb-area bg-img bg-gradient-overlay" style="background-image: url({% static 'img/bg-img/12.jpg' %});">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12">
+            <h2 class="title"><a href="home">Go To Main Menu</></a></h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ***** Breadcrumb Area End ***** -->
+
+
+    <div class="slidercontainer">
+        <div class="showSlide fade">
+            <img src="{% static 'images/care.jpg' %}"   width="7000" height="400" />
+            <div class="content"><font color="black">Internet Life Style Strong And Ready</font></div>
+            <div class="footer"><h2>Truly Unlimited Surfing</h2></div>
+        </div>
+        <div class="showSlide fade">
+            <img src="{% static 'images/prof02.jpg' %}"  width="7000" height="400" />
+            <div class="content">Internet Hona Chahiye Future Ready.</div>
+             <div class="footer"><h2>Agar abhi se karna hai bachchon ka future steady toh internet hona chahiye future ready</h2></div>
+        </div>
+
+        <div class="showSlide fade">
+            <img src="{% static 'images/prof04.jpg' %}"  width="7000" height="400" />
+            <div class="content">INNOVATION</div>
+            <div class="footer"><h2>AFFORDABLE CUTTING EDGE TECHNOLOGY IN YOUR HOME AND OFFICE </h2></div>
+        </div>
+        <div class="showSlide fade">
+            <img src="{% static 'images/family04.jpg' %}"  width="7000" height="400"/>
+            <div class="content"><font color="black">Data Unlimited</font></div>
+            <div class="footer"><h2>Family Entertainment Unlimited At Your Door Steps. </h2></div>
+
+        </div>
+        <!-- Navigation arrows -->
+        <a class="left" onclick="nextSlide(-1)">❮</a>
+        <a class="right" onclick="nextSlide(1)">❯</a>
+    </div>
+<!-- The dots/circles -->
+<div style="text-align:center">
+  <span class="dot" onclick="displaySlides(1)"></span>
+  <span class="dot" onclick="displaySlides(2)"></span>
+  <span class="dot" onclick="displaySlides(3)"></span>
+</div>
+    <script type="text/javascript">
+        var slide_index = 1;
+        displaySlides(slide_index);
+
+        function nextSlide(n) {
+            displaySlides(slide_index += n);
+        }
+
+        function currentSlide(n) {
+            displaySlides(slide_index = n);
+        }
+
+        function displaySlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("showSlide");
+            if (n > slides.length) { slide_index = 1 }
+            if (n < 1) { slide_index = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slide_index - 1].style.display = "block";
+        }
+    </script>
+
+</body>
+</html>

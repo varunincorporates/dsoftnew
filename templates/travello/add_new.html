@@ -1,32 +1,32 @@
 {%  extends 'basecustomer.html' %}
 
 {% block body %}
-
+    {% include 'basecustomernav.html'%}
     <div class="container">
         <form method="POST">
            {% csrf_token %}
-             <h3>Add New Items</h3>
-            <h4>{{ header }}</h4>
-
-            {% for field in form %}
-            <div class="form-group row">
-                 <label for="id_{{ field.name }}" class="col-2 col-form-label">{{ field.label }}</label>
-                 <div class="col-10">
-                    {{ field }}
-                </div>
+            <div class="card card-body">
+              <h5>Add New Items {{ header }}</h5>
             </div>
-
-            {%  endfor %}
-
-
-             <div class="form-group row">
-                <div class="offset-sm-2 col-sm-6">
-
-                    <button type=""submit"  class="btn btn-primary">Add</button>
-
-
+             <div class="row">
+                <div class="card card-body">
+                     <div class="card card-body">
+                            {% for field in form %}
+                            <div class="form-group row">
+                                 <label for="id_{{ field.name }}" class="col-2 col-form-label">{{ field.label }}</label>
+                                 <div class="col-10">
+                                    {{ field }}
+                                </div>
+                            </div>
+                            {%  endfor %}
+                     <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-6">
+                            <button type="submit"  class="btn btn-primary">Add</button>
+                        </div>
+                    </div>
+                     </div>
                 </div>
-            </div>
+             </div>
         </form>
     </div>
 

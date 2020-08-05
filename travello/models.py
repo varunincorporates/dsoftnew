@@ -19,6 +19,25 @@ class Destination(models.Model):
     offer = models.BooleanField(default=False)
 
 
+class Newcustomer(models.Model):
+    name = models.CharField(max_length=100)
+    address = models.TextField()
+    mobileno = models.CharField(max_length=20)
+    email = models.EmailField(max_length=60)
+    adharcardno =  models.CharField(max_length=20)
+    adharcard = models.ImageField(upload_to='pics')
+    panno = models.CharField(max_length=20)
+    pan = models.ImageField(upload_to='pics')
+    drivinglicenceno = models.CharField(max_length=20)
+    drivinglicence = models.ImageField(upload_to='pics')
+    electricityno = models.CharField(max_length=20)
+    electricitybill = models.ImageField(upload_to='pics')
+    active = models.BooleanField(default=False)
+
+    def __str__(self):
+        return 'Name:{0} Email:{1} MobileNo:{0} Active:{0} '.format(self.name, self.email, self.mobileno, self.active)
+
+
 class Engineer(models.Model):
     name = models.CharField(max_length=50)
 
@@ -34,7 +53,7 @@ class Contactme(models.Model):
     date_reg1 = models.DateTimeField(verbose_name='date_reg1', auto_now_add=True)
 
     def __str__(self):
-        return 'Name:{0} Email:{1} Subject:{0} Status:{0} '.format(self.name, self.email, self.subject, self.status)
+        return 'Name:{0} Email:{1} Subject:{0}  '.format(self.name, self.email, self.subject)
 
 
 class Referal(models.Model):
