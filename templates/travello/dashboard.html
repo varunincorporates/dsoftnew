@@ -10,10 +10,16 @@
 			<a class="btn btn-primary  btn-sm btn-block" href="">Create Customer</a>
 			<table class="table table-sm">
 				<tr>
-					<th></th>
 					<th>Customer</th>
 					<th>Orders</th>
-				</tr>
+
+				{% for customer in customers %}
+					<tr>
+				<td><a class="btn btn-sm btn-info" href="{% url 'customer' customer.id %}">View</a></td>
+				         <td>{{customer.name}}</td>
+				  	    <td>{{customer.mobileno}}</td>
+					</tr>
+				{% endfor %}
 
 			</table>
 		</div>
@@ -23,20 +29,42 @@
 		<h5>LAST 5 ORDERS</h5>
 		<hr>
 		<div class="card card-body">
-			<a class="btn btn-primary  btn-sm btn-block" href="">Create Order</a>
+
+			<a class="btn btn-primary  btn-sm btn-block" href="#">Pending Order List</a>
+
 			<table class="table table-sm">
 				<tr>
 					<th>Product</th>
+					<th>Name</th>
 					<th>Date Orderd</th>
 					<th>Status</th>
 					<th>Update</th>
 					<th>Remove</th>
 				</tr>
-		
+				{% for order in orders %}
+					<tr>
+				         <td>{{order.product}}</td>
+						 <td>{{order.name}}</td>
+				  	    <td>{{order.date_created}}</td>
+						<td>{{order.status}}</td>
+						<td><a class="btn btn-sm btn-info" href="{% url 'update_order'  order.id %}">Update</a></td>
+						<td><a class="btn btn-sm btn-danger" href="#">Delete</a></td>
+					</tr>
+				{% endfor %}
 			</table>
+			<div>
+			{% if orders.has_previous %}
+    				<a class="btn btn-sm btn-info" href="{% url 'dashboard' %}?page={{orders.previous_page_number}}">PreviousPage</a>
+			{% endif %}
+			{% if orders.has_next %}
+			    <a class="btn btn-sm btn-info"  href="{% url 'dashboard' %}?page={{orders.next_page_number}}">NextPage</a>
+			{% endif %}
+			</div>
 		</div>
+
 	</div>
 
 </div>
+
 
 {% endblock %}

@@ -77,3 +77,8 @@ class PlanForm(forms.ModelForm):
         model = Plan
         fields = ('benefits', 'validity', 'value')
 
+
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = Myorder
+        fields = '__all__'

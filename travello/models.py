@@ -20,7 +20,7 @@ class Destination(models.Model):
 
 
 class Newcustomer(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=200, null=True)
     address = models.TextField()
     mobileno = models.CharField(max_length=20)
     email = models.EmailField(max_length=60)
@@ -33,9 +33,11 @@ class Newcustomer(models.Model):
     electricityno = models.CharField(max_length=20)
     electricitybill = models.ImageField(upload_to='pics')
     active = models.BooleanField(default=False)
+    date_created = models.DateTimeField(auto_now_add=True,null=True)
+
 
     def __str__(self):
-        return 'Name:{0} Email:{1} MobileNo:{0} Active:{0} '.format(self.name, self.email, self.mobileno, self.active)
+        return  self.name
 
 
 class Engineer(models.Model):
@@ -86,11 +88,55 @@ class Feasable(models.Model):
         return 'City:{0} Building:{1} Area:{0} Pincode:{0} '.format(self.city, self.building, self.area, self.pincode)
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=200, null=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Plan(models.Model):
     benefits = models.CharField(max_length=150, blank=False)
     validity = models.CharField(max_length=150, blank=False)
     value = models.IntegerField()
+    CATEGORY = {
+        ('A', 'high value items'),
+        ('B', 'Medium value items'),
+        ('C', 'Low Value items')
+    }
+    category = models.CharField(max_length=200, null=True, choices=CATEGORY)
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    tags = models.ManyToManyField(Tag)
 
 
     def __str__(self):
-        return 'Benefits:{0} Validity:{1} Value:{2}  '.format(self.benefits, self.validity, self.value)
+        return self.benefits
+
+
+class Order(models.Model):
+    STATUS = {
+        ('Pending', 'Pending'),
+        ('Out for delivery', 'Out for delivery'),
+        ('Delivered', 'Delivered'),
+    }
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    status = models.CharField(max_length=200, null=True, choices=STATUS)
+
+
+    def __str__(self):
+        return self.status
+
+
+class Myorder(models.Model):
+        STATUS = {
+            ('Pending', 'Pending'),
+            ('Out for delivery', 'Out for delivery'),
+            ('Progress', 'Progress'),
+            ('Installed', 'Installed'),
+        }
+        name = models.ForeignKey(Newcustomer, null=True, on_delete=models.CASCADE)
+        product = models.ForeignKey(Plan, null=True, on_delete=models.SET_NULL)
+        date_created = models.DateTimeField(auto_now_add=True, null=True)
+        status = models.CharField(max_length=200, null=True, choices=STATUS)
+        note = models.CharField(max_length=1000, null=True)
+

@@ -57,3 +57,23 @@ class ReferalAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Referal, ReferalAdmin)
+
+
+class OrderAdmin(admin.ModelAdmin):
+    list_displaye = ('status')
+
+
+admin.site.register(Order, OrderAdmin)
+
+
+class TagAdmin(admin.ModelAdmin):
+    list_displaye = ('tag')
+
+
+admin.site.register(Tag, TagAdmin)
+
+
+class MyorderAdmin(admin.ModelAdmin):
+    list_displaye = ('product','status')
+
+admin.site.register(Myorder, MyorderAdmin)

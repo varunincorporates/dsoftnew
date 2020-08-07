@@ -2,7 +2,10 @@ from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
 from telusko import settings
 from .forms import *
+from .filters import OrderFilter
 from .models import *
+from django.forms import inlineformset_factory
+from django.core.paginator import Paginator, EmptyPage
 from .views import *
 from django.http import HttpResponse
 
@@ -100,15 +103,56 @@ def managecustomer(request):
 
 
 def dashboard(request):
-    return render(request, "travello/dashboard.html", {})
+    orders = Myorder.objects.all().order_by('-id')
+    p = Paginator(orders, 5)
+    page_num = request.GET.get('page', 1)
+    try:
+        page= p.page(page_num)
+    except EmptyPage:
+        page = p.page(1)
+
+    customers = Newcustomer.objects.all().order_by('-id')
+    total_customers =customers.count()
+    total_orders = orders.count()
+    delivered = orders.filter(status='Delivered').count()
+    pending = orders.filter(status='Pending').count()
+    context = {
+        'orders': page,
+        'customers': customers,
+        'total_customers': total_customers,
+        'total_orders': total_orders,
+        'delivered': delivered,
+        'pending': pending,
+
+    }
+    return render(request, "travello/dashboard.html", context)
 
 
-def customer(request):
-    return render(request, "travello/customer.html", {})
+def customer(request, pk):
+
+    customer = Newcustomer.objects.get(id=pk)
+
+    orders = Myorder.objects.filter(name= customer.id)
+    order_count = orders.count()
+    myFilter = OrderFilter(request.GET, queryset=orders)
+    orders= myFilter.qs
+
+    context = {
+        'customer': customer,
+        'orders': orders,
+        'order_count': order_count,
+        'myFilter' : myFilter,
+    }
+    return render(request, "travello/customer.html", context)
 
 
 def product(request):
-    return render(request, "travello/products.html", {})
+    items = Plan.objects.all().order_by('-id')
+    context = {
+        'items': items,
+        'header': 'Contact',
+    }
+    return render(request, "travello/products.html", context)
 
 def about(request):
     dests = Destination.objects.all()
@@ -159,7 +203,7 @@ def display_plan(request):
     return render(request, 'travello/plan.html', context)
 
 
-def add_item(request, cls):
+def add_item(request, cls,name):
     if request.method == "POST":
         form = cls(request.POST)
 
@@ -168,23 +212,24 @@ def add_item(request, cls):
             return redirect('managecustomer')
 
     else:
+        header = name
         form = cls()
-        return render(request, 'travello/add_new.html', {'form': form})
+        return render(request, 'travello/add_new.html', {'form': form, 'header': header})
 
 
 
 def add_contact(request):
-    return add_item(request, ContactForm)
+    return add_item(request, ContactForm, 'Contact Customers')
 
 def add_customer(request):
-    return add_item(request, CustomerForm)
+    return add_item(request, CustomerForm, 'New Customers')
 
 def add_referal(request):
-    return add_item(request, ReferalForm)
+    return add_item(request, ReferalForm, 'Referal Customers')
 
 
 def add_feasable(request):
-    return add_item(request, FeasableForm)
+    return add_item(request, FeasableForm, 'Feasabilty')
 
 
 def add_newcustomer(request):
@@ -203,39 +248,58 @@ def success(request):
 
 
 def add_plan(request):
-    return add_item(request, PlanForm)
+    return add_item(request, PlanForm, 'Plan')
 
 
-def edit_device(request, pk, model, cls):
+def createorder(request, pk):
+    OrderFormSet = inlineformset_factory(Newcustomer, Myorder, fields=('product', 'status'), extra=5 )
+    customer = Newcustomer.objects.get(id=pk)
+    formset = OrderFormSet(queryset=Myorder.objects.none(), instance=customer)
+    if request.method == 'POST':
+        formset = OrderFormSet(request.POST, instance=customer)
+        if formset.is_valid():
+            formset.save()
+            return redirect('dashboard')
+    header = customer.name
+    context = {'form': formset, 'header': header}
+    return render(request, 'travello/order_form.html', context)
+
+
+def updateorder(request, pk):
+    return edit_device(request, pk, Myorder, OrderForm, 'dashboard', 'Order Form')
+
+
+def edit_device(request, pk, model, cls, modname, header):
     item = get_object_or_404(model, pk=pk)
     if request.method == "POST":
         form = cls(request.POST, instance=item)
         if form.is_valid():
             form.save()
-            return redirect('managecustomer')
+            return redirect(modname)
     else:
         form = cls(instance=item)
-        return render(request, 'travello/edit_item.html', {'form': form})
+        return render(request, 'travello/edit_item.html', {'form': form, 'header': header})
 
 
 def edit_referal(request, pk):
-    return edit_device(request, pk, Referal, ReferalForm)
+    return edit_device(request, pk, Referal, ReferalForm,'managecustomer', 'Referal Customer')
 
 
 def edit_contact(request, pk):
-    return edit_device(request, pk, Contactme, ContactForm)
+    return edit_device(request, pk, Contactme, ContactForm,'managecustomer', 'Contact Customer')
 
 
 def edit_customer(request, pk):
-    return edit_device(request, pk, Newcustomer, CustomerForm)
+    return edit_device(request, pk, Newcustomer, CustomerForm,'managecustomer', 'New Customer')
+
 
 
 def edit_feasable(request, pk):
-    return edit_device(request, pk, Feasable, FeasableForm)
+    return edit_device(request, pk, Feasable, FeasableForm,'managecustomer','Feasable')
 
 
 def edit_plan(request, pk):
-    return edit_device(request, pk, Plan, PlanForm)
+    return edit_device(request, pk, Plan, PlanForm,'managecustomer','Plan')
 
 
 def delete_plan(request, pk):
@@ -250,6 +314,7 @@ def delete_plan(request, pk):
 
     return render(request, template, context)
 
+
 def delete_feasable(request, pk):
 
     template = 'travello/feasablty.html'
@@ -261,3 +326,5 @@ def delete_feasable(request, pk):
     }
 
     return render(request, template, context)
+
+
