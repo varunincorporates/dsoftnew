@@ -11,3 +11,11 @@ class OrderFilter(django_filters.FilterSet):
         model = Myorder
         fields = '__all__'
         exclude = ['name', 'date_created']
+
+class CustomerFilter(django_filters.FilterSet):
+    name = CharFilter(field_name='name', lookup_expr='icontains')
+    address = CharFilter(field_name='address', lookup_expr='icontains')
+    class Meta:
+        model = Newcustomer
+        fields = ('mobileno',)
+        exclude = ['date_created' ]

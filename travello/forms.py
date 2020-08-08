@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contactme
-        fields = ('name',   'email',  'subject', 'message')
+        fields = '__all__'
 
 class ReferalForm(forms.ModelForm):
     class Meta:

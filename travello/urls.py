@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^display_contact$', display_contact, name="display_contact"),
     url(r'^display_customer$', display_customer, name="display_customer"),
     url('add_contact', views.add_contact, name="add_contact"),
+    url('add_dashcustomer', views.add_dashcustomer, name="add_dashcustomer"),
     url('add_customer', views.add_customer, name="add_customer"),
     url('add_referal', views.add_referal, name="add_referal"),
     url(r'^contact/edit_item/(?P<pk>\d+)$', views.edit_contact, name="edit_contact"),

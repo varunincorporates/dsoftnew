@@ -2,7 +2,7 @@ from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
 from telusko import settings
 from .forms import *
-from .filters import OrderFilter
+from .filters import *
 from .models import *
 from django.forms import inlineformset_factory
 from django.core.paginator import Paginator, EmptyPage
@@ -112,6 +112,10 @@ def dashboard(request):
         page = p.page(1)
 
     customers = Newcustomer.objects.all().order_by('-id')
+
+    myFilter = CustomerFilter(request.GET, queryset=customers)
+    customers = myFilter.qs
+
     total_customers =customers.count()
     total_orders = orders.count()
     delivered = orders.filter(status='Delivered').count()
@@ -123,7 +127,7 @@ def dashboard(request):
         'total_orders': total_orders,
         'delivered': delivered,
         'pending': pending,
-
+        'myFilter': myFilter,
     }
     return render(request, "travello/dashboard.html", context)
 
@@ -203,13 +207,13 @@ def display_plan(request):
     return render(request, 'travello/plan.html', context)
 
 
-def add_item(request, cls,name):
+def add_item(request, cls,name, osite):
     if request.method == "POST":
         form = cls(request.POST)
 
         if form.is_valid():
             form.save()
-            return redirect('managecustomer')
+            return redirect(osite)
 
     else:
         header = name
@@ -217,19 +221,37 @@ def add_item(request, cls,name):
         return render(request, 'travello/add_new.html', {'form': form, 'header': header})
 
 
-
 def add_contact(request):
-    return add_item(request, ContactForm, 'Contact Customers')
+    return add_item(request, ContactForm, 'Contact Customers','display_contact')
 
 def add_customer(request):
-    return add_item(request, CustomerForm, 'New Customers')
+    if request.method == "POST":
+        form = NewcustomerForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('display_customer')
+    else:
+        form = NewcustomerForm()
+        return render(request, 'travello/add_newcustomer.html', {'form': form})
+
+
+def add_dashcustomer(request):
+    if request.method == "POST":
+        form = NewcustomerForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+    else:
+        form = NewcustomerForm()
+        return render(request, 'travello/add_newcustomer.html', {'form': form})
+
 
 def add_referal(request):
-    return add_item(request, ReferalForm, 'Referal Customers')
+    return add_item(request, ReferalForm, 'Referal Customers','display_referal')
 
 
 def add_feasable(request):
-    return add_item(request, FeasableForm, 'Feasabilty')
+    return add_item(request, FeasableForm, 'Feasabilty','display_feasable')
 
 
 def add_newcustomer(request):
@@ -248,7 +270,7 @@ def success(request):
 
 
 def add_plan(request):
-    return add_item(request, PlanForm, 'Plan')
+    return add_item(request, PlanForm, 'Plan','display_plan')
 
 
 def createorder(request, pk):
@@ -282,24 +304,25 @@ def edit_device(request, pk, model, cls, modname, header):
 
 
 def edit_referal(request, pk):
-    return edit_device(request, pk, Referal, ReferalForm,'managecustomer', 'Referal Customer')
+    return edit_device(request, pk, Referal, ReferalForm, 'display_referal', 'Referal Customer')
 
 
 def edit_contact(request, pk):
-    return edit_device(request, pk, Contactme, ContactForm,'managecustomer', 'Contact Customer')
+    return edit_device(request, pk, Contactme, ContactForm, 'display_contact', 'Contact Customer')
 
 
 def edit_customer(request, pk):
-    return edit_device(request, pk, Newcustomer, CustomerForm,'managecustomer', 'New Customer')
+    return edit_device(request, pk, Newcustomer, CustomerForm, 'display_customer', 'New Customer')
 
-
+def edit_dcustomer(request, pk):
+    return edit_device(request, pk, Newcustomer, CustomerForm, 'customer', 'New Customer')
 
 def edit_feasable(request, pk):
-    return edit_device(request, pk, Feasable, FeasableForm,'managecustomer','Feasable')
+    return edit_device(request, pk, Feasable, FeasableForm, 'display_feasable', 'Feasable')
 
 
 def edit_plan(request, pk):
-    return edit_device(request, pk, Plan, PlanForm,'managecustomer','Plan')
+    return edit_device(request, pk, Plan, PlanForm, 'display_plan', 'Plan')
 
 
 def delete_plan(request, pk):
