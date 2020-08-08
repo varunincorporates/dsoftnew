@@ -77,6 +77,11 @@ class PlanForm(forms.ModelForm):
         model = Plan
         fields = ('benefits', 'validity', 'value')
 
+class FaqForm(forms.ModelForm):
+    class Meta:
+        model = Salesfaq
+        fields =  '__all__'
+
 
 class OrderForm(forms.ModelForm):
     class Meta:

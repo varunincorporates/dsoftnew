@@ -16,6 +16,9 @@ def index(request):
     dests = Destination.objects.all()
     return render(request, "travello/home.html", {"dests": dests})
 
+def salesfaq(request):
+    salesfaq = Salesfaq.objects.all()
+    return render(request, "travello/salesfaq.html", {"dests": salesfaq})
 
 def friends(request):
     if request.method == "POST":
@@ -206,6 +209,13 @@ def display_plan(request):
     }
     return render(request, 'travello/plan.html', context)
 
+def display_faq(request):
+    items = Salesfaq.objects.all().order_by('serial')
+    context = {
+        'items': items,
+        'header': 'FAQ',
+    }
+    return render(request, 'travello/faq.html', context)
 
 def add_item(request, cls,name, osite):
     if request.method == "POST":
@@ -272,6 +282,8 @@ def success(request):
 def add_plan(request):
     return add_item(request, PlanForm, 'Plan','display_plan')
 
+def add_faq(request):
+    return add_item(request, FaqForm, 'FAQ','display_faq')
 
 def createorder(request, pk):
     OrderFormSet = inlineformset_factory(Newcustomer, Myorder, fields=('product', 'status'), extra=5 )
@@ -288,6 +300,10 @@ def createorder(request, pk):
 
 
 def updateorder(request, pk):
+    return edit_device(request, pk, Myorder, OrderForm, 'dashboard', 'Order Form')
+
+
+def updateorder1(request, pk):
     return edit_device(request, pk, Myorder, OrderForm, 'dashboard', 'Order Form')
 
 
@@ -325,11 +341,28 @@ def edit_plan(request, pk):
     return edit_device(request, pk, Plan, PlanForm, 'display_plan', 'Plan')
 
 
+def edit_faq(request, pk):
+    return edit_device(request, pk, Salesfaq, FaqForm, 'display_faq', 'FAQ')
+
+
 def delete_plan(request, pk):
 
     template = 'travello/plan.html'
     Plan.objects.filter(id=pk).delete()
     items = Plan.objects.all()
+
+    context = {
+        'items': items,
+    }
+
+    return render(request, template, context)
+
+
+def delete_faq(request, pk):
+
+    template = 'travello/faq.html'
+    Salesfaq.objects.filter(id=pk).delete()
+    items = Salesfaq.objects.all()
 
     context = {
         'items': items,

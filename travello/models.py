@@ -41,7 +41,8 @@ class Newcustomer(models.Model):
 
 
 class Engineer(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=100)
+
 
     def __str__(self):
         return self.name
@@ -71,10 +72,7 @@ class Referal(models.Model):
     date_reg1 = models.DateTimeField(verbose_name='date_reg1', auto_now_add=True)
 
     def __str__(self):
-        return 'Name:{0} Mobile:{1} ReferalName:{0} ReferalMobile:{0} '.format(self.myname, self.mymobile, self.referalname , self.referalmobile)
-
-
-
+        return self.referalname, self.referalmobile
 
 
 class Feasable(models.Model):
@@ -111,6 +109,17 @@ class Plan(models.Model):
 
     def __str__(self):
         return self.benefits
+
+
+class Salesfaq(models.Model):
+    Type = models.CharField(max_length=25, blank=False)
+    serial = models.IntegerField()
+    question = models.TextField()
+    answer = models.TextField()
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return self.question
 
 
 class Order(models.Model):

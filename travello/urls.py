@@ -20,6 +20,7 @@ urlpatterns = [
     path('customer/<str:pk>/', views.customer, name='customer'),
     path('create_order/<str:pk>/', views.createorder, name='create_order'),
     path('update_order/<str:pk>/', views.updateorder, name='update_order'),
+    path('update_order1/<str:pk>/', views.updateorder1, name='update_order1'),
     url(r'^display_contact$', display_contact, name="display_contact"),
     url(r'^display_customer$', display_customer, name="display_customer"),
     url('add_contact', views.add_contact, name="add_contact"),
@@ -33,12 +34,17 @@ urlpatterns = [
     url(r'^feasable/edit_item/(?P<pk>\d+)$', views.edit_feasable, name="edit_feasable"),
     url(r'^feasable/delete_item/(?P<pk>\d+)$', views.delete_feasable, name="delete_feasable"),
     url(r'^display_plan$', display_plan, name="display_plan"),
+    url(r'^display_faq$', display_faq, name="display_faq"),
     url(r'^display_referal$', display_referal, name="display_referal"),
     url('add_plan', views.add_plan, name="add_plan"),
+    url('add_faq', views.add_faq, name="add_faq"),
     url('add_newcustomer', views.add_newcustomer, name="add_newcustomer"),
+    url('salesfaq', views.salesfaq, name="salesfaq"),
     url(r'^plan/edit_item/(?P<pk>\d+)$', views.edit_plan, name="edit_plan"),
+    url(r'^faq/edit_item/(?P<pk>\d+)$', views.edit_faq, name="edit_faq"),
     url(r'^customer/edit_item/(?P<pk>\d+)$', views.edit_customer, name="edit_customer"),
     url(r'^plan/delete_item/(?P<pk>\d+)$', views.delete_plan, name="delete_plan"),
+    url(r'^faq/delete_item/(?P<pk>\d+)$', views.delete_faq, name="delete_faq"),
 
 ]
 

@@ -9,8 +9,14 @@ class DestinationAdmin(admin.ModelAdmin):
 admin.site.register(Destination, DestinationAdmin)
 
 
+
+
+
+
 class NewcustomerAdmin(admin.ModelAdmin):
     list_display = ('name', 'address','mobileno','email')
+    list_filter= ('date_created',)
+    search_fields= ['name','address','mobileno']
 
 
 admin.site.register(Newcustomer, NewcustomerAdmin)
@@ -39,31 +45,27 @@ admin.site.register(Engineer, EngineerAdmin)
 
 
 class FeasableAdmin(admin.ModelAdmin):
-    list_displaye = ('city', 'building', 'area', 'pincode')
+    list_display = ('city', 'building', 'area', 'pincode')
 
 
 admin.site.register(Feasable, FeasableAdmin)
 
 
 class PlanAdmin(admin.ModelAdmin):
-    list_displaye = ('benefits', 'validity', 'value')
+    list_display = ('benefits', 'validity', 'value')
 
 
 admin.site.register(Plan, PlanAdmin)
 
 
 class ReferalAdmin(admin.ModelAdmin):
-    list_displaye = ('myname', 'mymobile', 'referalname','referalmobile')
+    list_display = ('myname', 'mymobile', 'referalname','referalmobile')
+    list_filter = ('referalmobile',)
+    search_fields = ['referalname','referalmobile','mymobile']
 
 
 admin.site.register(Referal, ReferalAdmin)
 
-
-class OrderAdmin(admin.ModelAdmin):
-    list_displaye = ('status')
-
-
-admin.site.register(Order, OrderAdmin)
 
 
 class TagAdmin(admin.ModelAdmin):
@@ -74,6 +76,7 @@ admin.site.register(Tag, TagAdmin)
 
 
 class MyorderAdmin(admin.ModelAdmin):
-    list_displaye = ('product','status')
+    list_display = ('product','status')
 
 admin.site.register(Myorder, MyorderAdmin)
+
