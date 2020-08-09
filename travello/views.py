@@ -17,7 +17,7 @@ def index(request):
     return render(request, "travello/home.html", {"dests": dests})
 
 def salesfaq(request):
-    salesfaq = Salesfaq.objects.all()
+    salesfaq = Salesfaq.objects.all().order_by('serial')
     return render(request, "travello/salesfaq.html", {"dests": salesfaq})
 
 def friends(request):
