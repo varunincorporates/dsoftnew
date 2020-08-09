@@ -97,7 +97,6 @@ class Plan(models.Model):
     benefits = models.CharField(max_length=150, blank=False)
     validity = models.CharField(max_length=150, blank=False)
     value = models.IntegerField()
-    category = models.CharField(max_length=20, null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     tags = models.ManyToManyField(Tag)
 
