@@ -205,7 +205,13 @@
 	</div>
 
 	<!-- Intro -->
-
+	{% if contact_new_customer %}
+        <div class="about_image"><img src="{% static 'images/family15.jpg' %}" alt=""></div>
+		<center>
+		<h2> Thanks  {{  contact_new_customer }} </h2>
+		  <p>We received your registration form  and our sales team will respond shortly....</p>
+	 	 </center><br/><br/><br/>
+	  {% endif %}
 	<div class="intro">
 
 		<div class="intro_background" style="background-image:url({% static 'images/intro.png' %} )"></div>
@@ -479,7 +485,7 @@
 									<div>Customer Care</div>
 									<div>Service Request</div>
 								</div>
-								<div class="news_post_title"><a href="#">Complain Solution Provider</a></div>
+								<div class="news_post_title"><a href="add_complain">Complain Solution Provider</a></div>
 								<div class="news_post_category">
 									<ul>
 										<li><a href="#">Internet lifestyle</a></li>

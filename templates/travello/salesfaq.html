@@ -1,8 +1,11 @@
+{%  extends 'base.html' %}
+
  {% load static %}
 {% static "images" as baseUrl %}
 
 <!DOCTYPE html>
 <html>
+{% block body %}
 <head>
     <meta charset="utf-8" />
     <title>DSoft FAQ Template </title>
@@ -15,14 +18,13 @@
     <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 </head>
 <body>
-
+<br>
 <div class="container">
- <div class="breadcumb-area bg-img bg-gradient-overlay" style="background-image: url({% static 'images/testimonials.jpg' %});">
+ <div class="breadcumb-area bg-img bg-gradient-overlay" style="">
     <div class="container h-100">
       <div class="row h-100 align-items-center">
         <div class="col-12">
-            <h2 class="title"><a href="home"><font color="white"><small>goto</small> Main Menu</font></></a></h2>
-        </div>
+                    </div>
             <div class="alert alert-warning alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             This section contains a wealth of information, related to <strong>DSoft Internet Lifestyle</strong> and its store.
@@ -65,6 +67,7 @@
 
     </div>
  </div>
+     <br><br><br>
 <style>
     .faqHeader {
         font-size: 27px;
@@ -100,6 +103,10 @@
 <!-- Bootstrap FAQ - END -->
 
 </div>
+</div>
+
+
 
 </body>
+{% endblock %}
 </html>

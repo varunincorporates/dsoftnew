@@ -8,10 +8,17 @@ class DestinationAdmin(admin.ModelAdmin):
 
 admin.site.register(Destination, DestinationAdmin)
 
+class NewcomplainAdmin(admin.ModelAdmin):
+    list_display = ('id','name', 'mobile','note' )
 
 
+admin.site.register(Newcomplain, NewcomplainAdmin)
+
+class ComplainAdmin(admin.ModelAdmin):
+    list_display = ('name', )
 
 
+admin.site.register(Complain, ComplainAdmin )
 
 class NewcustomerAdmin(admin.ModelAdmin):
     list_display = ('name', 'address','mobileno','email')

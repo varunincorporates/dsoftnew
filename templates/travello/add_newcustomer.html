@@ -1,6 +1,9 @@
-
+{%  extends 'base.html' %}
+{% load static %}
+{% static "images" as baseUrl %}
  <!DOCTYPE html>
 <html>
+{% block body %}
   <head>
       <meta charset="UTF-8">
     <title>Customer Management System</title>
@@ -10,43 +13,99 @@
   <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}"/>
   <link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap.min.css' %}"/>
 
-  <body>
-        <nav class="navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Customer Management System</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-             </button>
+ <body>
+ <br>
+ <div>
+ 	{% if contact_new_customer %}
 
-              <div class="collapse navbar-collapse" id="navbarsExample02">
-                <ul class="navbar-nav mr-auto">
-                  <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="home">Customer Management</a>
-                  </li>
-                </ul>
-                <form class="form-inline my-2 my-md-0">
-                  <input class="form-control" type="text" placeholder="Search">
-                </form>
-              </div>
-        </nav>
-        <br>
-        <div class="container">
+     	<h2> Thanks  {{  contact_new_customer }} </h2>
+        <div class="about_image"><img src="{% static 'images/family12.jpg' %}" alt=""></div>
+		<p><h4>We received your request  and our sales team will contact you shortly....</h4></p>
+	 	<br/><br/><br/>
+            <div class="card card-body">
+                 <table class="table table-hover">
+                      <thead>
+                        <tr>
+                            <th>Ref No</th>
+                            <th>Date</th>
+                        </tr>
+                      </thead>
+                     <tbody>
+                         {% for item in dest %}
+                              <tr>
+                                <td>{{ item.id }}
+                                <td>{{ item.date_created }}</td>
+                            </tr>
+                        {% endfor %}
+                     </tbody>
+                 </table>
+            </div>
+
+	{% else %}
+         <div class="container">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="contact_title">Welcome to DSoft Family. {{user.first_name}} </div>
+                <div class="about_image"><img src="{% static 'images/family14.jpg' %}" alt=""></div>
+                 <div class="contact_title">DSoft ears are always open to hear your new ideas and valuable suggestions.</div>
+					    <p>By engaging with the best-in-class technology partners, the company would be building a comprehensive services framework that can deliver leading edge voice, video, IT applications and multimedia content services over any broadband or IP-centric network. Such a framework is targeted towards global internet service providers, who desire to offer next generation services to customers.</p>
+
+						<div class="contact_content">
+
+							<div class="contact_title">Get in touch with us</div>
+							<div class="contact_text">
+								<p>Your questions and comments are very important to us. </p>
+								<p>We've got everything covered for your needs.</p>
+							</div>
+							<div class="contact_list">
+								<ul>
+									<li>
+										<div>address:</div>
+                                        <div><strong>Mahindra The Woods, Park Street, Wakad, Pune, India-411045</strong></div>
+									</li>
+									<li>
+										<div>phone:</div>
+                                        <div><h4>+91 020 27800000</h4></div>
+									</li>
+									<li>
+										<div>email:</div>
+                                        <div><h4><strong>info@dsoftsonline.com</strong></h4></div>
+									</li>
+								</ul>
+							</div>
+						</div>
+                 </div>
+            <div class="col-lg-6">
             <form method="POST" enctype="multipart/form-data">
                {% csrf_token %}
-                 <h3>New Customer Registeration Form</h3>
-                <h4>{{ header }}</h4>
+                <h2>{{ header }}</h2>
 
                 {% for field in form %}
                     <div class="form-group row">
-                         <label for="id_{{ field.name }}" class="col-2 col-form-label">{{ field.label }}</label>
-                         <div class="col-10">
-                            {{ field }}
+                        <div class="fieldWrapper">
+                              {{ field.errors }}
+                             <label for="id_{{ field.name }}" class="col-2 col-form-label">{{ field.label }}</label>
+                             <div class="col-10">
+                                {{ field }}
+                            </div>
+                             {% if field.help_text %}
+                                 <p class="help">{{ field.help_text|safe }}</p>
+                             {% endif %}
                         </div>
                     </div>
                 {%  endfor %}
 
+                <!-----
+                {% for field in form %}
+                    <div class="fieldWrapper">
+                        {{ field.errors }}
+                        {{ field.label_tag }} {{ field }}
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                --->
                    <!----  {{ form.as_p }}  --->
                  <div class="form-group row">
                     <div class="offset-sm-2 col-sm-6">
@@ -55,6 +114,13 @@
                     </div>
                 </div>
             </form>
+
+            </div>
+            </div>
         </div>
+ 	{% endif %}
+ </div>
+ <br><br>
  </body>
+{% endblock %}
 </html>

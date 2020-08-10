@@ -1,0 +1,118 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% static "images" as baseUrl %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% block body %}
+
+<body>
+<head>
+ <title>Contact</title>
+</head>
+<div class="super_container">
+	  <!-- ***** Breadcrumb Area Start ***** -->
+  <div class="breadcumb-area bg-img bg-gradient-overlay" style="background-image: url({% static 'img/bg-img/12.jpg' %});">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12">
+          <h2 class="title">Contact</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="breadcumb--con">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="home"><i class="fa fa-home"></i> Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Contact</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ***** Breadcrumb Area End ***** -->
+
+
+	<!-- Contact -->
+	{% if contact_input_name %}
+		<center>
+		<h2> Thanks  {{ contact_input_name }} </h2>
+		  <p>We received your email and will respond shortly....</p>
+	 	 </center><br/><br/><br/>
+	{% else %}
+		<div class="contact">
+			<div class="container">
+				 <div class="breadcumb-area bg-img bg-gradient-overlay" style="background-image: url({% static 'img/bg-img/12.jpg' %});">
+
+				<div class="row">
+					<!-- Get in touch -->
+					<div class="col-lg-6">
+						<div class="contact_content">
+
+							<div class="contact_title">Get in touch with us</div>
+							<div class="contact_text">
+								<p>Your questions and comments are very important to us. </p>
+								<p>We've got everything covered for your needs.</p>
+							</div>
+							<div class="contact_list">
+								<ul>
+									<li>
+										<div>address:</div>
+										<div>Mahindra The Woods, Park Street, Wakad, Pune, India-411045</div>
+									</li>
+									<li>
+										<div>phone:</div>
+										<div>+91 020 27800000</div>
+									</li>
+									<li>
+										<div>email:</div>
+										<div>info@dsoftsonline.com</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<!-- Contact Form -->
+					<div class="col-lg-6">
+						<div class="contact_form_container">
+							 <form action="{% url 'add_complain' %}" method="post"  id="contact_form" class="contact_form">
+								{% csrf_token %}
+								 {% for field in form %}
+									<div class="form-group row">
+										<label for="id_{{ field.name }}" class="col-2 col-form-label"><h5><strong>{{ field.label }}</strong></h5></label>
+										 <div class="col-10">
+											{{ field }}
+										</div>
+									</div>
+								 {%  endfor %}
+								<div class="form-group row">
+								<div class="offset-sm-2 col-sm-6">
+									<button type="submit"  class="btn btn-primary">Submit Form</button>
+								</div>
+               					 </div>
+								 <br>
+								 <h6>I agree to receive follow-up calls from company representatives.</h6>
+							</form>
+						</div>
+					</div>
+				</div>
+				 </div>
+			</div>
+		</div>
+
+
+
+	{% endif %}
+
+</div>
+</body>
+{% endblock %}
+</html>
+

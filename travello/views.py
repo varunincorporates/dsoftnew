@@ -8,6 +8,8 @@ from django.forms import inlineformset_factory
 from django.core.paginator import Paginator, EmptyPage
 from .views import *
 from django.http import HttpResponse
+from django.contrib.auth.models import User, auth
+from django.contrib.auth import authenticate
 
 # Create your views here.
 
@@ -266,13 +268,38 @@ def add_feasable(request):
 
 def add_newcustomer(request):
     if request.method == "POST":
+
         form = NewcustomerForm(request.POST, request.FILES)
         if form.is_valid():
+            contact_new_customer =  request.POST['name']
+            mobile=  request.POST['mobileno']
             form.save()
-            return redirect('home')
+            dest = Newcustomer.objects.filter(name=contact_new_customer,mobileno=mobile).order_by('-id')
+            return render(request, 'travello/add_newcustomer.html', {'contact_new_customer': contact_new_customer, 'dest':dest})
     else:
         form = NewcustomerForm()
-        return render(request, 'travello/add_newcustomer.html', {'form': form})
+        header='New Customer Registration'
+        return render(request, 'travello/add_newcustomer.html', {'form': form, 'header': header})
+
+
+def add_complain(request):
+    if request.method == "POST":
+        form = ComplainForm(request.POST, request.FILES)
+        if form.is_valid():
+            contact_new_customer = request.POST[ 'name' ]
+            note = request.POST[ 'note' ]
+            form.save()
+        dest=Newcomplain.objects.filter(name=contact_new_customer,note=note).order_by('-id')
+        return render(request, 'travello/add_newcustomer.html', {'contact_new_customer': contact_new_customer, 'dest':dest})
+    else:
+        form = ComplainForm()
+
+        if (request.user.is_authenticated):
+           form.fields[ 'name' ].initial = request.user.get_full_name()
+
+           #username = request.user.username
+        header = 'Customer Suggestion Form'
+        return render(request, 'travello/add_newcustomer.html', {'form': form, 'header': header})
 
 
 def success(request):
@@ -282,8 +309,10 @@ def success(request):
 def add_plan(request):
     return add_item(request, PlanForm, 'Plan','display_plan')
 
+
 def add_faq(request):
     return add_item(request, FaqForm, 'FAQ','display_faq')
+
 
 def createorder(request, pk):
     OrderFormSet = inlineformset_factory(Newcustomer, Myorder, fields=('product', 'status'), extra=5 )
@@ -353,6 +382,7 @@ def delete_plan(request, pk):
 
     context = {
         'items': items,
+        'header': 'Plan'
     }
 
     return render(request, template, context)
@@ -366,6 +396,7 @@ def delete_faq(request, pk):
 
     context = {
         'items': items,
+        'header': 'FAQ'
     }
 
     return render(request, template, context)
@@ -376,9 +407,10 @@ def delete_feasable(request, pk):
     template = 'travello/feasablty.html'
     Feasable.objects.filter(id=pk).delete()
     items = Feasable.objects.all()
-
+    header = 'Feasable'
     context = {
         'items': items,
+        'header': 'Feasable'
     }
 
     return render(request, template, context)

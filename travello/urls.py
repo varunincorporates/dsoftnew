@@ -26,6 +26,7 @@ urlpatterns = [
     url('add_contact', views.add_contact, name="add_contact"),
     url('add_dashcustomer', views.add_dashcustomer, name="add_dashcustomer"),
     url('add_customer', views.add_customer, name="add_customer"),
+
     url('add_referal', views.add_referal, name="add_referal"),
     url(r'^contact/edit_item/(?P<pk>\d+)$', views.edit_contact, name="edit_contact"),
     url(r'^referal/edit_item/(?P<pk>\d+)$', views.edit_referal, name="edit_referal"),
@@ -39,6 +40,7 @@ urlpatterns = [
     url('add_plan', views.add_plan, name="add_plan"),
     url('add_faq', views.add_faq, name="add_faq"),
     url('add_newcustomer', views.add_newcustomer, name="add_newcustomer"),
+    url('add_complain', views.add_complain, name="add_complain"),
     url('salesfaq', views.salesfaq, name="salesfaq"),
     url(r'^plan/edit_item/(?P<pk>\d+)$', views.edit_plan, name="edit_plan"),
     url(r'^faq/edit_item/(?P<pk>\d+)$', views.edit_faq, name="edit_faq"),
