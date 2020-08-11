@@ -88,12 +88,11 @@ def contact(request):
         email = request.POST['contact_input_email']
         subject = request.POST['contact_input_subject']
         message = request.POST['contact_input']
-        engineer = "eng"
-        comments = "nnn"
-        status = 'Reg'
         contactme = Contactme(name=name, email=email,  mobile=mobile, subject=subject, message=message)
         contactme.save()
-        return render(request, 'travello/contact.html', {'contact_input_name': input_name})
+        dest = Contactme.objects.filter(name=name,email=email, mobile=mobile, message=message).order_by('-id')[:1]
+
+        return render(request, 'travello/contact.html', {'contact_input_name': input_name, 'dest':dest})
     else:
         return render(request, "travello/contact.html", {})
 
@@ -375,14 +374,13 @@ def edit_faq(request, pk):
 
 
 def delete_plan(request, pk):
-
     template = 'travello/plan.html'
     Plan.objects.filter(id=pk).delete()
     items = Plan.objects.all()
 
     context = {
         'items': items,
-        'header': 'Plan'
+        'header': 'PLAN'
     }
 
     return render(request, template, context)

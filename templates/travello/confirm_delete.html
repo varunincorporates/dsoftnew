@@ -1,0 +1,24 @@
+   {% extends 'basecustomer.html'%}
+
+{% block body %}
+    {% include 'basecustomernav.html'%}
+
+    <div>
+       <div class="card card-body">
+            <h1>Confirm Delete {{ header }}</h1>
+        </div>
+    </div>
+ 	<div class="row">
+        <div class="card card-body">
+                <div class="card card-body">
+                    <form method="POST" action=".">
+                        {% csrf_token %}
+                         <p>Are you sure you want to delete: " {{ object.content}}"?</p>
+
+                        <input type='submit' value='Confirm' class='btn btn-warning'>
+                        <a href="'{{ object.get_absolute_url }}" class='btn btn-default'>Cancel</a>
+                    </form>
+                </div>
+        </div>
+    </div>
+{% endblock %}
