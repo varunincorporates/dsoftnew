@@ -22,6 +22,10 @@ def salesfaq(request):
     salesfaq = Salesfaq.objects.all().order_by('serial')
     return render(request, "travello/salesfaq.html", {"dests": salesfaq})
 
+def document(request):
+    obj=Item.objects.all()
+    return render(request, 'travello/document.html', {'obj': obj })
+
 def friends(request):
     if request.method == "POST":
         your_name = request.POST['your_name']

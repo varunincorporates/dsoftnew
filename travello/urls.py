@@ -12,6 +12,7 @@ urlpatterns = [
     path('contact', views.contact, name='contact'),
     path('destinations', views.destinations, name='destinations'),
     path('about', views.about, name='about'),
+    path('document', views.document, name='document'),
     path('slider', views.slider, name='slider'),
     path('friends', views.friends, name='friends'),
     path('managecustomer', views.managecustomer, name='managecustomer'),
@@ -26,7 +27,6 @@ urlpatterns = [
     url('add_contact', views.add_contact, name="add_contact"),
     url('add_dashcustomer', views.add_dashcustomer, name="add_dashcustomer"),
     url('add_customer', views.add_customer, name="add_customer"),
-
     url('add_referal', views.add_referal, name="add_referal"),
     url(r'^contact/edit_item/(?P<pk>\d+)$', views.edit_contact, name="edit_contact"),
     url(r'^referal/edit_item/(?P<pk>\d+)$', views.edit_referal, name="edit_referal"),

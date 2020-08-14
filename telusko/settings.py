@@ -41,8 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'inventory',
     'django_filters',
-
-
+    'embed_video',
 ]
 
 MIDDLEWARE = [
