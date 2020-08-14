@@ -128,38 +128,7 @@
 					</div>
 				</div>
 
-				<!-- Slide -->
-				<div class="owl-item">
 
-					<div class="background_image" style="background-image:url({% static '/images/footer_1.jpg' %})"></div>
-					<div class="home_slider_content_container">
-						<div class="container">
-							<div class="row">
-								<div class="col">
-									<div class="home_slider_content">
-										<div class="home_title"><h2>Internet Life Style</h2></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- Slide -->
-				<div class="owl-item">
-					<div class="background_image" style="background-image:url({% static '/images/destination_1.jpg' %})"></div>
-					<div class="home_slider_content_container">
-						<div class="container">
-							<div class="row">
-								<div class="col">
-									<div class="home_slider_content">
-										<div class="home_title"><h2>DSoft Communications</h2></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
 
 			</div>
 
@@ -423,9 +392,9 @@
 		</div>
 		<div class="test_nav">
 			<ul class="d-flex flex-column align-items-end justify-content-end">
-				<li><a href="#">City Breaks Clients<span>01</span></a></li>
-				<li><a href="#">Cruises Clients<span>02</span></a></li>
-				<li><a href="#">All Inclusive Clients<span>03</span></a></li>
+				<li><a href="add_newcustomer">Book Now<span>01</span></a></li>
+				<li><a href="document">Quick Tips<span>02</span></a></li>
+				<li><a href="salesfaq">FAQ<span>03</span></a></li>
 			</ul>
 		</div>
 	</div>
@@ -445,7 +414,7 @@
 									<div>FAQs</div>
 									<div>Frequently Ansked Questions</div>
 								</div>
-								<div class="news_post_title"><a href="document">Best tips to solve all your internet related problems</a></div>
+								<div class="news_post_title"><a href="salesfaq">Best tips to solve all your internet related problems</a></div>
 								<div class="news_post_category">
 									<ul>
 										<li><a href="#">Internet lifestyle</a></li>
@@ -462,8 +431,8 @@
 							<div class="news_post_image"><img src="{% static '/images/register.png' %}" alt=""></div>
 							<div class="news_post_content">
 								<div class="news_post_date d-flex flex-row align-items-end justify-content-start">
-									<div>Registeration</div>
-									<div>New Customer</div>
+									<div>Book Now</div>
+									<div>New Customer Registration Form</div>
 								</div>
 								<div class="news_post_title"><a href="add_newcustomer">New Connection Application</a></div>
 								<div class="news_post_category">
@@ -528,6 +497,15 @@
 	<footer class="footer">
 		<div class="parallax_background parallax-window" data-image-src="{% static '/images/footer_1.jpg' %}"
 			 data-parallax="scroll" data-speed="0.8"></div>
+
+			<div class="home_page_nav">
+				<ul class="d-flex flex-column align-items-end justify-content-end">
+					<li><a href="#" data-scroll-to="#destinations">Offers<span>01</span></a></li>
+					<li><a href="#" data-scroll-to="#testimonials">Testimonials<span>02</span></a></li>
+					<li><a href="#" data-scroll-to="#news">Latest<span>03</span></a></li>
+				</ul>
+			</div>
+
 		<div class="container">
 			<div class="row footer_contact_row">
 				<div class="col-xl-10 offset-xl-1">
@@ -576,7 +554,7 @@
 									<div><input type="text" class="newsletter_input newsletter_input_name" id="newsletter_input_name" placeholder="Name" required="required"><div class="input_border"></div></div>
 									<div><input type="email" class="newsletter_input newsletter_input_email" id="newsletter_input_email" placeholder="Your e-mail" required="required"><div class="input_border"></div></div>
 								</div>
-								<div><button class="newsletter_button">subscribe</button></div>
+								<div><button class="newsletter_button">submit</button></div>
 							</form>
 						</div>
 					</div>
@@ -635,12 +613,13 @@
 				</div>
 			</div>
 		</div>
-		<div class="col text-center"> This website is designed and developed by Varun Information Technology Solutions LLP</div>
+		<div class="col text-center"> This website is designed and developed by <a href="https://vits.herokuapp.com" target="_blank">Varun Information Technology Solutions LLP</a></div>
 		<div class="col text-center"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --> </div>
 
 	</footer>
+
 </div>
 
 <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
