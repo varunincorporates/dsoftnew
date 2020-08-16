@@ -1,11 +1,21 @@
 from django import forms
 from .models import *
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
+
+class CreateUserForm(UserCreationForm):
+	class Meta:
+		model = User
+		fields = ['username', 'email','last_name', 'password1', 'password2']
+
 
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contactme
         fields = '__all__'
+
 
 class ReferalForm(forms.ModelForm):
     class Meta:
@@ -22,7 +32,7 @@ class FeasableForm(forms.ModelForm):
 class NewcustomerForm(forms.ModelForm):
     class Meta:
         model = Newcustomer
-        fields = ('name', 'address', 'mobileno', 'email', 'adharcardno', 'adharcard', 'panno', 'pan', 'drivinglicenceno', 'drivinglicence',   'electricityno' , 'electricitybill')
+        fields = ('name', 'address', 'mobileno', 'email', 'adharcardno', 'adharcard', 'panno', 'pan', 'drivinglicenceno', 'drivinglicence',   'electricityno' , 'electricitybill', 'profile_id')
         labels = {
             'mobileno': _('Mobile'),
             'pan': _('PAN'),
@@ -49,6 +59,7 @@ class NewcustomerForm(forms.ModelForm):
             'electricityno': _('Electricity Consumer No.'),
             'electricitybill': _('Electricity Bill Scan')
         }
+        exclude = ('profile_id',)
         error_messages = {
             'name': {
                 'max_length': _("This writer's name is too long."),
@@ -75,6 +86,7 @@ class CustomerForm(forms.ModelForm):
             'pan': _('Permanent Account Number'),
             'adharcardno': _('Aadhaar Card Unique Number')
         }
+        exclude = ('profile_id',)
         error_messages = {
             'name': {
                 'max_length': _("This writer's name is too long."),
@@ -119,3 +131,5 @@ class ComplainForm(forms.ModelForm):
                 'max_length': _("This writer's name is too long."),
             },
         }
+
+

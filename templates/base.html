@@ -42,9 +42,8 @@
 									<li class="active"><a href="home">Home</a></li>
 									<li><a href="about">About us</a></li>
 									<li><a href="contact">Contact</a></li>
-									<li><a href="managecustomer">Members</a></li>
 									{% if user.is_authenticated %}
-								    	<li>Hello, {{user.first_name}}</li>
+								    	<li>Hello, {{request.user}} </li>
 									    <li><a href="accounts/logout">Logout</a></li>
 									{% else %}
 									   <li><a href="accounts/register">Register</a></li>
@@ -63,16 +62,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="header_social d-flex flex-row align-items-center justify-content-start">
-			<ul class="d-flex flex-row align-items-start justify-content-start">
-				<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-			</ul>
 		</div>
 	</header>
 	<div class="home">
@@ -119,18 +108,7 @@
 			<div class="row">
 				<div class="col">
 					<div class="newsletter">
-						<div class="newsletter_title_container text-center">
-							<div class="newsletter_title">Subscribe to our newsletter to get the latest trends & news</div>
-							<div class="newsletter_subtitle">Join our database NOW!</div>
-							<div class="newsletter_subtitle">
-							  <a href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a>
-							  <a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a>
-							  <a href="#" data-toggle="tooltip" data-placement="top" title="Google Plus"><i class="fa fa-google-plus"></i></a>
-							  <a href="#" data-toggle="tooltip" data-placement="top" title="Linkedin"><i class="fa fa-linkedin"></i></a>
-							  <a href="#" data-toggle="tooltip" data-placement="top" title="Pinterest"><i class="fa fa-pinterest"></i></a>
 
-							</div>
-						</div>
 						<div class="newsletter_form_container">
 							<form action="#" class="newsletter_form d-flex flex-md-row flex-column align-items-start justify-content-between" id="newsletter_form">
 								<div class="d-flex flex-md-row flex-column align-items-start justify-content-between">

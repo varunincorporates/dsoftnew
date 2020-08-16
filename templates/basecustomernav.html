@@ -1,6 +1,7 @@
     <div class=""container>
       <div class="add_buttons">
         <div class="button-group">
+         {% if request.user.is_staff %}
 
             <a href="{% url 'display_contact' %}"  class="btn btn-primary btn-md  btn-trim" role="button">Contact Customer</a>
             <a href="{% url 'add_contact' %}" class="btn btn-warning btn-sm btn-pad" role="button">+</a>
@@ -20,6 +21,7 @@
              <a href="{% url 'display_faq' %}"  class="btn btn-primary btn-md  btn-trim" role="button">FAQ</a>
             <a href="{% url 'add_faq' %}" class="btn btn-warning btn-sm btn-pad" role="button">+</a>
 
+        {% endif %}
 
         </div>
     </div>

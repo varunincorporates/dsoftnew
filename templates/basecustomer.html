@@ -1,4 +1,15 @@
- <!DOCTYPE html>
+
+{% load static %}
+
+<style>
+  .hello-msg{
+    font-size: 18px;
+    color: #fff;
+    margin-right: 20px;
+  }
+</style>
+
+<!DOCTYPE html>
 <html>
   <head>
     <title>Customer Management System</title>
@@ -25,21 +36,27 @@
       <li class="nav-item active">
 
       </li>
+     {% if request.user.is_staff %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+          </li>
+         <li class="nav-item">
+            <a class="nav-link" href="{% url 'product' %}">Product</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'managecustomer' %}">Master</a>
+          </li>
+    {% endif %}
+     </ul>
 
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
-      </li>
-     <li class="nav-item">
-        <a class="nav-link" href="{% url 'product' %}">Product</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'managecustomer' %}">Master</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-md-0">
-      <input class="form-control" type="text" placeholder="Search">
-    </form>
   </div>
+         {% if user.is_authenticated %}
+              <span class="hello-msg">Hello, {{request.user}}</span>
+              <span ><a  class="hello-msg" href="{% url 'logout' %}">Logout</a></span>
+        {% else %}
+           <li><a href="travello/register">Register</a></li>
+           <li><a href="travello/login">Login</a></li>
+        {% endif %}
 </nav>
 
     <div class="container">

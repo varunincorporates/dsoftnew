@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 from django.db import models
 from embed_video.fields import EmbedVideoField
+from django.contrib.auth.models import User, auth
 
 class Item(models.Model):
     video = EmbedVideoField()
@@ -17,7 +18,9 @@ class Offer(models.Model):
       def __str__(self):
           return 'Name:{0}   Description:{0} '.format(self.name,  self.desc)
 
+
 class Complain(models.Model):
+    user1 = models.ForeignKey(User, blank=True,  on_delete=models.CASCADE)
     name= models.CharField(max_length=100, blank=False)
     mobile= models.CharField(max_length=25, blank=False)
     email= models.CharField(max_length=25, blank=False)
@@ -29,6 +32,8 @@ class Complain(models.Model):
     status = models.CharField(max_length=200, null=True)
     date_solved = models.DateTimeField(auto_now_add=True, null=True)
     note = models.TextField()
+
+
 
 class Destination(models.Model):
     name = models.CharField(max_length=100)
@@ -53,6 +58,7 @@ class Newcustomer(models.Model):
     electricitybill = models.ImageField(upload_to='pics')
     active = models.BooleanField(default=False)
     date_created = models.DateTimeField(auto_now_add=True,null=True)
+    profile_id= models.IntegerField(null=True)
 
 
     def __str__(self):
@@ -164,6 +170,7 @@ class Myorder(models.Model):
 
 
 class Newcomplain(models.Model):
+    user1 = models.ForeignKey(User, blank=True,  on_delete=models.CASCADE)
     name = models.CharField(max_length=100, blank=False)
     mobile = models.CharField(max_length=100, blank=False)
     email = models.EmailField(max_length=60)
@@ -193,7 +200,6 @@ class Newcomplain(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=200, null=True,default='PENDING')
     date_solved = models.DateTimeField(null=True)
-    note = models.TextField()
     comments= models.CharField(max_length=500, null=True)
 
     def __str__(self):

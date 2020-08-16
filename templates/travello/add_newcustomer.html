@@ -33,8 +33,8 @@
                      <tbody>
                          {% for item in dest %}
                               <tr>
-                                <td>{{ item.id }}
-                                <td>{{ item.date_created }}</td>
+                                  <td>{{ item.id }}</td>
+                                <td>{{ item.date_created | date:"F d Y"  }}</td>
                             </tr>
                         {% endfor %}
                      </tbody>
@@ -45,7 +45,12 @@
          <div class="container">
             <div class="row">
               <div class="col-lg-6">
-                <div class="contact_title">Welcome to DSoft Family. {{user.first_name}} </div>
+              {% if user.is_authenticated %}
+                   <div class="contact_title">{{request.user}}  Welcome to DSoft Family.  </div>
+              {% else %}
+                  <div class="contact_title">Welcome to DSoft Family.  </div>
+              {% endif %}
+
                 <div class="about_image"><img src="{% static 'images/family14.jpg' %}" alt=""></div>
                  <div class="contact_title">DSoft ears are always open to hear your new ideas and valuable suggestions.</div>
 					    <p>By engaging with the best-in-class technology partners, the company would be building a comprehensive services framework that can deliver leading edge voice, video, IT applications and multimedia content services over any broadband or IP-centric network. Such a framework is targeted towards global internet service providers, who desire to offer next generation services to customers.</p>
