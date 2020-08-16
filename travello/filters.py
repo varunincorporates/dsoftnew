@@ -19,3 +19,13 @@ class CustomerFilter(django_filters.FilterSet):
         model = Newcustomer
         fields = ('mobileno',)
         exclude = ['date_created' ]
+
+
+class ComplainFilter(django_filters.FilterSet):
+    name = CharFilter(field_name='name', lookup_expr='icontains')
+    mobile = CharFilter(field_name='mobile', lookup_expr='icontains')
+    status = CharFilter(field_name='status', lookup_expr='icontains')
+    class Meta:
+        model = Newcomplain
+        fields = '__all__'
+        exclude = ['date_created' ,'user1', 'email','date_solved','comments', 'note','subject' ]

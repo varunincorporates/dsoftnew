@@ -20,6 +20,7 @@ urlpatterns = [
     path('friends', views.friends, name='friends'),
     path('managecustomer', views.managecustomer, name='managecustomer'),
     path('dashboard', views.dashboard, name='dashboard'),
+    path('dashcomplain', views.dashcomplain, name='dashcomplain'),
     path('product', views.product, name='product'),
     path('customer/<str:pk>/', views.customer, name='customer'),
     path('create_order/<str:pk>/', views.createorder, name='create_order'),

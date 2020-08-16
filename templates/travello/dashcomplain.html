@@ -1,0 +1,67 @@
+{% extends 'basecustomer.html'%}
+
+{% block body %}
+{% include 'travello/statuscomplain.html'%}
+
+<div class="row">
+	<div class="col">
+
+			<a class="btn btn-primary  btn-sm btn-block" href="">Complain Search Option</a>
+			<form method="get">
+						{{myFilter.form.as_table}}
+						<button class="btn btn-primary" type="submit">Search</button>
+			</form>
+
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<h5>LAST 10 COMPLAIN</h5>
+		<hr>
+		<div class="card card-body">
+
+			<a class="btn btn-primary  btn-sm btn-block" href="#">Pending Order List</a>
+
+			<table class="table table-sm">
+				<tr>
+					<th>Name</th>
+					<th>Mobile</th>
+                    <th>AccountNo</th>
+                    <th>Category</th>
+                    <th>Subject</th>
+					<th>Date </th>
+					<th>Status</th>
+					<th>Update</th>
+					<th>Remove</th>
+				</tr>
+				{% for order in orders  %}
+					<tr>
+				        <td>{{order.name}}</td>
+					    <td>{{order.mobile}}</td>
+                        <td>{{order.accountno}}</td>
+                        <td>{{order.category}}</td>
+                        <td>{{order.subject}}</td>
+				  	    <td>{{order.date_created | date:"F d Y"}}</td>
+						<td>{{order.status}}</td>
+						<td><a class="btn btn-sm btn-info" href="{% url 'update_order'  order.id %}">Update</a></td>
+						<td><a class="btn btn-sm btn-danger" href="#">Delete</a></td>
+					</tr>
+				{% endfor %}
+			</table>
+			<div>
+			{% if orders.has_previous %}
+    				<a class="btn btn-sm btn-info" href="{% url 'dashcomplain' %}?page={{orders.previous_page_number}}">PreviousPage</a>
+			{% endif %}
+			{% if orders.has_next %}
+			    <a class="btn btn-sm btn-info"  href="{% url 'dashcomplain' %}?page={{orders.next_page_number}}">NextPage</a>
+			{% endif %}
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+
+{% endblock %}

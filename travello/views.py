@@ -201,6 +201,42 @@ def dashboard(request):
     return render(request, "travello/dashboard.html", context)
 
 
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'admin', 'staff' ])
+def dashcomplain(request):
+    orders = Newcomplain.objects.all().order_by('-id')
+    p = Paginator(orders, 10)
+    page_num = request.GET.get('page', 1)
+    try:
+        page = p.page(page_num)
+    except EmptyPage:
+        page = p.page(1)
+
+    customers = Newcomplain.objects.all().order_by('-id')
+
+    myFilter = ComplainFilter(request.GET, queryset=customers)
+    customers = myFilter.qs
+
+    total_customers = customers.count()
+    total_orders = orders.count()
+    delivered = orders.filter(status='SOLVED').count()
+    pending = orders.filter(status='PENDING').count()
+    context = {
+        'orders': page,
+        'customers': customers,
+        'total_customers': total_customers,
+        'total_orders': total_orders,
+        'delivered': delivered,
+        'pending': pending,
+        'myFilter': myFilter,
+    }
+    return render(request, "travello/dashcomplain.html", context)
+
+
+
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def customer(request, pk):

@@ -6,9 +6,9 @@ from django.contrib.auth.models import User
 
 
 class CreateUserForm(UserCreationForm):
-	class Meta:
-		model = User
-		fields = ['username', 'email','last_name', 'password1', 'password2']
+    class Meta:
+        model = User
+        fields = [ 'username', 'email', 'last_name', 'password1', 'password2' ]
 
 
 class ContactForm(forms.ModelForm):
@@ -20,7 +20,7 @@ class ContactForm(forms.ModelForm):
 class ReferalForm(forms.ModelForm):
     class Meta:
         model = Referal
-        fields = ('myname', 'mymobile', 'referalname', 'referalmobile','referalemail')
+        fields = ('myname', 'mymobile', 'referalname', 'referalmobile', 'referalemail')
 
 
 class FeasableForm(forms.ModelForm):
@@ -32,17 +32,19 @@ class FeasableForm(forms.ModelForm):
 class NewcustomerForm(forms.ModelForm):
     class Meta:
         model = Newcustomer
-        fields = ('name', 'address', 'mobileno', 'email', 'adharcardno', 'adharcard', 'panno', 'pan', 'drivinglicenceno', 'drivinglicence',   'electricityno' , 'electricitybill', 'profile_id')
+        fields = (
+        'name', 'address', 'mobileno', 'email', 'adharcardno', 'adharcard', 'panno', 'pan', 'drivinglicenceno',
+        'drivinglicence', 'electricityno', 'electricitybill', 'profile_id')
         labels = {
             'mobileno': _('Mobile'),
             'pan': _('PAN'),
             'panno': _('PAN'),
             'adharcardno': _('Aadhaar'),
-            'adharcard':_('Aadhaar'),
-            'drivinglicenceno':_('D.L.'),
-            'drivinglicence':_('D.L.Image'),
-            'electricityno':_('Electricity'),
-            'electricitybill':_('Electricity')
+            'adharcard': _('Aadhaar'),
+            'drivinglicenceno': _('D.L.'),
+            'drivinglicence': _('D.L.Image'),
+            'electricityno': _('Electricity'),
+            'electricitybill': _('Electricity')
 
         }
         help_texts = {
@@ -70,16 +72,18 @@ class NewcustomerForm(forms.ModelForm):
 class CustomerForm(forms.ModelForm):
     class Meta:
         model = Newcustomer
-        fields = ('name', 'address', 'mobileno', 'email', 'adharcardno', 'adharcard', 'panno', 'pan', 'drivinglicenceno', 'drivinglicence',   'electricityno' , 'electricitybill')
+        fields = (
+        'name', 'address', 'mobileno', 'email', 'adharcardno', 'adharcard', 'panno', 'pan', 'drivinglicenceno',
+        'drivinglicence', 'electricityno', 'electricitybill')
         labels = {
             'pan': _('PAN_Scan'),
             'panno': _('PAN.No.'),
             'adharcardno': _('AadhaarNo'),
-            'adharcard':_('AadhaarScan'),
-            'drivinglicenceno':_('Driving Licence'),
-            'drivinglicence':_('D.L. Scan'),
-            'electricityno':_('Electricity Consumer No.'),
-            'electricitybill':_('Electricity Bill Scan')
+            'adharcard': _('AadhaarScan'),
+            'drivinglicenceno': _('Driving Licence'),
+            'drivinglicence': _('D.L. Scan'),
+            'electricityno': _('Electricity Consumer No.'),
+            'electricitybill': _('Electricity Bill Scan')
 
         }
         help_texts = {
@@ -94,16 +98,16 @@ class CustomerForm(forms.ModelForm):
         }
 
 
-
 class PlanForm(forms.ModelForm):
     class Meta:
         model = Plan
         fields = ('benefits', 'validity', 'value')
 
+
 class FaqForm(forms.ModelForm):
     class Meta:
         model = Salesfaq
-        fields =  '__all__'
+        fields = '__all__'
 
 
 class OrderForm(forms.ModelForm):
@@ -115,11 +119,11 @@ class OrderForm(forms.ModelForm):
 class ComplainForm(forms.ModelForm):
     class Meta:
         model = Newcomplain
-        fields = ('name','mobile', 'email', 'accountno', 'category', 'subject', 'note')
+        fields = ('name', 'mobile', 'email', 'accountno', 'category', 'subject', 'note')
         labels = {
             'name': _('Name'),
             'accountno': _('Account_Number'),
-         }
+        }
         help_texts = {
             'name': _('Your full name with last name'),
             'mobile': _('Your mobile number for correspondence'),
@@ -131,5 +135,3 @@ class ComplainForm(forms.ModelForm):
                 'max_length': _("This writer's name is too long."),
             },
         }
-
-
