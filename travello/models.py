@@ -5,42 +5,6 @@ from django.db import models
 from embed_video.fields import EmbedVideoField
 from django.contrib.auth.models import User, auth
 
-class Item(models.Model):
-    video = EmbedVideoField()
-
-
-class Offer(models.Model):
-      name = models.CharField(max_length=100)
-      img = models.ImageField(upload_to='pics')
-      desc = models.TextField()
-      tempelate = models.CharField(max_length=100)
-
-      def __str__(self):
-          return 'Name:{0}   Description:{0} '.format(self.name,  self.desc)
-
-
-class Complain(models.Model):
-    user1 = models.ForeignKey(User, blank=True,  on_delete=models.CASCADE)
-    name= models.CharField(max_length=100, blank=False)
-    mobile= models.CharField(max_length=25, blank=False)
-    email= models.CharField(max_length=25, blank=False)
-    accountno = models.CharField(max_length=25, blank=False)
-    category = models.CharField(max_length=200, null=True)
-    subject =  models.CharField(max_length=200, null=True)
-    note = models.TextField()
-    date_created = models.DateTimeField(auto_now_add=True, null=True)
-    status = models.CharField(max_length=200, null=True)
-    date_solved = models.DateTimeField(auto_now_add=True, null=True)
-    note = models.TextField()
-
-
-
-class Destination(models.Model):
-    name = models.CharField(max_length=100)
-    img = models.ImageField(upload_to='pics')
-    desc = models.TextField()
-    price = models.IntegerField()
-    offer = models.BooleanField(default=False)
 
 
 class Newcustomer(models.Model):
@@ -63,6 +27,46 @@ class Newcustomer(models.Model):
 
     def __str__(self):
         return  self.name
+
+
+class Item(models.Model):
+    video = EmbedVideoField()
+
+
+class Offer(models.Model):
+      name = models.CharField(max_length=100)
+      img = models.ImageField(upload_to='pics')
+      desc = models.TextField()
+      tempelate = models.CharField(max_length=100)
+
+      def __str__(self):
+          return 'Name:{0}   Description:{0} '.format(self.name,  self.desc)
+
+
+class Complain(models.Model):
+    user1 = models.ForeignKey(User, blank=True,  on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, blank=False)
+    mobile = models.CharField(max_length=25, blank=False)
+    email= models.CharField(max_length=25, blank=False)
+    accountno = models.CharField(max_length=25, blank=False)
+    category = models.CharField(max_length=200, null=True)
+    subject =  models.CharField(max_length=200, null=True)
+    note = models.TextField()
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    status = models.CharField(max_length=200, null=True)
+    date_solved = models.DateTimeField(auto_now_add=True, null=True)
+    note = models.TextField()
+
+
+
+class Destination(models.Model):
+    name = models.CharField(max_length=100)
+    img = models.ImageField(upload_to='pics')
+    desc = models.TextField()
+    price = models.IntegerField()
+    offer = models.BooleanField(default=False)
+
+
 
 
 class Engineer(models.Model):
