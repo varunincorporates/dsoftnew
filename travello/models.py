@@ -50,6 +50,50 @@ class Newcomplain(models.Model):
         return self.id, self.name, self.mobile, self.note
 
 
+class Newcomplain1(models.Model):
+    user1 = models.ForeignKey(User, blank=True,  on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, blank=False)
+    mobile = models.CharField(max_length=100, blank=False)
+    email = models.EmailField(max_length=60)
+    accountno = models.CharField(max_length=100, blank=False)
+    STATUS = {
+        ('No Connection', 'No Connection'),
+        ('Slow Speed', 'Slow Speed'),
+        ('Billing Complant', 'Billing Complant'),
+        ('Relocation', 'Relocation'),
+    }
+    category = models.CharField(max_length=200, null=True, choices=STATUS)
+    STATUS1= {
+        ('UNABLE TO BROWSE','UNABLE TO BROWSE'),
+        ('PASSWORD FORGOT','PASSWORD FORGOT'),
+        ('WEBSITE NOT OPENING','WEBSITE NOT OPENING'),
+        ('CABLE CUT','CABLE CUT'),
+        ('EQUIPEMENT PROBLEM','EQUIPEMENT PROBLEM'),
+        ('FREQUENTLY DISCONNECT','FREQUENTLY DISCONNECT'),
+        ('ROUTER SUPPORT','ROUTER SUPPORT'),
+        ('BILL DISPUTE', 'BILL DISPUTE'),
+        ('PAYMENT NOT UPDATED','PAYMENT NOT UPDATED'),
+        ('PAYMENT PROBLEM','PAYMENT PROBLEM'),
+        ('SLOW SPEED TEST','SLOW SPEED TEST'),
+    }
+    subject = models.CharField(max_length=200, null=True, choices=STATUS1)
+    note = models.TextField()
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    STATUS2 = {
+        ('PENDING', 'PENDING'),
+        ('SOLVED', 'SOLVED'),
+        ('OBSERVATION', 'OBSERVATION'),
+        ('VISIT', 'VISIT'),
+        ('N.A.', 'N.A.'),
+    }
+    status = models.CharField(max_length=200, null=True,default='PENDING', choices=STATUS2)
+    date_solved = models.DateTimeField(auto_now=True, null=True)
+    comments= models.TextField(null=True)
+
+    def __str__(self):
+        return self.id, self.name, self.mobile, self.note
+
+
 
 
 class Newcustomer(models.Model):
