@@ -17,11 +17,10 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<h5>LAST 10 COMPLAIN</h5>
-		<hr>
+
 		<div class="card card-body">
 
-			<a class="btn btn-primary  btn-sm btn-block" href="#">Pending Order List</a>
+			<a class="btn btn-primary  btn-sm btn-block" href="#">Complain List</a>
 
 			<table class="table table-sm">
 				<tr>
@@ -44,8 +43,10 @@
                         <td>{{order.subject}}</td>
 				  	    <td>{{order.date_created | date:"F d Y"}}</td>
 						<td>{{order.status}}</td>
-						<td><a class="btn btn-sm btn-info" href="{% url 'update_order'  order.id %}">Update</a></td>
-						<td><a class="btn btn-sm btn-danger" href="#">Delete</a></td>
+						<td><a class="btn btn-sm btn-info" href="{% url 'update_complain'  order.id %}">Update</a></td>
+						<td>
+							 <a onclick="return confirm('Are you sure you want to delete this?')"    href="{% url 'delete_dashcomplain' order.id %}" class="btn btn-danger btn-sm" role="button" aria-pressed="true"  > x</a>
+						</td>
 					</tr>
 				{% endfor %}
 			</table>

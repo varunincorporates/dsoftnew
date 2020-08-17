@@ -207,17 +207,19 @@ def dashboard(request):
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def dashcomplain(request):
     orders = Newcomplain.objects.all().order_by('-id')
+
+
+    customers = Newcomplain.objects.all().order_by('-id')
+
+    myFilter = ComplainFilter(request.GET, queryset=customers)
+    orders = myFilter.qs
+
     p = Paginator(orders, 10)
     page_num = request.GET.get('page', 1)
     try:
         page = p.page(page_num)
     except EmptyPage:
         page = p.page(1)
-
-    customers = Newcomplain.objects.all().order_by('-id')
-
-    myFilter = ComplainFilter(request.GET, queryset=customers)
-    customers = myFilter.qs
 
     total_customers = customers.count()
     total_orders = orders.count()
@@ -506,6 +508,11 @@ def createorder(request, pk):
 def updateorder(request, pk):
     return edit_device(request, pk, Myorder, OrderForm, 'dashboard', 'Order Form')
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'admin', 'staff' ])
+def updatecomplain(request, pk):
+    return edit_device(request, pk, Newcomplain , MycomplainForm, 'dashcomplain', 'Customer Complain Form')
+
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
@@ -611,3 +618,42 @@ def delete_feasable(request, pk):
     }
 
     return render(request, template, context)
+
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'admin', 'staff' ])
+def delete_dashcomplain(request, pk):
+    template = 'travello/dashcomplain.html'
+    Newcomplain.objects.filter(id=pk).delete()
+
+    orders = Newcomplain.objects.all().order_by('-id')
+
+    customers = Newcomplain.objects.all().order_by('-id')
+
+    myFilter = ComplainFilter(request.GET, queryset=customers)
+    orders = myFilter.qs
+
+    p = Paginator(orders, 10)
+    page_num = request.GET.get('page', 1)
+    try:
+        page = p.page(page_num)
+    except EmptyPage:
+        page = p.page(1)
+
+    total_customers = customers.count()
+    total_orders = orders.count()
+    delivered = orders.filter(status='SOLVED').count()
+    pending = orders.filter(status='PENDING').count()
+    context = {
+        'orders': page,
+        'customers': customers,
+        'total_customers': total_customers,
+        'total_orders': total_orders,
+        'delivered': delivered,
+        'pending': pending,
+        'myFilter': myFilter,
+    }
+    return render(request, "travello/dashcomplain.html", context)
+
+

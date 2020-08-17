@@ -135,3 +135,25 @@ class ComplainForm(forms.ModelForm):
                 'max_length': _("This writer's name is too long."),
             },
         }
+
+
+class MycomplainForm(forms.ModelForm):
+    class Meta:
+        model = Newcomplain
+        fields = '__all__'
+        labels = {
+            'name': _('Name'),
+            'accountno': _('Account_Number'),
+        }
+        exclude = ('user1' ,)
+        help_texts = {
+            'name': _('Your full name with last name'),
+            'mobile': _('Your mobile number for correspondence'),
+            'email': _('Your eMail number for correspondence'),
+            'accountno': _('Your DSoft Consumer Account Number'),
+        }
+        error_messages = {
+            'name': {
+                'max_length': _("This writer's name is too long."),
+            },
+        }

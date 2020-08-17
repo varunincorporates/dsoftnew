@@ -40,10 +40,11 @@ class Newcomplain(models.Model):
         ('SOLVED', 'SOLVED'),
         ('OBSERVATION', 'OBSERVATION'),
         ('VISIT', 'VISIT'),
+        ('N.A.', 'N.A.'),
     }
     status = models.CharField(max_length=200, null=True,default='PENDING', choices=STATUS2)
-    date_solved = models.DateTimeField(null=True)
-    comments= models.CharField(max_length=500, null=True)
+    date_solved = models.DateTimeField(auto_now=True, null=True)
+    comments= models.TextField(null=True)
 
     def __str__(self):
         return self.id, self.name, self.mobile, self.note
