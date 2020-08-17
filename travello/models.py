@@ -153,9 +153,11 @@ class Newcustomer(models.Model):
     date_created = models.DateTimeField(auto_now_add=True,null=True)
     profile_id= models.IntegerField(null=True)
 
-
     def __str__(self):
         return  self.name
+
+
+
 
 
 class Item(models.Model):
@@ -214,8 +216,6 @@ class Contactme(models.Model):
     date_reg1 = models.DateTimeField(auto_now_add=True)
 
 
-
-
 class Referal(models.Model):
     myname = models.CharField(max_length=50, blank=False)
     mymobile = models.CharField(max_length=20)
@@ -253,6 +253,8 @@ class Tag(models.Model):
 class Plan(models.Model):
     benefits = models.CharField(max_length=150, blank=False)
     validity = models.CharField(max_length=150, blank=False)
+    speedlimit = models.CharField(max_length=150, default=100, null=True)
+    days = models.IntegerField(default=28, null=True)
     value = models.IntegerField()
 
     def __str__(self):
@@ -297,6 +299,45 @@ class Myorder(models.Model):
     status = models.CharField(max_length=200, null=True, choices=STATUS)
     note = models.CharField(max_length=1000, null=True)
 
-
     def __str__(self):
         return self.name, self.product, self.note
+
+
+class Installation(models.Model):
+    name = models.ForeignKey(Newcustomer, null=True, on_delete=models.CASCADE)
+    building = models.ForeignKey(Feasable, null=True, on_delete=models.CASCADE)
+    flatno = models.CharField(max_length=100, null=True)
+    phone = models.CharField(max_length=100, null=True)
+    type = models.CharField(max_length=100, null=True)
+    voip = models.CharField(max_length=200, null=True)
+    userid = models.CharField(max_length=100, null=True)
+    plan = models.ForeignKey(Plan, null=True, on_delete=models.CASCADE)
+    ca = models.CharField(max_length=100, null=True)
+    ba = models.CharField(max_length=100, null=True)
+    ontmacid = models.CharField(max_length=100, null=True)
+    router = models.CharField(max_length=100, null=True)
+    dateinstalled = models.DateTimeField(null=True)
+    rno = models.CharField(max_length=100, null=True)
+    mode = models.CharField(max_length=100, null=True)
+    status = models.CharField(max_length=100, null=True)
+    remarks = models.CharField(max_length=1000, null=True)
+    cablingby = models.CharField(max_length=100, null=True)
+    cablingdate= models.DateTimeField(null=True)
+    visitby = models.ForeignKey(Employee, null=True, on_delete=models.CASCADE)
+    visitdate = models.DateTimeField(null=True)
+    isp = models.CharField(max_length=100, null=True)
+    marketing = models.CharField(max_length=100, null=True)
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+# Booking Done By Customer
+# Approval From the front end
+# OCOC creation
+# Cabeling Work
+# Payment Realisation simultaneously Account creation on Network server
+# Installation
+# Work Order Completed
+# Customer Feedback form for New plus Old ( After Service )
+# Invocing

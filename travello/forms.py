@@ -101,7 +101,7 @@ class CustomerForm(forms.ModelForm):
 class PlanForm(forms.ModelForm):
     class Meta:
         model = Plan
-        fields = ('benefits', 'validity', 'value')
+        fields = '__all__'
 
 
 class EmployeeForm(forms.ModelForm):

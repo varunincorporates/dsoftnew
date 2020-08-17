@@ -281,16 +281,20 @@
                   <thead>
                     <tr>
                       <th scope="col">Benefits</th>
+                      <th scope="col">Speed</th>
                       <th scope="col">Validity</th>
                       <th scope="col">Plan INR</th>
+                       <th scope="col">Days</th>
                     </tr>
                   </thead>
                   <tbody>
                    {% for plan in plan %}
                     <tr>
                       <th scope="row">{{plan.benefits}}</th>
+                       <td>{{plan.speedlimit}}</td>
                       <td>{{plan.validity}}</td>
                       <td>{{plan.value}}</td>
+                      <td>{{plan.days}}</td>
                     </tr>
                     {% endfor %}
                   </tbody>
@@ -309,7 +313,7 @@
       <!-- Dento Pricing Table Area End -->
 
       <!-- Book An Oppointment Area Start -->
-      <section class="book-an-oppointment-area section-padding-100 bg-img bg-gradient-overlay jarallax clearfix" style="background-image: url({% static 'images/contact2.jpg' %});">
+      <section class="book-an-oppointment-area section-padding-100 bg-img bg-gradient-overlay jarallax clearfix" style="background-image: url({% static 'images/family11.jpg' %});">
 
         <div class="container">
           <div class="row">
