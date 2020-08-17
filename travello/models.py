@@ -6,6 +6,28 @@ from embed_video.fields import EmbedVideoField
 from django.contrib.auth.models import User, auth
 
 
+class Employee(models.Model):
+    name = models.CharField(max_length=50, blank=False)
+    email = models.EmailField(max_length=60)
+    mobile = models.CharField(max_length=20)
+    address = models.TextField()
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    STATUS = {
+        ('Working', 'Working'),
+        ('Resigned', 'Resigned'),
+        ('OnContract', 'OnContract'),
+        ('Temporary', 'Temporary'),
+    }
+    status = models.CharField(max_length=200, null=True, choices=STATUS)
+    note = models.CharField(max_length=1000, null=True)
+
+
+    def __str__(self):
+        return self.name, self.mobile, self.note
+
+
+
+
 class Newcomplain(models.Model):
     user1 = models.ForeignKey(User, blank=True,  on_delete=models.CASCADE)
     name = models.CharField(max_length=100, blank=False)
@@ -260,23 +282,3 @@ class Myorder(models.Model):
 
     def __str__(self):
         return self.name, self.product, self.note
-
-
-class Employee(models.Model):
-    name = models.CharField(max_length=50, blank=False)
-    email = models.EmailField(max_length=60)
-    mobile = models.CharField(max_length=20)
-    address = models.TextField()
-    date_created = models.DateTimeField(auto_now_add=True, null=True)
-    STATUS = {
-        ('Working', 'Working'),
-        ('Resigned', 'Resigned'),
-        ('OnContract', 'OnContract'),
-        ('Temporary', 'Temporary'),
-    }
-    status = models.CharField(max_length=200, null=True, choices=STATUS)
-    note = models.CharField(max_length=1000, null=True)
-
-
-    def __str__(self):
-        return self.name, self.mobile, self.note
