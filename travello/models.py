@@ -26,6 +26,24 @@ class Employee(models.Model):
         return self.name, self.mobile, self.note
 
 
+class Employee1(models.Model):
+    name = models.CharField(max_length=50, blank=False)
+    email = models.EmailField(max_length=60)
+    mobile = models.CharField(max_length=20)
+    address = models.TextField()
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    STATUS = {
+        ('Working', 'Working'),
+        ('Resigned', 'Resigned'),
+        ('OnContract', 'OnContract'),
+        ('Temporary', 'Temporary'),
+    }
+    status = models.CharField(max_length=200, null=True, choices=STATUS)
+    note = models.CharField(max_length=1000, null=True)
+
+
+    def __str__(self):
+        return self.name, self.mobile, self.note
 
 
 class Newcomplain(models.Model):
