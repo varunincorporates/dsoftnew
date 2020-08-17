@@ -332,6 +332,16 @@ def display_plan(request):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
+def display_employee(request):
+    items = Employee.objects.all()
+    context = {
+        'items': items,
+        'header': 'Employee',
+    }
+    return render(request, 'travello/employee.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def display_faq(request):
     items = Salesfaq.objects.all().order_by('serial')
     context = {
@@ -483,6 +493,12 @@ def add_plan(request):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
+def add_employee(request):
+    return add_item(request, EmployeeForm, 'Employee', 'display_employee')
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def add_faq(request):
     return add_item(request, FaqForm, 'FAQ', 'display_faq')
 
@@ -567,6 +583,13 @@ def edit_feasable(request, pk):
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def edit_plan(request, pk):
     return edit_device(request, pk, Plan, PlanForm, 'display_plan', 'Plan')
+
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'admin', 'staff' ])
+def edit_employee(request, pk):
+    return edit_device(request, pk, Employee, EmployeeForm, 'display_employee', 'Employee')
 
 
 @login_required(login_url='login')

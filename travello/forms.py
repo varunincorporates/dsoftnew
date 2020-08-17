@@ -104,6 +104,12 @@ class PlanForm(forms.ModelForm):
         fields = ('benefits', 'validity', 'value')
 
 
+class EmployeeForm(forms.ModelForm):
+    class Meta:
+        model = Employee
+        fields = '__all__'
+
+
 class FaqForm(forms.ModelForm):
     class Meta:
         model = Salesfaq
