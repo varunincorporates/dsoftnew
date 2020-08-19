@@ -97,3 +97,9 @@ class MyorderAdmin(admin.ModelAdmin):
 
 admin.site.register(Myorder, MyorderAdmin)
 
+
+class InstallationAdmin(admin.ModelAdmin):
+    list_display = ('name','building', 'phone')
+
+admin.site.register(Installation, InstallationAdmin)
+

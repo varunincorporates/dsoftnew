@@ -58,7 +58,7 @@
                          {% for item in dest %}
                               <tr>
                                 <td>{{ item.id }}
-                                <td>{{ item.date_reg1 }}</td>
+                                <td>{{ item.date_reg1| date:"F d Y" }}</td>
                             </tr>
                         {% endfor %}
                      </tbody>

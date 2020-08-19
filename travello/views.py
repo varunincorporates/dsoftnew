@@ -19,7 +19,6 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.models import User, auth
 
 
-
 @unauthenticated_user
 def register(request):
     form = CreateUserForm()
@@ -181,9 +180,15 @@ def dashboard(request):
         page = p.page(1)
 
     customers = Newcustomer.objects.all().order_by('-id')
-
     myFilter = CustomerFilter(request.GET, queryset=customers)
     customers = myFilter.qs
+
+    p = Paginator(customers, 10)
+    page_num = request.GET.get('page', 1)
+    try:
+        page1 = p.page(page_num)
+    except EmptyPage:
+        page1 = p.page(1)
 
     total_customers = customers.count()
     total_orders = orders.count()
@@ -191,7 +196,7 @@ def dashboard(request):
     pending = orders.filter(status='Pending').count()
     context = {
         'orders': page,
-        'customers': customers,
+        'customers': page1,
         'total_customers': total_customers,
         'total_orders': total_orders,
         'delivered': delivered,
@@ -201,13 +206,10 @@ def dashboard(request):
     return render(request, "travello/dashboard.html", context)
 
 
-
-
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def dashcomplain(request):
     orders = Newcomplain.objects.all().order_by('-id')
-
 
     customers = Newcomplain.objects.all().order_by('-id')
 
@@ -237,19 +239,19 @@ def dashcomplain(request):
     return render(request, "travello/dashcomplain.html", context)
 
 
-
-
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def customer(request, pk):
     customer = Newcustomer.objects.get(id=pk)
-
     orders = Myorder.objects.filter(name=customer.id)
+    installation = Installation.objects.filter(name=customer.id)
+
     order_count = orders.count()
     myFilter = OrderFilter(request.GET, queryset=orders)
     orders = myFilter.qs
 
     context = {
+        'installations' : installation,
         'customer': customer,
         'orders': orders,
         'order_count': order_count,
@@ -339,6 +341,7 @@ def display_employee(request):
         'header': 'Employee',
     }
     return render(request, 'travello/employee.html', context)
+
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
@@ -443,42 +446,43 @@ def add_complain(request):
             accountno = request.POST[ 'accountno' ]
             subject = request.POST[ 'subject' ]
             note = request.POST[ 'note' ]
-            comments="NEW"
+            comments = "NEW"
             df = User.objects.get(id=request.user.id)
             dc = Newcomplain(user1=df, name=contact_new_customer, mobile=mobile, email=email,
                              accountno=accountno, category=category, subject=subject, note=note, comments=comments)
             dc.save()
             dest = Newcomplain.objects.filter(name=contact_new_customer, note=note).order_by('-id')
             msg = "Regards-DSoft(020)-27800000"
-            url="http: // site.bulksmsnagpur.net / sendsms?"
-            apikey="sunilj1"
-            pwd="sunilj1"
-            senderid="SUNILJ"
+            url = "http: // site.bulksmsnagpur.net / sendsms?"
+            apikey = "sunilj1"
+            pwd = "sunilj1"
+            senderid = "SUNILJ"
 
-            sendsms(url , apikey, pwd, senderid, mobile, msg )
+            sendsms(url, apikey, pwd, senderid, mobile, msg)
             return render(request, 'travello/add_newcustomer.html',
-                      {'contact_new_customer': contact_new_customer, 'dest': dest})
+                          {'contact_new_customer': contact_new_customer, 'dest': dest})
 
     else:
-        form = ComplainForm(initial={'profile_id': request.user.id, 'mobile': request.user.last_name , 'name': request.user, 'email': request.user.email})
+        form = ComplainForm(
+            initial={'profile_id': request.user.id, 'mobile': request.user.last_name, 'name': request.user,
+                     'email': request.user.email})
         header = 'Customer Suggestion Form'
         return render(request, 'travello/add_newcustomer.html', {'form': form, 'header': header})
 
 
-def sendsms(url,apikeys, pwds, senderids, tonumber, msg ):
+def sendsms(url, apikeys, pwds, senderids, tonumber, msg):
     apikey = apikeys
     pwd = pwds
     address = url
     senderid = senderids
     import requests
-    #url = "http://site.bulksmsnagpur.net/sendsms?uname=" + apikey + "&pwd=" + pwd + "&senderid=" + senderid + "&to=" + tonumber + "&msg=" + msg + "&route=T"
+    # url = "http://site.bulksmsnagpur.net/sendsms?uname=" + apikey + "&pwd=" + pwd + "&senderid=" + senderid + "&to=" + tonumber + "&msg=" + msg + "&route=T"
     url = "http://site.bulksmsnagpur.net/sendsms?uname=sunilj1&pwd=sunilj1&senderid=SUNILJ&to="
-    url=url+tonumber
-    url=url+"&msg=Dear Sir, We have received your request. DSoft engineers will get in touch soon. Regards DSoft Support. Helpline:020-27800000"
-    url=url+"&route=T"
+    url = url + tonumber
+    url = url + "&msg=Dear Sir, We have received your request. DSoft engineers will get in touch soon. Regards DSoft Support. Helpline:020-27800000"
+    url = url + "&route=T"
     response = requests.request('POST', url)
     return HttpResponse('successfully sent')
-
 
 
 def success(request):
@@ -524,10 +528,11 @@ def createorder(request, pk):
 def updateorder(request, pk):
     return edit_device(request, pk, Myorder, OrderForm, 'dashboard', 'Order Form')
 
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def updatecomplain(request, pk):
-    return edit_device(request, pk, Newcomplain , MycomplainForm, 'dashcomplain', 'Customer Complain Form')
+    return edit_device(request, pk, Newcomplain, MycomplainForm, 'dashcomplain', 'Customer Complain Form')
 
 
 @login_required(login_url='login')
@@ -569,6 +574,28 @@ def edit_customer(request, pk):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
+def edit_inst(request, pk):
+    return edit_device(request, pk, Installation, InstallationForm, 'display_customer', 'New Customer Installation')
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'admin', 'staff' ])
+def edit_installation(request, pk):
+    InstallationFormSet = inlineformset_factory(Newcustomer, Installation, fields=('building', 'flatno', 'phone'), extra=1)
+    customer = Newcustomer.objects.get(id=pk)
+    formset = InstallationFormSet(queryset=Myorder.objects.none(), instance=customer)
+    if request.method == 'POST':
+        formset = InstallationFormSet(request.POST, instance=customer)
+        if formset.is_valid():
+            formset.save()
+            return redirect('dashboard')
+    header = customer.name
+    context = {'form': formset, 'header': header}
+    return render(request, 'travello/installation_form.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def edit_dcustomer(request, pk):
     return edit_device(request, pk, Newcustomer, CustomerForm, 'customer', 'New Customer')
 
@@ -583,7 +610,6 @@ def edit_feasable(request, pk):
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def edit_plan(request, pk):
     return edit_device(request, pk, Plan, PlanForm, 'display_plan', 'Plan')
-
 
 
 @login_required(login_url='login')
@@ -643,7 +669,6 @@ def delete_feasable(request, pk):
     return render(request, template, context)
 
 
-
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def delete_dashcomplain(request, pk):
@@ -680,3 +705,41 @@ def delete_dashcomplain(request, pk):
     return render(request, "travello/dashcomplain.html", context)
 
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'admin', 'staff' ])
+def delete_dashboard(request, pk):
+    template = 'travello/dashboard.html'
+    Myorder.objects.filter(id=pk).delete()
+    orders = Myorder.objects.all().order_by('-id')
+    p = Paginator(orders, 5)
+    page_num = request.GET.get('page', 1)
+    try:
+        page = p.page(page_num)
+    except EmptyPage:
+        page = p.page(1)
+
+    customers = Newcustomer.objects.all().order_by('-id')
+    myfilter = CustomerFilter(request.GET, queryset=customers)
+    customers = myfilter.qs
+
+    p = Paginator(customers, 10)
+    page_num = request.GET.get('page', 1)
+    try:
+        page1 = p.page(page_num)
+    except EmptyPage:
+        page1 = p.page(1)
+
+    total_customers = customers.count()
+    total_orders = orders.count()
+    delivered = orders.filter(status='SOLVED').count()
+    pending = orders.filter(status='PENDING').count()
+    context = {
+        'orders': page,
+        'customers': page1,
+        'total_customers': total_customers,
+        'total_orders': total_orders,
+        'delivered': delivered,
+        'pending': pending,
+        'myFilter': myfilter,
+    }
+    return render(request, template, context)

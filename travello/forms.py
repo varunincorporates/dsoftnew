@@ -33,8 +33,8 @@ class NewcustomerForm(forms.ModelForm):
     class Meta:
         model = Newcustomer
         fields = (
-        'name', 'address', 'mobileno', 'email', 'adharcardno', 'adharcard', 'panno', 'pan', 'drivinglicenceno',
-        'drivinglicence', 'electricityno', 'electricitybill', 'profile_id')
+            'name', 'address', 'mobileno', 'email', 'adharcardno', 'adharcard', 'panno', 'pan', 'drivinglicenceno',
+            'drivinglicence', 'electricityno', 'electricitybill', 'profile_id')
         labels = {
             'mobileno': _('Mobile'),
             'pan': _('PAN'),
@@ -73,8 +73,8 @@ class CustomerForm(forms.ModelForm):
     class Meta:
         model = Newcustomer
         fields = (
-        'name', 'address', 'mobileno', 'email', 'adharcardno', 'adharcard', 'panno', 'pan', 'drivinglicenceno',
-        'drivinglicence', 'electricityno', 'electricitybill')
+            'name', 'address', 'mobileno', 'email', 'adharcardno', 'adharcard', 'panno', 'pan', 'drivinglicenceno',
+            'drivinglicence', 'electricityno', 'electricitybill')
         labels = {
             'pan': _('PAN_Scan'),
             'panno': _('PAN.No.'),
@@ -143,23 +143,11 @@ class ComplainForm(forms.ModelForm):
         }
 
 
-class MycomplainForm(forms.ModelForm):
+class InstallationForm(forms.ModelForm):
     class Meta:
-        model = Newcomplain
-        fields = '__all__'
-        labels = {
-            'name': _('Name'),
-            'accountno': _('Account_Number'),
-        }
-        exclude = ('user1' ,)
-        help_texts = {
-            'name': _('Your full name with last name'),
-            'mobile': _('Your mobile number for correspondence'),
-            'email': _('Your eMail number for correspondence'),
-            'accountno': _('Your DSoft Consumer Account Number'),
-        }
-        error_messages = {
-            'name': {
-                'max_length': _("This writer's name is too long."),
-            },
-        }
+        model = Installation
+        fields = ( 'phone', 'building', 'flatno', 'type', 'voip','userid', 'remarks')
+
+
+
+

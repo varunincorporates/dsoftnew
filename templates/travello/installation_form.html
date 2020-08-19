@@ -1,0 +1,25 @@
+{% extends 'basecustomer.html'%}
+{% load static %}
+{% block body %}
+<div class="row">
+	<div  >
+		<div >
+
+			<a class="btn btn-primary  btn-sm btn-block" href="#">{{header}}   Order List</a>
+<hr>
+			<form action="" method="POST">
+				{% csrf_token %}
+				{{ form.management_form }}
+				{% for field in form %}
+              					{{field}}
+				<hr>
+
+				{% endfor %}
+
+				<input type="submit" name="Submit">
+			</form>
+
+		</div>
+	</div>
+</div>
+{% endblock %}

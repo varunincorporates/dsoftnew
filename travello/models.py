@@ -240,7 +240,7 @@ class Feasable(models.Model):
 
 
     def __str__(self):
-        return 'City:{0} Building:{1} Area:{0} Pincode:{0} '.format(self.city, self.building, self.area, self.pincode)
+        return self.building
 
 
 class Tag(models.Model):
