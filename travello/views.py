@@ -17,6 +17,7 @@ from django.contrib.auth import authenticate, login, logout
 from .decorators import unauthenticated_user, allowed_users, admin_only
 from django.contrib.auth.models import Group
 from django.contrib.auth.models import User, auth
+from django.contrib import messages
 
 
 @unauthenticated_user
@@ -30,7 +31,9 @@ def register(request):
 
             group = Group.objects.get(name='customer')
             user.groups.add(group)
-
+            Newcustomer.objects.create(
+                user=user
+            )
             messages.success(request, 'Account was created for ' + username)
 
             return redirect('login')
@@ -68,8 +71,12 @@ def index(request):
 
 
 def salesfaq(request):
+    feasable = Feasable.objects.all().order_by('-id')
+    myFilter = FeasableFilter(request.GET, queryset=feasable)
+    feasable = myFilter.qs[ :5 ]
+
     salesfaq = Salesfaq.objects.all().order_by('serial')
-    return render(request, "travello/salesfaq.html", {"dests": salesfaq})
+    return render(request, "travello/salesfaq.html", {'feasable':feasable, 'myFilter': myFilter,"dests": salesfaq})
 
 
 def document(request):
@@ -112,8 +119,11 @@ def friends(request):
 
 
 def destinations(request):
+    feasable = Feasable.objects.all().order_by('-id')
+    myFilter = FeasableFilter(request.GET, queryset=feasable)
+    feasable = myFilter.qs[ :5 ]
     dests = Destination.objects.all()
-    return render(request, "travello/destinations.html", {"dests": dests})
+    return render(request, "travello/destinations.html", {"feasable":feasable, "myFilter":myFilter, "dests": dests})
 
 
 def slider(request):
@@ -152,18 +162,47 @@ def contact(request):
         contactme.save()
         dest = Contactme.objects.filter(name=name, email=email, mobile=mobile, message=message).order_by('-id')[ :1 ]
 
-        return render(request, 'travello/contact.html', {'contact_input_name': input_name, 'dest': dest})
+        feasable = Feasable.objects.all().order_by('-id')
+        myFilter = FeasableFilter(request.GET, queryset=feasable)
+        feasable = myFilter.qs[ :5 ]
+
+        context = {
+            'contact_input_name': input_name,
+            'dest': dest,
+            'header': 'Contact',
+            "feasable": feasable,
+            'myFilter': myFilter,
+        }
+        return render(request, 'travello/contact.html',context )
     else:
-        return render(request, "travello/contact.html", {})
+        feasable = Feasable.objects.all().order_by('-id')
+        myFilter = FeasableFilter(request.GET, queryset=feasable)
+        feasable = myFilter.qs[ :5 ]
+        context = {
+            'header': 'Contact',
+            "feasable": feasable,
+            'myFilter': myFilter,
+        }
+        return render(request, "travello/contact.html", context)
 
 
 def home(request):
     dests = Destination.objects.all().order_by('id')
-    return render(request, "travello/home.html", {"dests": dests})
+
+    feasable = Feasable.objects.all().order_by('-id')
+    myFilter = FeasableFilter(request.GET, queryset=feasable)
+    feasable = myFilter.qs[:5]
+
+    context = {
+        "dests": dests,
+        "feasable": feasable,
+        'myFilter': myFilter,
+    }
+    return render(request, "travello/home.html", context)
 
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=[ 'admin', 'staff' ])
+@allowed_users(allowed_roles=[ 'customer', 'admin', 'staff' ])
 def managecustomer(request):
     return render(request, "travello/managecustomer.html", {})
 
@@ -251,7 +290,7 @@ def customer(request, pk):
     orders = myFilter.qs
 
     context = {
-        'installations' : installation,
+        'installations': installation,
         'customer': customer,
         'orders': orders,
         'order_count': order_count,
@@ -273,18 +312,35 @@ def product(request):
 
 def about(request):
     dests = Destination.objects.all()
+
+    feasable = Feasable.objects.all().order_by('-id')
+    myFilter = FeasableFilter(request.GET, queryset=feasable)
+    feasable = myFilter.qs[ :5 ]
+
     header = "About Us"
-    return render(request, "travello/about.html", {"dests": dests, "header": header})
+
+    context = {
+        "dests": dests,
+        "header":header,
+        "feasable": feasable,
+        'myFilter': myFilter,
+    }
+
+    return render(request, "travello/about.html", context )
 
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def display_contact(request):
     items = Contactme.objects.all().order_by('-id')
+
+    feasable = Feasable.objects.all().order_by('-id')
+
     context = {
         'items': items,
         'header': 'Contact',
     }
+
     return render(request, 'travello/managecustomer.html', context)
 
 
@@ -375,6 +431,7 @@ def add_contact(request):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
 def add_customer(request):
     if request.method == "POST":
         form = NewcustomerForm(request.POST, request.FILES)
@@ -413,28 +470,31 @@ def add_feasable(request):
 
 @login_required(login_url='login')
 def add_newcustomer(request):
+    feasable = Feasable.objects.all().order_by('-id')
+    myFilter = FeasableFilter(request.GET, queryset=feasable)
+    feasable = myFilter.qs[ :5 ]
+
+    newcustomer = request.user.newcustomer
+    form = NewcustomerForm(instance=newcustomer)
     if request.method == "POST":
-        form = NewcustomerForm(request.POST, request.FILES)
+        form = NewcustomerForm(request.POST, request.FILES, instance=newcustomer)
         if form.is_valid():
-            contact_new_customer = request.POST[ 'name' ]
-            mobile = request.POST[ 'mobileno' ]
-
-            fs = form.save(commit=False)
-            fs.profile_id = request.user.id
-            fs.save()
-
-        dest = Newcustomer.objects.filter(name=contact_new_customer, mobileno=mobile).order_by('-id')
-        return render(request, 'travello/add_newcustomer.html',
-                      {'contact_new_customer': contact_new_customer, 'dest': dest})
-    else:
-        form = NewcustomerForm(
-            initial={'profile_id': request.user.id, 'name': request.user, 'email': request.user.email})
-        header = 'New Customer Registration'
-        return render(request, 'travello/add_newcustomer.html', {'form': form, 'header': header})
+            contact_new_customer = request.POST.get('first_name')
+            form.save()
+            messages.info(request, "Record Saved")
+    context = {'form': form,
+               "feasable": feasable,
+               'myFilter': myFilter,
+               }
+    return render(request, 'travello/add_newcustomer.html', context)
 
 
 @login_required(login_url='login')
 def add_complain(request):
+    feasable = Feasable.objects.all().order_by('-id')
+    myFilter = FeasableFilter(request.GET, queryset=feasable)
+    feasable = myFilter.qs[ :5 ]
+
     if request.method == "POST":
         form = ComplainForm(request.POST, request.FILES)
         if form.is_valid():
@@ -460,14 +520,14 @@ def add_complain(request):
 
             sendsms(url, apikey, pwd, senderid, mobile, msg)
             return render(request, 'travello/add_newcustomer.html',
-                          {'contact_new_customer': contact_new_customer, 'dest': dest})
+                          {'feasable':feasable, 'myFilter': myFilter, 'contact_new_customer': contact_new_customer, 'dest': dest})
 
     else:
         form = ComplainForm(
             initial={'profile_id': request.user.id, 'mobile': request.user.last_name, 'name': request.user,
                      'email': request.user.email})
         header = 'Customer Suggestion Form'
-        return render(request, 'travello/add_newcustomer.html', {'form': form, 'header': header})
+        return render(request, 'travello/add_newcustomer.html', {'feasable':feasable, 'myFilter': myFilter, 'form': form, 'header': header})
 
 
 def sendsms(url, apikeys, pwds, senderids, tonumber, msg):
@@ -476,7 +536,8 @@ def sendsms(url, apikeys, pwds, senderids, tonumber, msg):
     address = url
     senderid = senderids
     import requests
-    # url = "http://site.bulksmsnagpur.net/sendsms?uname=" + apikey + "&pwd=" + pwd + "&senderid=" + senderid + "&to=" + tonumber + "&msg=" + msg + "&route=T"
+    # url = "http://site.bulksmsnagpur.net/sendsms?uname=" + apikey + "&pwd=" + pwd + "&senderid=" + senderid +
+    # "&to=" + tonumber + "&msg=" + msg + "&route=T"
     url = "http://site.bulksmsnagpur.net/sendsms?uname=sunilj1&pwd=sunilj1&senderid=SUNILJ&to="
     url = url + tonumber
     url = url + "&msg=Dear Sir, We have received your request. DSoft engineers will get in touch soon. Regards DSoft Support. Helpline:020-27800000"
@@ -517,7 +578,7 @@ def createorder(request, pk):
         formset = OrderFormSet(request.POST, instance=customer)
         if formset.is_valid():
             formset.save()
-            return redirect('dashboard')
+            return redirect('/customer/' + str(pk))
     header = customer.name
     context = {'form': formset, 'header': header}
     return render(request, 'travello/order_form.html', context)
@@ -526,19 +587,50 @@ def createorder(request, pk):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def updateorder(request, pk):
+    dk = Myorder.objects.get(id=pk)
+    customer = Newcustomer.objects.get(id=dk.name.id)
+    orders = Myorder.objects.filter(name=customer.id)
+    installation = Installation.objects.filter(name=customer.id)
+
+    order_count = orders.count()
+    myFilter = OrderFilter(request.GET, queryset=orders)
+    orders = myFilter.qs
+
+    context = {
+        'installations': installation,
+        'customer': customer,
+        'orders': orders,
+        'order_count': order_count,
+        'myFilter': myFilter,
+    }
+    return render(request, "travello/customer.html", context)
     return edit_device(request, pk, Myorder, OrderForm, 'dashboard', 'Order Form')
 
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def updatecomplain(request, pk):
-    return edit_device(request, pk, Newcomplain, MycomplainForm, 'dashcomplain', 'Customer Complain Form')
+    return edit_device(request, pk, Newcomplain, ComplainForm, 'dashcomplain', 'Customer Complain Form')
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'customer' ])
+def userpage(request):
+    orders = request.user.customer.order_set.all()
+
+    total_orders = orders.count()
+    delivered = orders.filter(status='SOLVED').count()
+    pending = orders.filter(status='PENDING').count()
+    context = {'orders': orders}
+    return render(request, 'travello/user.html', context)
 
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def updateorder1(request, pk):
-    return edit_device(request, pk, Myorder, OrderForm, 'dashboard', 'Order Form')
+    pk2 = Myorder.objects.get(id=pk)
+    dk = pk2.name.id
+    return edit_device(request, pk, Myorder, OrderForm, '/customer/' + str(dk), 'Order Form')
 
 
 @login_required(login_url='login')
@@ -569,26 +661,126 @@ def edit_contact(request, pk):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def edit_customer(request, pk):
-    return edit_device(request, pk, Newcustomer, CustomerForm, 'display_customer', 'New Customer')
+    pk2 = Newcustomer.objects.get(id=pk)
+    return edit_device(request, pk, Newcustomer, CustomerForm, '/customer/' + str(pk), 'New Customer ' + pk2.name)
 
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def edit_inst(request, pk):
-    return edit_device(request, pk, Installation, InstallationForm, 'display_customer', 'New Customer Installation')
+    installation = Installation.objects.get(id=pk)
+    pk2 = installation.name.id
+    pk3 = installation.name.name
+    return edit_device(request, pk, Installation, InstallForm, '/customer/' + str(pk2),
+                       'New Customer Installation-' + pk3)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'admin', 'staff' ])
+def edit_ococ(request, pk):
+    customer = Newcustomer.objects.get(id=pk)
+    if Installation.objects.filter(name=customer.id).exists():
+        customer = Newcustomer.objects.get(id=pk)
+        installation = Installation.objects.get(name=customer.id)
+        dk = installation.id
+        return edit_device(request, dk, Installation, InstallococForm, '/customer/' + str(pk),
+                           'OCOC DETAILS FOR ' + installation.name.name)
+    messages.info(request, "Approval Pending")
+    return redirect('/customer/' + str(pk))
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'admin', 'staff' ])
+def edit_cable(request, pk):
+    customer = Newcustomer.objects.get(id=pk)
+    if Installation.objects.filter(name=customer.id).exists():
+        customer = Newcustomer.objects.get(id=pk)
+        installation = Installation.objects.get(name=customer.id)
+        dk = installation.id
+        return edit_device(request, dk, Installation, InstallcableForm, '/customer/' + str(pk),
+                           'CABLING DETAILS FOR  ' + installation.name.name)
+    messages.info(request, "Approval Pending")
+    return redirect('/customer/' + str(pk))
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'admin', 'staff' ])
+def edit_pay(request, pk):
+    customer = Newcustomer.objects.get(id=pk)
+    if Installation.objects.filter(name=customer.id).exists():
+        customer = Newcustomer.objects.get(id=pk)
+        installation = Installation.objects.get(name=customer.id)
+        dk = installation.id
+        return edit_device(request, dk, Installation, InstallpayForm, '/customer/' + str(pk),
+                           'PAYMENT REALISED DETAILS FOR  ' + installation.name.name)
+    messages.info(request, "Approval Pending")
+    return redirect('/customer/' + str(pk))
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'admin', 'staff' ])
+def edit_feedback(request, pk):
+    customer = Newcustomer.objects.get(id=pk)
+    if Installation.objects.filter(name=customer.id).exists():
+        customer = Newcustomer.objects.get(id=pk)
+        installation = Installation.objects.get(name=customer.id)
+        dk = installation.id
+        return edit_device(request, dk, Installation, InstallfeedForm, '/customer/' + str(pk),
+                           'PAYMENT REALISED DETAILS FOR  ' + installation.name.name)
+    messages.info(request, "Approval Pending")
+    return redirect('/customer/' + str(pk))
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'admin', 'staff' ])
+def edit_date(request, pk):
+    customer = Newcustomer.objects.get(id=pk)
+    if Installation.objects.filter(name=customer.id).exists():
+        customer = Newcustomer.objects.get(id=pk)
+        installation = Installation.objects.get(name=customer.id)
+        dk = installation.id
+        return edit_device(request, dk, Installation, InstalldateForm, '/customer/' + str(pk),
+                           'INSTALLED DATE DETAILS FOR  ' + installation.name.name)
+    messages.info(request, "Approval Pending")
+    return redirect('/customer/' + str(pk))
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'admin', 'staff' ])
+def edit_wo(request, pk):
+    customer = Newcustomer.objects.get(id=pk)
+    if Installation.objects.filter(name=customer.id).exists():
+        customer = Newcustomer.objects.get(id=pk)
+        installation = Installation.objects.get(name=customer.id)
+        dk = installation.id
+        return edit_device(request, dk, Installation, InstallwoForm, '/customer/' + str(pk),
+                           'WORK ORDER DETAILS FOR  ' + installation.name.name)
+    messages.info(request, "Approval Pending")
+    return redirect('/customer/' + str(pk))
 
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def edit_installation(request, pk):
-    InstallationFormSet = inlineformset_factory(Newcustomer, Installation, fields=('building', 'flatno', 'phone'), extra=1)
+    InstallationFormSet = inlineformset_factory(Newcustomer, Installation,
+                                                fields=(
+                                                    'building', 'flatno', 'phone', 'type', 'voip', 'userid', 'plan'),
+                                                extra=1)
     customer = Newcustomer.objects.get(id=pk)
-    formset = InstallationFormSet(queryset=Myorder.objects.none(), instance=customer)
+    if Installation.objects.filter(name=customer.id).exists():
+        customer = Newcustomer.objects.get(id=pk)
+        installation = Installation.objects.get(name=customer.id)
+        dk = installation.id
+
+        return edit_device(request, dk, Installation, InstallationForm, '/customer/' + str(pk),
+                           'APPROVAL FROM FRONT END FOR -  ' + installation.name.name)
+
+    formset = InstallationFormSet(queryset=Installation.objects.none(), instance=customer)
     if request.method == 'POST':
         formset = InstallationFormSet(request.POST, instance=customer)
         if formset.is_valid():
             formset.save()
-            return redirect('dashboard')
+            return redirect('/customer/' + str(pk))
     header = customer.name
     context = {'form': formset, 'header': header}
     return render(request, 'travello/installation_form.html', context)
@@ -597,7 +789,7 @@ def edit_installation(request, pk):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def edit_dcustomer(request, pk):
-    return edit_device(request, pk, Newcustomer, CustomerForm, 'customer', 'New Customer')
+    return edit_device(request, pk, Newcustomer, CustomerForm, '/customer/' + str(pk), 'New Customer')
 
 
 @login_required(login_url='login')
@@ -637,6 +829,15 @@ def delete_plan(request, pk):
     }
 
     return render(request, template, context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'admin', 'staff' ])
+def delete_order(request, pk):
+    customer = Myorder.objects.get(id=pk)
+    dk = customer.name.id
+    Myorder.objects.filter(id=pk).delete()
+    return redirect('/customer/' + str(dk))
 
 
 @login_required(login_url='login')
@@ -743,3 +944,19 @@ def delete_dashboard(request, pk):
         'myFilter': myfilter,
     }
     return render(request, template, context)
+
+@login_required(login_url='login')
+def newsletter(request):
+    if request.method == "POST":
+        name = request.POST['name']
+        email = request.POST['email']
+        df = User.objects.get(id=request.user.id)
+        newsletter = Newsletter(user1=df, name=name, email=email)
+        newsletter.save
+        dest = Destination.objects.all()
+        messages.success(request, 'Subscription account created  for ' + name)
+        contact1_input_name=name
+        return render(request, 'travello/home.html',{"dest": dest,'contact1_input_name':contact1_input_name})
+    else:
+        dest = Destination.objects.all()
+        return render(request, 'travello/home.html', {"dest": dest, })

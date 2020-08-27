@@ -3,6 +3,7 @@ from .models import *
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.admin import widgets
 
 
 class CreateUserForm(UserCreationForm):
@@ -17,6 +18,12 @@ class ContactForm(forms.ModelForm):
         fields = '__all__'
 
 
+class NewsletterForm(forms.ModelForm):
+    class Meta:
+        model = Newsletter
+        fields = '__all__'
+
+
 class ReferalForm(forms.ModelForm):
     class Meta:
         model = Referal
@@ -26,16 +33,18 @@ class ReferalForm(forms.ModelForm):
 class FeasableForm(forms.ModelForm):
     class Meta:
         model = Feasable
-        fields = ('city', 'building', 'area', 'pincode')
+        fields = '__all__'
 
 
 class NewcustomerForm(forms.ModelForm):
     class Meta:
         model = Newcustomer
         fields = (
-            'name', 'address', 'mobileno', 'email', 'adharcardno', 'adharcard', 'panno', 'pan', 'drivinglicenceno',
+            'first_name', 'last_name','address', 'mobileno', 'email', 'adharcardno', 'adharcard', 'panno', 'pan', 'drivinglicenceno',
             'drivinglicence', 'electricityno', 'electricitybill', 'profile_id')
         labels = {
+            'first_name': _('First_Name'),
+            'last_name': _('Last_Name'),
             'mobileno': _('Mobile'),
             'pan': _('PAN'),
             'panno': _('PAN'),
@@ -73,7 +82,7 @@ class CustomerForm(forms.ModelForm):
     class Meta:
         model = Newcustomer
         fields = (
-            'name', 'address', 'mobileno', 'email', 'adharcardno', 'adharcard', 'panno', 'pan', 'drivinglicenceno',
+            'name', 'address', 'uesrname','lastname', 'mobileno', 'email', 'adharcardno', 'adharcard', 'panno', 'pan', 'drivinglicenceno',
             'drivinglicence', 'electricityno', 'electricitybill')
         labels = {
             'pan': _('PAN_Scan'),
@@ -90,7 +99,7 @@ class CustomerForm(forms.ModelForm):
             'pan': _('Permanent Account Number'),
             'adharcardno': _('Aadhaar Card Unique Number')
         }
-        exclude = ('profile_id',)
+        exclude = ('profile_id','user')
         error_messages = {
             'name': {
                 'max_length': _("This writer's name is too long."),
@@ -143,11 +152,153 @@ class ComplainForm(forms.ModelForm):
         }
 
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
 class InstallationForm(forms.ModelForm):
     class Meta:
+        widgets = {'dateapproval': DateInput()}
         model = Installation
-        fields = ( 'phone', 'building', 'flatno', 'type', 'voip','userid', 'remarks')
+        fields = ('phone', 'building', 'flatno', 'type', 'voip', 'userid', 'dateapproval', 'remarks')
+        labels = {
+            'phone': _('PhoneNumber'),
+            'building': _('BuildingName'),
+            'flatno': _('FlatNo'),
+            'voip': _('VOIP'),
+            'userid': _('UserID'),
+            'remarks': _('Comments'),
+            'dateapproval': _('ApprovalDate'),
+            'dateococ': _('OCOC_Date'),
+        }
 
 
+class InstallForm(forms.ModelForm):
+    class Meta:
+        widgets = {'visitdate': DateInput(), 'dateinstalled': DateInput(), 'cablingdate': DateInput()}
+        model = Installation
+        fields = ('__all__')
+        exclude = ('name',)
+        labels = {
+            'phone': _('PhoneNumber'),
+            'building': _('BuildingName'),
+            'flatno': _('FlatNo'),
+            'voip': _('VOIP'),
+            'userid': _('UserID'),
+            'remarks': _('Comments'),
+            'dateapproval': _('ApprovalDate'),
+            'cablingby': _('CablingDoneBy'),
+            'cablingdate': _('CablingDate'),
+            'datepayment': _('PaymentRealisedDate'),
+            'dateinstalled': _('Installation_Date'),
+            'datewo': _('WorkOrderCompletedDate'),
+            'visitby': _('VisitBy'),
+            'visitdate': _('DateOfVisit'),
+            'feedbackdate': _('CustomerFeedbackDate'),
+        }
+        help_texts = {
+            'building': _('Your Society Name'),
+            'mobile': _('Your mobile number for correspondence'),
+            'email': _('Your eMail number for correspondence'),
+            'accountno': _('Your DSoft Consumer Account Number'),
+        }
 
 
+class InstallococForm(forms.ModelForm):
+    class Meta:
+        widgets = {'dateococ': DateInput()}
+        model = Installation
+        fields = ('phone', 'building', 'flatno', 'type', 'voip', 'userid', 'dateococ', 'remarks')
+        labels = {
+            'phone': _('PhoneNumber'),
+            'building': _('BuildingName'),
+            'flatno': _('FlatNo'),
+            'voip': _('VOIP'),
+            'userid': _('UserID'),
+            'remarks': _('Comments'),
+            'dateococ': _('OCOC_Date'),
+        }
+
+
+class InstallcableForm(forms.ModelForm):
+    class Meta:
+        widgets = {'cablingdate': DateInput()}
+        model = Installation
+        fields = ('phone', 'building', 'flatno', 'cablingby', 'cablingdate', 'remarks')
+        labels = {
+            'phone': _('PhoneNumber'),
+            'building': _('BuildingName'),
+            'flatno': _('FlatNo'),
+            'cablingby': _('CablingDoneBy'),
+            'cablingdate': _('CablingDate'),
+            'remarks': _('Comments'),
+            'dateococ': _('OCOC_Date'),
+        }
+
+
+class InstallpayForm(forms.ModelForm):
+    class Meta:
+        widgets = {'datepayment': DateInput()}
+        model = Installation
+        fields = ('phone', 'building', 'flatno', 'datepayment', 'remarks')
+        labels = {
+            'phone': _('PhoneNumber'),
+            'building': _('BuildingName'),
+            'flatno': _('FlatNo'),
+            'cablingby': _('CablingDoneBy'),
+            'datepayment': _('PaymentRealisedDate'),
+            'remarks': _('Comments'),
+            'dateococ': _('OCOC_Date'),
+        }
+
+
+class InstalldateForm(forms.ModelForm):
+    class Meta:
+        widgets = {'dateinstalled': DateInput(), }
+        model = Installation
+        fields = ('phone', 'building', 'flatno', 'dateinstalled', 'remarks')
+        labels = {
+            'phone': _('PhoneNumber'),
+            'building': _('BuildingName'),
+            'flatno': _('FlatNo'),
+            'cablingby': _('CablingDoneBy'),
+            'datepayment': _('PaymentRealisedDate'),
+            'remarks': _('Comments'),
+            'dateinstalled': _('Installation_Date'),
+        }
+
+
+class InstallwoForm(forms.ModelForm):
+    class Meta:
+        widgets = {'datewo': DateInput(), 'visitdate': DateInput()}
+        model = Installation
+        fields = ('phone', 'building', 'flatno', 'visitby', 'visitdate', 'datewo', 'remarks')
+        labels = {
+            'phone': _('PhoneNumber'),
+            'building': _('BuildingName'),
+            'flatno': _('FlatNo'),
+            'cablingby': _('CablingDoneBy'),
+            'datepayment': _('PaymentRealisedDate'),
+            'remarks': _('Comments'),
+            'datewo': _('WorkOrderCompletedDate'),
+            'visitby': _('VisitBy'),
+            'visitdate': _('DateOfVisit'),
+        }
+
+
+class InstallfeedForm(forms.ModelForm):
+    class Meta:
+        widgets = {'feedbackdate': DateInput(), 'visitdate': DateInput()}
+        model = Installation
+        fields = ('phone', 'building', 'flatno', 'feedbackdate', 'remarks')
+        labels = {
+            'phone': _('PhoneNumber'),
+            'building': _('BuildingName'),
+            'flatno': _('FlatNo'),
+            'cablingby': _('CablingDoneBy'),
+            'datepayment': _('PaymentRealisedDate'),
+            'remarks': _('Comments'),
+            'datewo': _('WorkOrderCompletedDate'),
+            'visitby': _('VisitBy'),
+            'feedbackdate': _('CustomerFeedbackDate'),
+        }

@@ -39,31 +39,35 @@
 
 		<table class="table table-sm">
 			<tr>
-				<td><a class="btn btn-outline-info  btn-sm" href="{% url 'edit_installation' customer.id %}">Approval from frontend</a></td>
-				<td><a class="btn btn-outline-info  btn-sm " href="{% url 'edit_installation' customer.id %}">OCOC creation</a></td>
-				<td><a class="btn btn-outline-info  btn-sm " href="{% url 'edit_installation' customer.id %}">Cabelling work</a></td>
-				<td><a class="btn btn-outline-info  btn-sm " href="{% url 'edit_installation' customer.id %}">Payment realised</a></td>
-				<td><a class="btn btn-outline-info  btn-sm " href="{% url 'edit_installation' customer.id %}">Installation</a></td>
-				<td><a class="btn btn-outline-info  btn-sm " href="{% url 'edit_installation' customer.id %}">W.O. completed</a></td>
-				<td><a class="btn btn-outline-info  btn-sm " href="{% url 'edit_installation' customer.id %}">Customer Feedback</a></td>
-				<tr>
-			    {% for installation in installations %}
-					<td><p>{{installation.date_created| date:"d F Y"}}</p></td><!---form approval date---->
-					<td><p>{{installation.date_created| date:"d F Y"}}</p></td><!---ococ--->
-					<td><p>{{installation.cablingdate| date:"d F Y"}}</p></td><!----Cabelling -->
-					<td><p>{{installation.date_created| date:"d F Y"}}</p></td><!---Payment released date----->
-					<td><p>{{installation.dateinstalled| date:"d F Y"}}</p></td><!--installed date--->
-					<td><p>{{installation.date_created| date:"d F Y"}}</p></td><!--wo-->
-					<td><p>{{installation.date_created| date:"d F Y"}}</p></td><!--feedback-->
-					<td><a class="btn btn-sm btn-info" href="{% url 'edit_inst' installation.id %}">Update</a></td>
-				{% endfor %}
-				<tr>
+				<th><a class="btn btn-outline-info  btn-sm" href="{% url 'edit_installation' customer.id %}">Form Approval</a></th>
+				<td><a class="btn btn-outline-info  btn-sm " href="{% url 'edit_ococ' customer.id %}">OCOC creation</a></td>
+				<td><a class="btn btn-outline-info  btn-sm " href="{% url 'edit_cable' customer.id %}">Cabelling work</a></td>
+				<td><a class="btn btn-outline-info  btn-sm " href="{% url 'edit_pay' customer.id %}">Payment realised</a></td>
+				<td><a class="btn btn-outline-info  btn-sm " href="{% url 'edit_date' customer.id %}">Installation</a></td>
+				<td><a class="btn btn-outline-info  btn-sm " href="{% url 'edit_wo' customer.id %}">W.O. completed</a></td>
+				<td><a class="btn btn-outline-info  btn-sm " href="{% url 'edit_feedback' customer.id %}">Customer Feedback</a></td>
+			</tr>
 
+			<tr>
+			    {% for installation in installations %}
+					<td><p>{{installation.dateapproval| date:"d F Y"}}</p></td><!---form approval date---->
+					<td><p>{{installation.dateococ| date:"d F Y"}}</p></td><!---ococ--->
+					<td><p>{{installation.cablingdate| date:"d F Y"}}</p></td><!----Cabelling -->
+					<td><p>{{installation.datepayment| date:"d F Y"}}</p></td><!---Payment released date----->
+					<td><p>{{installation.dateinstalled| date:"d F Y"}}</p></td><!--installed date--->
+					<td><p>{{installation.datewo| date:"d F Y"}}</p></td><!--wo-->
+					<td><p>{{installation.feedbackdate| date:"d F Y"}}</p></td><!--feedback-->
+					<td><a class="btn btn-sm btn-info" href="{% url 'edit_inst' installation.id %}">View</a></td>
+				{% endfor %}
 			</tr>
 		</table>
 	</div>
 </div>
-
+ <div>
+	{% for message in messages %}
+	  <h3> {{message}}  </h3>
+	{% endfor %}
+</div> <br>
 <br>
 <div class="row">
 	<div class="col">
@@ -87,10 +91,10 @@
 				<tr>
 					<th>Product</th>
 					<th>Note</th>
-					<th>Date Orderd</th>
+					<th>Date Ordered</th>
 					<th>Status</th>
 					<th>Update</th>
-					<th>Remove</th>
+					<th>Delete</th>
 				</tr>
 
 				{% for order in orders %}
@@ -101,7 +105,8 @@
 					<td>{{order.date_created| date:"F d"}}</td>
 					<td>{{order.status}}</td>
 					<td><a class="btn btn-sm btn-info" href="{% url 'update_order1'  order.id %}">Update</a></td>
-					<td><a class="btn btn-sm btn-danger" href="">Remove</a></td>
+					<td><a onclick="return confirm('Are you sure you want to delete this?')"    href="{% url 'delete_order' order.id %}" class="btn btn-danger btn-sm" role="button" aria-pressed="true"  > x</a></td>
+
 				<tr>
 				{% endfor %}
 
@@ -109,5 +114,5 @@
 		</div>
 	</div>
 </div>
-
+<br><br><br>
 {% endblock %}

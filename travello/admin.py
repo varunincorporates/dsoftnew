@@ -4,8 +4,14 @@ from .models import *
 from embed_video.admin import AdminVideoMixin
 
 
+class NewsletterAdmin(admin.ModelAdmin):
+    list_display = ('email', 'date_created',)
 
-class  MyModelAdmin(AdminVideoMixin, admin.ModelAdmin):
+
+admin.site.register(Newsletter, NewsletterAdmin)
+
+
+class MyModelAdmin(AdminVideoMixin, admin.ModelAdmin):
     pass
 
 
@@ -13,42 +19,44 @@ admin.site.register(Item, MyModelAdmin)
 
 
 class DestinationAdmin(admin.ModelAdmin):
-    list_display = ('name', 'img','desc','price','offer')
+    list_display = ('name', 'img', 'desc', 'price', 'offer')
 
 
 admin.site.register(Destination, DestinationAdmin)
 
+
 class NewcomplainAdmin(admin.ModelAdmin):
-    list_display = ('id','name', 'mobile','note' )
+    list_display = ('id', 'name', 'mobile', 'note')
 
 
 admin.site.register(Newcomplain, NewcomplainAdmin)
 
+
 class ComplainAdmin(admin.ModelAdmin):
-    list_display = ('name', )
+    list_display = ('name',)
 
 
-admin.site.register(Complain, ComplainAdmin )
+admin.site.register(Complain, ComplainAdmin)
+
 
 class NewcustomerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'address','mobileno','email')
-    list_filter= ('date_created',)
-    search_fields= ['name','address','mobileno']
+    list_display = ('name', 'address', 'mobileno', 'email')
+    list_filter = ('date_created',)
+    search_fields = [ 'name', 'address', 'mobileno' ]
 
 
 admin.site.register(Newcustomer, NewcustomerAdmin)
 
 
-
 class ContactmeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email','subject','message' )
+    list_display = ('name', 'email', 'subject', 'message')
 
 
 admin.site.register(Contactme, ContactmeAdmin)
 
 
 class OfferAdmin(admin.ModelAdmin):
-    list_display = ('name', 'img' ,'desc','tempelate')
+    list_display = ('name', 'img', 'desc', 'tempelate')
 
 
 admin.site.register(Offer, OfferAdmin)
@@ -76,13 +84,12 @@ admin.site.register(Plan, PlanAdmin)
 
 
 class ReferalAdmin(admin.ModelAdmin):
-    list_display = ('myname', 'mymobile', 'referalname','referalmobile')
+    list_display = ('myname', 'mymobile', 'referalname', 'referalmobile')
     list_filter = ('referalmobile',)
-    search_fields = ['referalname','referalmobile','mymobile']
+    search_fields = [ 'referalname', 'referalmobile', 'mymobile' ]
 
 
 admin.site.register(Referal, ReferalAdmin)
-
 
 
 class TagAdmin(admin.ModelAdmin):
@@ -93,13 +100,14 @@ admin.site.register(Tag, TagAdmin)
 
 
 class MyorderAdmin(admin.ModelAdmin):
-    list_display = ('product','status')
+    list_display = ('product', 'status')
+
 
 admin.site.register(Myorder, MyorderAdmin)
 
 
 class InstallationAdmin(admin.ModelAdmin):
-    list_display = ('name','building', 'phone')
+    list_display = ('name', 'building', 'phone')
+
 
 admin.site.register(Installation, InstallationAdmin)
-

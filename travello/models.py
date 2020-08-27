@@ -6,6 +6,17 @@ from embed_video.fields import EmbedVideoField
 from django.contrib.auth.models import User, auth
 
 
+class Newsletter(models.Model):
+    user1 = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50, blank=False)
+    email = models.EmailField(max_length=60)
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+
+
+    def __str__(self):
+        return self.email
+
+
 class Employee(models.Model):
     name = models.CharField(max_length=50, blank=False)
     email = models.EmailField(max_length=60)
@@ -20,7 +31,6 @@ class Employee(models.Model):
     }
     status = models.CharField(max_length=200, null=True, choices=STATUS)
     note = models.CharField(max_length=1000, null=True)
-
 
     def __str__(self):
         return self.name, self.mobile, self.note
@@ -41,13 +51,12 @@ class Employee1(models.Model):
     status = models.CharField(max_length=200, null=True, choices=STATUS)
     note = models.CharField(max_length=1000, null=True)
 
-
     def __str__(self):
         return self.name, self.mobile, self.note
 
 
 class Newcomplain(models.Model):
-    user1 = models.ForeignKey(User, blank=True,  on_delete=models.CASCADE)
+    user1 = models.ForeignKey(User, blank=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, blank=False)
     mobile = models.CharField(max_length=100, blank=False)
     email = models.EmailField(max_length=60)
@@ -59,18 +68,18 @@ class Newcomplain(models.Model):
         ('Relocation', 'Relocation'),
     }
     category = models.CharField(max_length=200, null=True, choices=STATUS)
-    STATUS1= {
-        ('UNABLE TO BROWSE','UNABLE TO BROWSE'),
-        ('PASSWORD FORGOT','PASSWORD FORGOT'),
-        ('WEBSITE NOT OPENING','WEBSITE NOT OPENING'),
-        ('CABLE CUT','CABLE CUT'),
-        ('EQUIPEMENT PROBLEM','EQUIPEMENT PROBLEM'),
-        ('FREQUENTLY DISCONNECT','FREQUENTLY DISCONNECT'),
-        ('ROUTER SUPPORT','ROUTER SUPPORT'),
+    STATUS1 = {
+        ('UNABLE TO BROWSE', 'UNABLE TO BROWSE'),
+        ('PASSWORD FORGOT', 'PASSWORD FORGOT'),
+        ('WEBSITE NOT OPENING', 'WEBSITE NOT OPENING'),
+        ('CABLE CUT', 'CABLE CUT'),
+        ('EQUIPEMENT PROBLEM', 'EQUIPEMENT PROBLEM'),
+        ('FREQUENTLY DISCONNECT', 'FREQUENTLY DISCONNECT'),
+        ('ROUTER SUPPORT', 'ROUTER SUPPORT'),
         ('BILL DISPUTE', 'BILL DISPUTE'),
-        ('PAYMENT NOT UPDATED','PAYMENT NOT UPDATED'),
-        ('PAYMENT PROBLEM','PAYMENT PROBLEM'),
-        ('SLOW SPEED TEST','SLOW SPEED TEST'),
+        ('PAYMENT NOT UPDATED', 'PAYMENT NOT UPDATED'),
+        ('PAYMENT PROBLEM', 'PAYMENT PROBLEM'),
+        ('SLOW SPEED TEST', 'SLOW SPEED TEST'),
     }
     subject = models.CharField(max_length=200, null=True, choices=STATUS1)
     note = models.TextField()
@@ -82,16 +91,16 @@ class Newcomplain(models.Model):
         ('VISIT', 'VISIT'),
         ('N.A.', 'N.A.'),
     }
-    status = models.CharField(max_length=200, null=True,default='PENDING', choices=STATUS2)
+    status = models.CharField(max_length=200, null=True, default='PENDING', choices=STATUS2)
     date_solved = models.DateTimeField(auto_now=True, null=True)
-    comments= models.TextField(null=True)
+    comments = models.TextField(null=True)
 
     def __str__(self):
         return self.id, self.name, self.mobile, self.note
 
 
 class Newcomplain1(models.Model):
-    user1 = models.ForeignKey(User, blank=True,  on_delete=models.CASCADE)
+    user1 = models.ForeignKey(User, blank=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, blank=False)
     mobile = models.CharField(max_length=100, blank=False)
     email = models.EmailField(max_length=60)
@@ -103,18 +112,18 @@ class Newcomplain1(models.Model):
         ('Relocation', 'Relocation'),
     }
     category = models.CharField(max_length=200, null=True, choices=STATUS)
-    STATUS1= {
-        ('UNABLE TO BROWSE','UNABLE TO BROWSE'),
-        ('PASSWORD FORGOT','PASSWORD FORGOT'),
-        ('WEBSITE NOT OPENING','WEBSITE NOT OPENING'),
-        ('CABLE CUT','CABLE CUT'),
-        ('EQUIPEMENT PROBLEM','EQUIPEMENT PROBLEM'),
-        ('FREQUENTLY DISCONNECT','FREQUENTLY DISCONNECT'),
-        ('ROUTER SUPPORT','ROUTER SUPPORT'),
+    STATUS1 = {
+        ('UNABLE TO BROWSE', 'UNABLE TO BROWSE'),
+        ('PASSWORD FORGOT', 'PASSWORD FORGOT'),
+        ('WEBSITE NOT OPENING', 'WEBSITE NOT OPENING'),
+        ('CABLE CUT', 'CABLE CUT'),
+        ('EQUIPEMENT PROBLEM', 'EQUIPEMENT PROBLEM'),
+        ('FREQUENTLY DISCONNECT', 'FREQUENTLY DISCONNECT'),
+        ('ROUTER SUPPORT', 'ROUTER SUPPORT'),
         ('BILL DISPUTE', 'BILL DISPUTE'),
-        ('PAYMENT NOT UPDATED','PAYMENT NOT UPDATED'),
-        ('PAYMENT PROBLEM','PAYMENT PROBLEM'),
-        ('SLOW SPEED TEST','SLOW SPEED TEST'),
+        ('PAYMENT NOT UPDATED', 'PAYMENT NOT UPDATED'),
+        ('PAYMENT PROBLEM', 'PAYMENT PROBLEM'),
+        ('SLOW SPEED TEST', 'SLOW SPEED TEST'),
     }
     subject = models.CharField(max_length=200, null=True, choices=STATUS1)
     note = models.TextField()
@@ -126,38 +135,39 @@ class Newcomplain1(models.Model):
         ('VISIT', 'VISIT'),
         ('N.A.', 'N.A.'),
     }
-    status = models.CharField(max_length=200, null=True,default='PENDING', choices=STATUS2)
+    status = models.CharField(max_length=200, null=True, default='PENDING', choices=STATUS2)
     date_solved = models.DateTimeField(auto_now=True, null=True)
-    comments= models.TextField(null=True)
+    comments = models.TextField(null=True)
 
     def __str__(self):
         return self.id, self.name, self.mobile, self.note
 
 
-
-
 class Newcustomer(models.Model):
-    name = models.CharField(max_length=200, null=True)
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200, null=True, blank=True)
     address = models.TextField()
+    username = models.CharField(max_length=200, null=True)
+    first_name = models.CharField(max_length=200, null=True)
+    last_name = models.CharField(max_length=200, null=True)
+    lastname = models.CharField(max_length=200, null=True)
+    uesrname = models.CharField(max_length=200, null=True)
     mobileno = models.CharField(max_length=20)
     email = models.EmailField(max_length=60)
-    adharcardno =  models.CharField(max_length=20)
-    adharcard = models.ImageField(upload_to='pics')
+    adharcardno = models.CharField(max_length=20)
+    adharcard = models.ImageField(upload_to='pics', default="profile1.png")
     panno = models.CharField(max_length=20)
-    pan = models.ImageField(upload_to='pics')
+    pan = models.ImageField(upload_to='pics', default="profile1.png")
     drivinglicenceno = models.CharField(max_length=20)
-    drivinglicence = models.ImageField(upload_to='pics')
+    drivinglicence = models.ImageField(upload_to='pics', default="profile1.png")
     electricityno = models.CharField(max_length=20)
-    electricitybill = models.ImageField(upload_to='pics')
+    electricitybill = models.ImageField(upload_to='pics', default="profile1.png")
     active = models.BooleanField(default=False)
-    date_created = models.DateTimeField(auto_now_add=True,null=True)
-    profile_id= models.IntegerField(null=True)
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    profile_id = models.IntegerField(null=True)
 
     def __str__(self):
-        return  self.name
-
-
-
+        return self.name
 
 
 class Item(models.Model):
@@ -165,23 +175,23 @@ class Item(models.Model):
 
 
 class Offer(models.Model):
-      name = models.CharField(max_length=100)
-      img = models.ImageField(upload_to='pics')
-      desc = models.TextField()
-      tempelate = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
+    img = models.ImageField(upload_to='pics', default="profile1.png")
+    desc = models.TextField()
+    tempelate = models.CharField(max_length=100)
 
-      def __str__(self):
-          return 'Name:{0}   Description:{0} '.format(self.name,  self.desc)
+    def __str__(self):
+        return 'Name:{0}   Description:{0} '.format(self.name, self.desc)
 
 
 class Complain(models.Model):
-    user1 = models.ForeignKey(User, blank=True,  on_delete=models.CASCADE)
+    user1 = models.ForeignKey(User, blank=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, blank=False)
     mobile = models.CharField(max_length=25, blank=False)
-    email= models.CharField(max_length=25, blank=False)
+    email = models.CharField(max_length=25, blank=False)
     accountno = models.CharField(max_length=25, blank=False)
     category = models.CharField(max_length=200, null=True)
-    subject =  models.CharField(max_length=200, null=True)
+    subject = models.CharField(max_length=200, null=True)
     note = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=200, null=True)
@@ -189,30 +199,27 @@ class Complain(models.Model):
     note = models.TextField()
 
 
-
 class Destination(models.Model):
     name = models.CharField(max_length=100)
-    img = models.ImageField(upload_to='pics')
+    img = models.ImageField(upload_to='pics', default="profile1.png")
     desc = models.TextField()
     price = models.IntegerField()
     offer = models.BooleanField(default=False)
 
 
-
-
 class Engineer(models.Model):
     name = models.CharField(max_length=100)
 
-
     def __str__(self):
         return self.name
+
 
 class Contactme(models.Model):
     name = models.CharField(max_length=50, blank=False)
     email = models.EmailField(max_length=60)
     mobile = models.CharField(max_length=20)
     subject = models.CharField(max_length=50)
-    message =  models.TextField()
+    message = models.TextField()
     date_reg1 = models.DateTimeField(auto_now_add=True)
 
 
@@ -237,7 +244,9 @@ class Feasable(models.Model):
     building = models.CharField(max_length=50, blank=False)
     area = models.CharField(max_length=50, blank=False)
     pincode = models.CharField(max_length=50, blank=False)
-
+    chairman = models.CharField(max_length=50, null=True, blank=True)
+    mobile = models.CharField(max_length=20, null=True, blank=True)
+    flats = models.IntegerField(default=6, null=True)
 
     def __str__(self):
         return self.building
@@ -281,7 +290,6 @@ class Order(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
 
-
     def __str__(self):
         return self.status
 
@@ -297,7 +305,7 @@ class Myorder(models.Model):
     product = models.ForeignKey(Plan, null=True, on_delete=models.SET_NULL)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
-    note = models.CharField(max_length=1000, null=True)
+    note = models.TextField(null=True)
 
     def __str__(self):
         return self.name, self.product, self.note
@@ -306,28 +314,33 @@ class Myorder(models.Model):
 class Installation(models.Model):
     name = models.ForeignKey(Newcustomer, null=True, on_delete=models.CASCADE)
     building = models.ForeignKey(Feasable, null=True, on_delete=models.CASCADE)
-    flatno = models.CharField(max_length=100, null=True)
+    flatno = models.CharField(max_length=100, null=True, blank=True)
     phone = models.CharField(max_length=100, null=True)
-    type = models.CharField(max_length=100, null=True)
-    voip = models.CharField(max_length=200, null=True)
-    userid = models.CharField(max_length=100, null=True)
+    type = models.CharField(max_length=100, null=True, blank=True)
+    voip = models.CharField(max_length=200, null=True, blank=True)
+    userid = models.CharField(max_length=100, null=True, blank=True)
     plan = models.ForeignKey(Plan, null=True, on_delete=models.CASCADE)
-    ca = models.CharField(max_length=100, null=True)
-    ba = models.CharField(max_length=100, null=True)
-    ontmacid = models.CharField(max_length=100, null=True)
-    router = models.CharField(max_length=100, null=True)
-    dateinstalled = models.DateTimeField(null=True)
-    rno = models.CharField(max_length=100, null=True)
-    mode = models.CharField(max_length=100, null=True)
-    status = models.CharField(max_length=100, null=True)
-    remarks = models.CharField(max_length=1000, null=True)
-    cablingby = models.CharField(max_length=100, null=True)
-    cablingdate= models.DateTimeField(null=True)
-    visitby = models.ForeignKey(Employee, null=True, on_delete=models.CASCADE)
-    visitdate = models.DateTimeField(null=True)
-    isp = models.CharField(max_length=100, null=True)
-    marketing = models.CharField(max_length=100, null=True)
-    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    ca = models.CharField(max_length=100, null=True, blank=True)
+    ba = models.CharField(max_length=100, null=True, blank=True)
+    ontmacid = models.CharField(max_length=100, null=True, blank=True)
+    router = models.CharField(max_length=100, null=True, blank=True)
+    dateapproval = models.DateTimeField(null=True, blank=True)
+    dateococ = models.DateTimeField(null=True, blank=True)
+    dateinstalled = models.DateTimeField(null=True, blank=True)
+    datepayment = models.DateTimeField(null=True, blank=True)
+    datewo = models.DateTimeField(null=True, blank=True)
+    rno = models.CharField(max_length=100, null=True, blank=True)
+    mode = models.CharField(max_length=100, null=True, blank=True)
+    status = models.CharField(max_length=100, null=True, blank=True)
+    remarks = models.TextField(null=True, blank=True)
+    cablingby = models.CharField(max_length=100, null=True, blank=True)
+    cablingdate = models.DateTimeField(null=True, blank=True)
+    visitby = models.CharField(max_length=100, null=True, blank=True)
+    visitdate = models.DateTimeField(null=True, blank=True)
+    feedbackdate = models.DateTimeField(null=True, blank=True)
+    isp = models.CharField(max_length=100, null=True, blank=True)
+    marketing = models.CharField(max_length=100, null=True, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def __str__(self):
         return self.name

@@ -4,6 +4,8 @@
  <!DOCTYPE html>
 <html>
 {% block body %}
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
   <head>
       <meta charset="UTF-8">
     <title>Customer Management System</title>
@@ -15,6 +17,50 @@
 
  <body>
  <br>
+ <a class="btn btn-primary  btn-sm btn-block" href="">Simply Amazing Products</a>
+
+<div class="container">
+    <div class="row">
+ 	    <div class="col-md-3">
+                <div class="card card-body">
+                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; PAN Card</a>
+                    <hr>
+                    <hr>
+                    <img class="profile-pic" src="{{request.user.newcustomer.pan.url}}" >
+                </div>
+        </div>
+         <div class="col-md-3">
+        		<div class="card card-body">
+                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Aadhaar Card</a>
+                    <hr>
+                    <hr>
+                    <img class="profile-pic" src="{{request.user.newcustomer.adharcard.url}}" >
+            	</div>
+	    </div>
+         <div class="col-md-3">
+        		<div class="card card-body">
+                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Driving Licence</a>
+                    <hr>
+                    <hr>
+                    <img class="profile-pic" src="{{request.user.newcustomer.drivinglicence.url}}" >
+            	</div>
+	    </div>
+         <div class="col-md-3">
+        		<div class="card card-body">
+                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Electricity Bill</a>
+                    <hr>
+                    <hr>
+                    <img class="profile-pic" src="{{request.user.newcustomer.electricitybill.url}}" >
+            	</div>
+	    </div>
+    </div>
+</div>
+<div>
+	{% for message in messages %}
+	  <h3> {{message}}  </h3> {% now "jS F Y " %}
+	{% endfor %}
+</div> <br>
+
  <div>
  	{% if contact_new_customer %}
 
@@ -87,12 +133,12 @@
 
                 {% for field in form %}
                     <div class="form-group row">
-                        <div class="fieldWrapper">
+                             <div class="fieldWrapper">
                               {{ field.errors }}
                              <label for="id_{{ field.name }}" class="col-2 col-form-label">{{ field.label }}</label>
-                             <div class="col-10">
+                             <div class="col-20">
                                 {{ field }}
-                            </div>
+                             </div>
                              {% if field.help_text %}
                                  <p class="help">{{ field.help_text|safe }}</p>
                              {% endif %}
@@ -130,6 +176,7 @@
  	{% endif %}
  </div>
  <br><br>
+  <img class="profile-pic" src="{{request.user.newcustomer.pan_pic.url}}" >
  </body>
 {% endblock %}
 </html>

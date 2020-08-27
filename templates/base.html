@@ -23,6 +23,10 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'styles/about.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'styles/contact_responsive.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'styles/about_responsive.css' %}">
+
+	<link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}"/>
+	<link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap.min.css' %}"/>
+	<link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}"/>
 </head>
 
 
@@ -78,23 +82,52 @@
 						<div class="home_search_title">Search for your feasibility</div>
 						<div class="home_search_content">
 							<form action="#" class="home_search_form" id="home_search_form">
-								<div class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-									<input type="text" class="search_input search_input_1" placeholder="City" required="required">
-									<input type="text" class="search_input search_input_2" placeholder="Building Name" required="required">
-									<input type="text" class="search_input search_input_3" placeholder="Area" required="required">
-									<input type="text" class="search_input search_input_4" placeholder="Pincode" required="required">
-									<button class="home_search_button">search</button>
-								</div>
+								{% csrf_token %}
+								<form method="get">
+				          		    <strong>{{myFilter.form.as_table}}</strong>
+						      		<button class="btn btn-primary" type="submit">Search</button>
+								</form>
 							</form>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+ <div class="container">
+<div class="row">
+	<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="">TOP 5 - Feasibility Search Result</a>
+				<table class="table table-sm">
+					  <thead>
+                        <tr>
+							<th>Ref</th>
+                            <th>Society</th>
+                            <th>Area</th>
+							<th>Pincode</th>
+							<th>City</th>
+						</tr>
+                        </tr>
+
+                      </thead>
+                     <tbody>
+                         {% for item in feasable %}
+                              <tr>
+                                <td>{{ item.id }}
+								  <td>{{ item.building }}</td>
+								   <td>{{ item.area }}</td>
+								   <td>{{ item.pincode }}</td>
+								   <td>{{ item.city }}</td>
+                            </tr>
+                        {% endfor %}
+                     </tbody>
+                 </table>
+            </div>
+	</div>
+	</div>
 	</div>
 
-
     <div class="container">
+
       {% block body %}
 
 

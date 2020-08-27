@@ -52,7 +52,6 @@
 
     {% endif %}
      </ul>
-
   </div>
          {% if user.is_authenticated %}
               <span class="hello-msg">Hello, {{request.user}}</span>
@@ -62,7 +61,6 @@
            <li><a href="travello/login">Login</a></li>
         {% endif %}
 </nav>
-
     <div class="container">
         <div class="container-fluid">
               {% block body %}

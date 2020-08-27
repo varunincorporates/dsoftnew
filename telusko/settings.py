@@ -134,3 +134,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 #EMAIL_USE_SSL = False
 
 django_heroku.settings(locals())
+
+MAILCHIMP_API_KEY='4af6b9be3f70a15d9f0ebce620e563d5-us17'
+MAILCHIP_DATA_CENTER='us17'
+MAILCHIP_EMAIL_LIST_ID=''
