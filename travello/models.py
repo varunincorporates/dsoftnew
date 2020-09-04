@@ -355,3 +355,31 @@ class Installation(models.Model):
 # Work Order Completed
 # Customer Feedback form for New plus Old ( After Service )
 # Invocing
+
+
+
+class Newcustomer1(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200, null=True, blank=True)
+    address = models.TextField()
+    username = models.CharField(max_length=200, null=True)
+    first_name = models.CharField(max_length=200, null=True)
+    last_name = models.CharField(max_length=200, null=True)
+    lastname = models.CharField(max_length=200, null=True)
+    uesrname = models.CharField(max_length=200, null=True)
+    mobileno = models.CharField(max_length=20)
+    email = models.EmailField(max_length=60)
+    adharcardno = models.CharField(max_length=20)
+    adharcard = models.ImageField(upload_to='pics', default="profile1.png")
+    panno = models.CharField(max_length=20)
+    pan = models.ImageField(upload_to='pics', default="profile1.png")
+    drivinglicenceno = models.CharField(max_length=20)
+    drivinglicence = models.ImageField(upload_to='pics', default="profile1.png")
+    electricityno = models.CharField(max_length=20)
+    electricitybill = models.ImageField(upload_to='pics', default="profile1.png")
+    active = models.BooleanField(default=False)
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    profile_id = models.IntegerField(null=True)
+
+    def __str__(self):
+        return self.name
