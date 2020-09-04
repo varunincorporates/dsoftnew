@@ -27,7 +27,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'inventory',
     'django_filters',
     'embed_video',
 ]
