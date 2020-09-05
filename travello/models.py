@@ -374,6 +374,42 @@ class Installation(models.Model):
         return self.name
 
 
+class Installation2(models.Model):
+    name = models.ForeignKey(Newcustomer, null=True, on_delete=models.CASCADE)
+    building = models.ForeignKey(Feasable, null=True, on_delete=models.CASCADE)
+    flatno = models.CharField(max_length=100, null=True, blank=True)
+    phone = models.CharField(max_length=100, null=True)
+    type = models.CharField(max_length=100, null=True, blank=True)
+    voip = models.CharField(max_length=200, null=True, blank=True)
+    userid = models.CharField(max_length=100, null=True, blank=True)
+    plan = models.ForeignKey(Plan, null=True, on_delete=models.CASCADE)
+    ca = models.CharField(max_length=100, null=True, blank=True)
+    ba = models.CharField(max_length=100, null=True, blank=True)
+    ontmacid = models.CharField(max_length=100, null=True, blank=True)
+    router = models.CharField(max_length=100, null=True, blank=True)
+    dateapproval = models.DateTimeField(null=True, blank=True)
+    dateococ = models.DateTimeField(null=True, blank=True)
+    dateinstalled = models.DateTimeField(null=True, blank=True)
+    datepayment = models.DateTimeField(null=True, blank=True)
+    datewo = models.DateTimeField(null=True, blank=True)
+    rno = models.CharField(max_length=100, null=True, blank=True)
+    mode = models.CharField(max_length=100, null=True, blank=True)
+    status = models.CharField(max_length=100, null=True, blank=True)
+    remarks = models.TextField(null=True, blank=True)
+    cablingby = models.CharField(max_length=100, null=True, blank=True)
+    cablingdate = models.DateTimeField(null=True, blank=True)
+    visitby = models.CharField(max_length=100, null=True, blank=True)
+    visitdate = models.DateTimeField(null=True, blank=True)
+    feedbackdate = models.DateTimeField(null=True, blank=True)
+    isp = models.CharField(max_length=100, null=True, blank=True)
+    marketing = models.CharField(max_length=100, null=True, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+
+
 class Newcustomer2(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, null=True, blank=True)
