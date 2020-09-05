@@ -1,11 +1,6 @@
 
 {% load static %}
 {% static "images" as baseUrl %}
-
-
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,9 +78,19 @@
                 opacity: 1
             }
         }
+    body
+	    overflow hidden
+	    background #11
     </style>
+
+
 </head>
 <body>
+<div class="count-particles">
+  <span class="js-count-particles">--</span>
+</div>
+
+<div id="particles-js" >
 <div class="super_container">
 	  <!-- ***** Breadcrumb Area Start ***** -->
   <div class="breadcumb-area bg-img bg-gradient-overlay" style="background-image: url({% static 'img/bg-img/12.jpg' %});">
@@ -166,6 +171,15 @@
             slides[slide_index - 1].style.display = "block";
         }
     </script>
+    <script src="{% static 'js/slider.js' %}"></script>
 </div>
+</div>
+
+<script src="{% static 'particles.js' %}"></script>
+<script src="{% static 'js/app.js' %}"></script>
+
+<!-- stats.js -->
+<script src="{% static 'js/lib/stats.js' %}"></script>
+
 </body>
 </html>

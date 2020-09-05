@@ -469,6 +469,7 @@ def add_feasable(request):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['customer', 'admin'])
 def add_newcustomer(request):
     feasable = Feasable.objects.all().order_by('-id')
     myFilter = FeasableFilter(request.GET, queryset=feasable)
