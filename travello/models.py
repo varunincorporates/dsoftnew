@@ -84,13 +84,11 @@ class Newcomplain(models.Model):
     note = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     STATUS2 = {
-        ('PENDING', 'PENDING'),
-        ('SOLVED', 'SOLVED'),
-        ('OBSERVATION', 'OBSERVATION'),
-        ('VISIT', 'VISIT'),
-        ('N.A.', 'N.A.'),
+        ('OPEN', 'OPEN'),
+        ('INPROGESS', 'INPROGRESS'),
+        ('RESOLVED', 'RESOLVED'),
     }
-    status = models.CharField(max_length=200, null=True, default='PENDING', choices=STATUS2)
+    status = models.CharField(max_length=200, null=True, default='OPEN', choices=STATUS2)
     date_solved = models.DateTimeField(auto_now=True, null=True)
     comments = models.TextField(null=True)
 

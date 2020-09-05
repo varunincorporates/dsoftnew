@@ -611,7 +611,7 @@ def updateorder(request, pk):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def updatecomplain(request, pk):
-    return edit_device(request, pk, Newcomplain, ComplainForm, 'dashcomplain', 'Customer Complain Form')
+    return edit_device(request, pk, Newcomplain, ComplainForm1, 'dashcomplain', 'Customer Complain Form')
 
 
 @login_required(login_url='login')

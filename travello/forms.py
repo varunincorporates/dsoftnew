@@ -152,8 +152,30 @@ class ComplainForm(forms.ModelForm):
         }
 
 
+class ComplainForm1(forms.ModelForm):
+    class Meta:
+        model = Newcomplain
+        fields = ('name', 'mobile', 'email', 'accountno', 'category', 'subject', 'note', 'status')
+        labels = {
+            'name': _('Name'),
+            'accountno': _('Account_Number'),
+        }
+        help_texts = {
+            'name': _('Your full name with last name'),
+            'mobile': _('Your mobile number for correspondence'),
+            'email': _('Your eMail number for correspondence'),
+            'accountno': _('Your DSoft Consumer Account Number'),
+        }
+        error_messages = {
+            'name': {
+                'max_length': _("This writer's name is too long."),
+            },
+        }
+
+
 class DateInput(forms.DateInput):
     input_type = 'date'
+
 
 
 class InstallationForm(forms.ModelForm):
