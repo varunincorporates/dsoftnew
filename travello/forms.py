@@ -82,7 +82,7 @@ class CustomerForm(forms.ModelForm):
     class Meta:
         model = Newcustomer
         fields = (
-            'name', 'address', 'uesrname','lastname', 'mobileno', 'email', 'adharcardno', 'adharcard', 'panno', 'pan', 'drivinglicenceno',
+           'first_name','last_name', 'mobileno' , 'address', 'email', 'adharcardno', 'adharcard', 'panno', 'pan', 'drivinglicenceno',
             'drivinglicence', 'electricityno', 'electricitybill')
         labels = {
             'pan': _('PAN_Scan'),

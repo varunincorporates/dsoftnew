@@ -7,6 +7,7 @@
            {% csrf_token %}
              <a class="btn btn-primary  btn-sm btn-block" href="#">{{header}}  </a>
            <br>
+
           <!---  <h9>{{form.as_table}}</h9>  --->
             {% for field in form %}
             <div class="form-group row">
@@ -29,6 +30,42 @@
             </div>
         </form>
     </div>
-
-
+{% if header == 'CUSTOMER' %}
+<div class="container">
+    <div class="row">
+ 	    <div class="col-md-3">
+                <div class="card card-body">
+                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; PAN Card</a>
+                    <hr>
+                    <hr>
+                    <img class="profile-pic" src="{{dk}}" >
+                </div>
+        </div>
+         <div class="col-md-3">
+        		<div class="card card-body">
+                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Aadhaar Card</a>
+                    <hr>
+                    <hr>
+                    <img class="profile-pic" src="{{dk1}}" >
+            	</div>
+	    </div>
+         <div class="col-md-3">
+        		<div class="card card-body">
+                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Driving Licence</a>
+                    <hr>
+                    <hr>
+                    <img class="profile-pic" src="{{dk2}}" >
+            	</div>
+	    </div>
+         <div class="col-md-3">
+        		<div class="card card-body">
+                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Electricity Bill</a>
+                    <hr>
+                    <hr>
+                    <img class="profile-pic" src="{{dk3}}" >
+            	</div>
+	    </div>
+    </div>
+</div>
+{% endif %}
 {% endblock %}

@@ -481,7 +481,9 @@ def add_newcustomer(request):
         form = NewcustomerForm(request.POST, request.FILES, instance=newcustomer)
         if form.is_valid():
             contact_new_customer = request.POST.get('first_name')
-            form.save()
+            obj = form.save(commit=False)
+            obj.name = contact_new_customer
+            obj.save()
             messages.info(request, "Record Saved")
     context = {'form': form,
                "feasable": feasable,
@@ -650,6 +652,25 @@ def edit_device(request, pk, model, cls, modname, header):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
+def edit_custimage(request, pk, model, cls, modname, header):
+    item = get_object_or_404(model, pk=pk)
+    dk = item.pan.url
+    dk1 = item.adharcard.url
+    dk2 = item.drivinglicence.url
+    dk3 = item.electricitybill.url
+    if request.method == "POST":
+        form = cls(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect(modname)
+    else:
+        form = cls(instance=item)
+        header = 'CUSTOMER'
+        return render(request, 'travello/edit_item.html', {'form': form, 'header': header,'dk3' : dk3,  'dk' : dk, 'dk1' : dk1, 'dk2' : dk2 })
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def edit_referal(request, pk):
     return edit_device(request, pk, Referal, ReferalForm, 'display_referal', 'Referal Customer')
 
@@ -663,7 +684,7 @@ def edit_contact(request, pk):
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def edit_customer(request, pk):
     pk2 = Newcustomer.objects.get(id=pk)
-    return edit_device(request, pk, Newcustomer, CustomerForm, '/customer/' + str(pk), 'New Customer ' + pk2.name)
+    return edit_custimage(request, pk, Newcustomer, CustomerForm, '/customer/' + str(pk), 'New Customer ' + pk2.name)
 
 
 @login_required(login_url='login')

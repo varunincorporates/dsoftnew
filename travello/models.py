@@ -293,7 +293,7 @@ class Plan(models.Model):
     value = models.IntegerField()
 
     def __str__(self):
-        return self.benefits
+        return str(self.benefits)
 
 
 class Salesfaq(models.Model):
@@ -334,7 +334,7 @@ class Myorder(models.Model):
     note = models.TextField(null=True)
 
     def __str__(self):
-        return self.name, self.product, self.note
+        return str(self.name), str(self.product), str(self.note)
 
 
 class Installation(models.Model):
@@ -432,4 +432,4 @@ class Newcustomer2(models.Model):
     profile_id = models.IntegerField(null=True)
 
     def __str__(self):
-        return self.name
+        return str(self.first_name)
