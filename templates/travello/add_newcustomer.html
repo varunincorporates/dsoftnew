@@ -1,6 +1,8 @@
 {%  extends 'base.html' %}
 {% load static %}
 {% static "images" as baseUrl %}
+{% load crispy_forms_tags %}
+
  <!DOCTYPE html>
 <html>
 {% block body %}
@@ -129,8 +131,10 @@
             <div class="col-lg-6">
             <form method="POST" enctype="multipart/form-data">
                {% csrf_token %}
+                 {{ form|crispy }}
                 <h2>{{ header }}</h2>
-                form.fields['status'].widget.attrs['readonly'] = True
+
+                                <!-----
                 {% for field in form %}
                     <div class="form-group row">
                              <div class="fieldWrapper">
@@ -146,7 +150,7 @@
                     </div>
                 {%  endfor %}
 
-                <!-----
+
                 {% for field in form %}
                     <div class="fieldWrapper">
                         {{ field.errors }}

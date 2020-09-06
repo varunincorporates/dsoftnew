@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'embed_video',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,5 @@ django_heroku.settings(locals())
 MAILCHIMP_API_KEY='4af6b9be3f70a15d9f0ebce620e563d5-us17'
 MAILCHIP_DATA_CENTER='us17'
 MAILCHIP_EMAIL_LIST_ID=''
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'

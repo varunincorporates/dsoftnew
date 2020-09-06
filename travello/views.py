@@ -84,6 +84,11 @@ def document(request):
     return render(request, 'travello/document.html', {'obj': obj})
 
 
+def indexdas(request):
+    obj = Item.objects.all()
+    return render(request, 'travello/indexdas.html', {'obj': obj})
+
+
 def friends(request):
     if request.method == "POST":
         your_name = request.POST[ 'your_name' ]
@@ -205,6 +210,12 @@ def home(request):
 @allowed_users(allowed_roles=[ 'customer', 'admin', 'staff' ])
 def managecustomer(request):
     return render(request, "travello/managecustomer.html", {})
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'customer', 'admin', 'staff' ])
+def maindashboard(request):
+    return render(request, "travello/maindashboard.html", {})
 
 
 @login_required(login_url='login')
