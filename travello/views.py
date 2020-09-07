@@ -618,7 +618,7 @@ def updateorder(request, pk):
         'myFilter': myFilter,
     }
     return render(request, "travello/customer.html", context)
-    return edit_device(request, pk, Myorder, OrderForm, 'dashboard', 'Order Form')
+    #  return edit_device(request, pk, Myorder, OrderForm, 'dashboard', 'Order Form')
 
 
 @login_required(login_url='login')
@@ -643,12 +643,12 @@ def userpage(request):
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def updateorder1(request, pk):
     pk2 = Myorder.objects.get(id=pk)
-    dk = pk2.name.id
+    dk = str(pk2.name.id)
     return edit_device(request, pk, Myorder, OrderForm, '/customer/' + str(dk), 'Order Form')
 
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=[ 'admin', 'staff' ])
+@allowed_users(allowed_roles=[ 'admin', 'staff'])
 def edit_device(request, pk, model, cls, modname, header):
     item = get_object_or_404(model, pk=pk)
     if request.method == "POST":
@@ -829,6 +829,11 @@ def edit_dcustomer(request, pk):
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def edit_feasable(request, pk):
     return edit_device(request, pk, Feasable, FeasableForm, 'display_feasable', 'Feasable')
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'admin', 'staff' ])
+def edit_ord(request, pk):
+    return edit_device(request, pk, Myorder, OrderForm, 'customer', 'Myorder')
 
 
 @login_required(login_url='login')

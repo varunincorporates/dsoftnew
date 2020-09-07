@@ -100,7 +100,7 @@ admin.site.register(Tag, TagAdmin)
 
 
 class MyorderAdmin(admin.ModelAdmin):
-    list_display = ('product', 'status')
+    list_display = ('product', 'name' , 'status')
 
 
 admin.site.register(Myorder, MyorderAdmin)

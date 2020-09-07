@@ -48,6 +48,7 @@ urlpatterns = [
     url('add_feasable', views.add_feasable, name="add_feasable"),
     url(r'^display_feasable$', display_feasable, name="display_feasable"),
     url(r'^feasable/edit_item/(?P<pk>\d+)$', views.edit_feasable, name="edit_feasable"),
+    url(r'^customer/edit_item/(?P<pk>\d+)$', views.edit_ord, name="edit_ord"),
     url(r'^feasable/delete_item/(?P<pk>\d+)$', views.delete_feasable, name="delete_feasable"),
     url(r'^dashcomplain/delete_item/(?P<pk>\d+)$', views.delete_dashcomplain, name="delete_dashcomplain"),
     url(r'^dashboard/delete_item/(?P<pk>\d+)$', views.delete_dashboard, name="delete_dashboard"),

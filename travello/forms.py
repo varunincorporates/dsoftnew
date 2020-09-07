@@ -128,7 +128,7 @@ class FaqForm(forms.ModelForm):
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Myorder
-        fields = '__all__'
+        fields = ('name',  'note')
 
 
 class ComplainForm(forms.ModelForm):

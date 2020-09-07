@@ -331,10 +331,10 @@ class Myorder(models.Model):
     product = models.ForeignKey(Plan, null=True, on_delete=models.SET_NULL)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
-    note = models.TextField(null=True)
+    note = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return str(self.name), str(self.product), str(self.note)
+        return self.name, self.product, self.status, self.note
 
 
 class Installation(models.Model):
@@ -405,7 +405,6 @@ class Installation2(models.Model):
 
     def __str__(self):
         return self.name
-
 
 
 class Newcustomer2(models.Model):
