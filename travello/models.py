@@ -334,7 +334,7 @@ class Myorder(models.Model):
     note = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return self.name, self.product, self.status, self.note
+        return self.name,  self.status
 
 
 class Installation(models.Model):

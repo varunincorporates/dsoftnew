@@ -25,12 +25,30 @@
 <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}"/>
 <link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap.min.css' %}"/>
 <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}"/>
+<style type="text/css">
+    .sq{
+      width:150px;
+      height:150px;
+
+      float:left;
+      align:left;
+      opacity:5;
+    }
+    .sq1{
+      width:140px;
+      height:140px;
+
+
+      float:left;
+      align:center;
+      opacity:0.5;
+    }
+  </style>
 
 </head>
 <body>
 
 <div class="super_container">
-
 
 	<!-- Header -->
 
@@ -40,9 +58,9 @@
 				<div class="col">
 					<div class="header_content d-flex flex-row align-items-center justify-content-start">
 						<div class="header_content_inner d-flex flex-row align-items-end justify-content-start">
-							<div class="logo"><a href="travello\home">DSoft</a></div>
+							<br><div class="sq1"><img src="{% static 'images/dsoft.jpg' %}" width="292" height="291" alt="DSoft"><a href="travello\home"></a></div>
 
-							<nav class="main_nav">
+							<nav class="main_nav">alt="Image" height="100" width="100"
 								<ul class="d-flex flex-row align-items-start justify-content-start">
 									<li class="active"><a href="home">Home</a></li>
   									<li><a href="about">About us</a></li>
@@ -610,6 +628,8 @@
 										<li>Park Street, Wakad,</li>
 										<li>Pune, Maharashtra, </li>
 										<li>India - 411045</li>
+										<div class="sq"><img src="{% static 'images/dsoft.jpg' %}" width="292" height="291" alt="DSoft"><a href="travello\home"></a></div>
+
 									</ul>
 								</div>
 							</div>
