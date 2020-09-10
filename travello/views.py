@@ -485,7 +485,7 @@ def add_newcustomer(request):
     feasable = Feasable.objects.all().order_by('-id')
     myFilter = FeasableFilter(request.GET, queryset=feasable)
     feasable = myFilter.qs[ :5 ]
-
+    header="New Registeration Form"
     newcustomer = request.user.newcustomer
     form = NewcustomerForm(instance=newcustomer)
     if request.method == "POST":
@@ -499,6 +499,7 @@ def add_newcustomer(request):
     context = {'form': form,
                "feasable": feasable,
                'myFilter': myFilter,
+               'header': header,
                }
     return render(request, 'travello/add_newcustomer.html', context)
 
@@ -542,6 +543,9 @@ def add_complain(request):
                      'email': request.user.email})
         header = 'Customer Suggestion Form'
         return render(request, 'travello/add_newcustomer.html', {'feasable':feasable, 'myFilter': myFilter, 'form': form, 'header': header})
+
+
+
 
 
 def sendsms(url, apikeys, pwds, senderids, tonumber, msg):
