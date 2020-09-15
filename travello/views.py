@@ -501,7 +501,7 @@ def add_newcustomer(request):
                'myFilter': myFilter,
                'header': header,
                }
-    return render(request, 'travello/add_newcustomer.html', context)
+    return render(request, 'travello/add_newcustomers.html', context)
 
 
 @login_required(login_url='login')

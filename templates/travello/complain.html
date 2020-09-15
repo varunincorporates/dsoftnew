@@ -87,6 +87,9 @@
 						<div class="contact_form_container">
 							 <form action="{% url 'add_complain' %}" method="post"  id="contact_form" class="contact_form">
 								{% csrf_token %}
+
+
+
 								 {% for field in form %}
 									<div class="form-group row">
 										<label for="id_{{ field.name }}" class="col-2 col-form-label"><h5><strong>{{ field.label }}</strong></h5></label>

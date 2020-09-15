@@ -37,11 +37,9 @@ class FeasableForm(forms.ModelForm):
 
 
 class NewcustomerForm(forms.ModelForm):
-    class Meta:
+     class Meta:
         model = Newcustomer
-        fields = (
-            'first_name', 'last_name','address', 'mobileno', 'email', 'adharcardno', 'adharcard', 'panno', 'pan', 'drivinglicenceno',
-            'drivinglicence', 'electricityno', 'electricitybill', 'profile_id')
+        fields = '__all__'
         labels = {
             'first_name': _('First_Name'),
             'last_name': _('Last_Name'),

@@ -1,0 +1,618 @@
+ {%  extends 'base.html' %}
+{% load static %}
+{% static "images" as baseUrl %}
+{% load crispy_forms_tags %}
+
+ <!DOCTYPE html>
+<html>
+{% block body %}
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+  <head>
+      <meta charset="UTF-8">
+    <title>Customer Management System</title>
+       <link
+     rel="stylesheet"
+     href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <style>
+        .i-am-centered {
+            margin: auto;
+            max-width: 300px;
+            padding-top: 20%;
+        }
+        .red{
+        color: red;
+        }
+
+    </style>
+  </head>
+
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}"/>
+  <link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap.min.css' %}"/>
+
+ <body>
+ <br>
+ <a class="btn btn-primary  btn-sm btn-block" href="">Simply Amazing Products</a>
+
+<div class="container">
+    <div class="row">
+ 	    <div class="col-md-3">
+                <div class="card card-body">
+                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; PAN Card</a>
+                    <hr>
+                    <hr>
+                    <img class="profile-pic" src="{{request.user.newcustomer.pan.url}}" >
+                </div>
+        </div>
+         <div class="col-md-3">
+        		<div class="card card-body">
+                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Aadhaar Card</a>
+                    <hr>
+                    <hr>
+                    <img class="profile-pic" src="{{request.user.newcustomer.adharcard.url}}" >
+            	</div>
+	    </div>
+         <div class="col-md-3">
+        		<div class="card card-body">
+                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Driving Licence</a>
+                    <hr>
+                    <hr>
+                    <img class="profile-pic" src="{{request.user.newcustomer.drivinglicence.url}}" >
+            	</div>
+	    </div>
+         <div class="col-md-3">
+        		<div class="card card-body">
+                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Electricity Bill</a>
+                    <hr>
+                    <hr>
+                    <img class="profile-pic" src="{{request.user.newcustomer.electricitybill.url}}" >
+            	</div>
+	    </div>
+    </div>
+</div>
+<div>
+	{% for message in messages %}
+	  <h3> {{message}}  </h3> {% now "jS F Y " %}
+	{% endfor %}
+</div> <br>
+
+
+ <div class="container">
+    <div class="row">
+               {% if user.is_authenticated %}
+                   <div class="contact_title"> {{request.user}}  Welcome to DSoft Family.  </div>
+              {% else %}
+                  <div class="contact_title">Welcome to DSoft Family.  </div>
+              {% endif %}
+             </div >
+            <font color="blue"><center><h2>Landline CAF Entry </h2></center></font> </h2>
+     <div  >
+            <form method="POST" enctype="multipart/form-data">
+               {% csrf_token %}
+                <!---------------
+               <div class="form-group">
+                    <label>Title<font color="red"><h4>* </h4></font>  </label>
+                    {{ form.lastname }}
+                    <label>      First Name </label>
+                    {{ form.first_name }}
+                    <label>Surname</label>
+                    {{ form.last_name }}
+                </div>
+--------------------------------->
+                <p class="card card-body">
+                 <table class="table table-hover">
+                     <thead>
+                        <tr>
+                            <th><font color="blue">Customer details</font></th>
+                        </tr>
+                      </thead>
+                      <thead>
+                        <tr>
+                            <th><font color="red">1a.Title </font> </th>
+                            <th><font color="red">1b.First Name</font> </th>
+                            <th><font color="red">1c.Surname Name</font> </th>
+                        </tr>
+                      </thead>
+                     <tbody>
+                              <tr>
+                                  <td> {{ form.lastname }}</td>
+                                 <td>{{ form.first_name }}</td>
+                                  <td>{{ form.last_name }}</td>
+                            </tr>
+                      </tbody>
+  <!---2ND ROW----->
+
+                      <thead>
+                        <tr>
+                            <th><font color="red">2. Father/Husband Name </font></th>
+                            <th><font color="red">3a. Gender</font></th>
+                            <th>3b. DateOfBirth DD/MM/YYYY</th>
+                        </tr>
+                      </thead>
+                     <tbody>
+                              <tr>
+                                 <td> {{ form.fathername }}</td>
+                                 <td>{{ form.gender }}</td>
+                                  <td>{{ form.dob }}</td>
+                            </tr>
+                     </tbody>
+ <!---3rd ROW----->
+                      <thead>
+                        <tr>
+                            <th>4. Nationality</th>
+                        </tr>
+                      </thead>
+                     <tbody>
+                              <tr>
+                                  <td> {{ form.nationality }}</td>
+                            </tr>
+                      </tbody>
+ <!---4th ROW----->
+                      <thead>
+                        <tr>
+                            <th><font color="red">5a. Customer Type</font></th>
+                            <th><font color="red">5b. Usage Code</font></th>
+                            <th><font color="red">5c. Connection Type</font></th>
+                        </tr>
+                      </thead>
+                     <tbody>
+                              <tr>
+                                  <td> {{ form.customertype }}</td>
+                                  <td> {{ form.usage }}</td>
+                                  <td> {{ form.connectiontype }}</td>
+                            </tr>
+                      </tbody>
+
+ <!---5th ROW----->
+                      <thead>
+                        <tr>
+                            <th>6. Preferred Comm. Method.</th>
+                        </tr>
+                      </thead>
+                     <tbody>
+                              <tr>
+                                  <td> {{ form.communicationmethod }}</td>
+                            </tr>
+                      </tbody>
+ <!---6th ROW----->
+                      <thead>
+                        <tr>
+                            <th><font color="red">7a. Mobile Number</font></th>
+                            <th>7b. Alternative Number</th>
+                            <th><font color="red">8a. Email</font></th>
+                        </tr>
+                      </thead>
+                     <tbody>
+                              <tr>
+                                  <td> {{ form.mobileno }}</td>
+                                  <td> {{ form.mobileno1 }}</td>
+                                  <td> {{ form.email }}</td>
+                            </tr>
+                      </tbody>
+
+                      <thead>
+                        <tr>
+                            <th><font color="blue">Installation Address Details</font></th>
+                        </tr>
+                      </thead>
+ <!---7th ROW----->
+                      <thead>
+                        <tr>
+                            <th><font color="red">9a. Pincode</font></th>
+                            <th><font color="red">9b. House Number</font></th>
+                            <th><font color="red">9c. Village/Coloney Name</font></th>
+                        </tr>
+                      </thead>
+                     <tbody>
+                              <tr>
+                                  <td> {{ form.pincode }}</td>
+                                  <td> {{ form.houseno }}</td>
+                                  <td> {{ form.village }}</td>
+                            </tr>
+                      </tbody>
+<!---7th ROW----->
+                      <thead>
+                        <tr>
+                            <th><font color="red">9d.Additional Details</font></th>
+                            <th>9e. Landmark</th>
+                            <th><font color="red">9f. City</font></th>
+                        </tr>
+                      </thead>
+                     <tbody>
+                              <tr>
+                                  <td> {{ form.address }}</td>
+                                  <td> {{ form.landmark }}</td>
+                                  <td> {{ form.city }}</td>
+                            </tr>
+                      </tbody>
+ <!---7th ROW----->
+                      <thead>
+                        <tr>
+                            <th><font color="red">9g.State</font></th>
+                            <th><font color="red">9h. District</font></th>
+                            <th><font color="red">9i. Main Locaility</font></th>
+                        </tr>
+                      </thead>
+                     <tbody>
+                              <tr>
+                                  <td> {{ form.state }}</td>
+                                  <td> {{ form.district}}</td>
+                                  <td> {{ form.locaility }}</td>
+                            </tr>
+                      </tbody>
+ <!---8th ROW----->
+                      <thead>
+                        <tr>
+                            <th><font color="red">9j.Sub Locality</font></th>
+                            <th><font color="red">9k. Exchange Code</font></th>
+                            <th><font color="red">9l. Category</font></th>
+                        </tr>
+                      </thead>
+                     <tbody>
+                              <tr>
+                                  <td> {{ form.sublocaility}}</td>
+                                  <td> {{ form.exchangecode}}</td>
+                                  <td> {{ form.ccategory }}</td>
+                            </tr>
+                      </tbody>
+  <!---9th ROW----->
+                      <thead>
+                        <tr>
+                            <th><font color="red">9m.GST State Code</font></th>
+                         </tr>
+                      </thead>
+                     <tbody>
+                              <tr>
+                                  <td> {{ form.gstin }}</td>
+                             </tr>
+                      </tbody>
+  <!---10th ROW----->
+                      <thead>
+                        <tr>
+                            <th><font color="blue">Billing account details</font></th>
+                         </tr>
+                      </thead>
+<!---11th ROW----->
+                      <thead>
+                        <tr>
+                            <th><font color="red">10a. Billing account no. </font></th>
+                         </tr>
+                      </thead>
+                     <tbody>
+                              <tr>
+                                  <td> {{ form.billaccno }}</td>
+                             </tr>
+                      </tbody>
+
+ <!---12th ROW----->
+                      <thead>
+                        <tr>
+                            <th><font color="red">10b. Bill account type </font></th>
+                            <th><font color="red">10c. Bill account sub type</font></th>
+                            <th><font color="red">10d. Billing frequency</font></th>
+                        </tr>
+                      </thead>
+                     <tbody>
+                              <tr>
+                                  <td> {{ form.accounttype }}</td>
+                                  <td> {{ form.accsubtype }}</td>
+                                  <td> {{ form.frequency}}</td>
+                            </tr>
+                      </tbody>
+  <!---13th ROW----->
+                      <thead>
+                        <tr>
+                            <th><font color="red">10e. Bill media</font></th>
+                            <th><font color="red">10f. Billing email address</font></th>
+                        </tr>
+                      </thead>
+                     <tbody>
+                              <tr>
+                                  <td> {{ form.billmedia }}</td>
+                                  <td> {{ form.billemail }}</td>
+                            </tr>
+                      </tbody>
+                     <thead>
+                     <tr>
+
+                     </tr>
+                     </thead>
+                 </table>
+   <p><strong> Select Email option to get a discount of RS.10/- in every bill for 10 bills.</strong></p>
+    <p><label for="id_sender"><strong>Check if Billing Address same as installation address:</strong></label>
+    <input type="checkbox" name="sender" id="id_sender" required></p>
+   <table class="table table-hover">
+                     <thead>
+                        <tr>
+                            <th><font color="blue">Billing Address Details</font></th>
+                        </tr>
+                      </thead>
+ <!---7th ROW----->
+                      <thead>
+                        <tr>
+                            <th><font color="red">11a. Pincode</font></th>
+                            <th><font color="red">11b. House Number</font></th>
+                            <th><font color="red">11c. Village/Coloney Name</font></th>
+                        </tr>
+                      </thead>
+                     <tbody>
+                              <tr>
+                                   <tr>
+                                  <td> {{ form.bpincode }}</td>
+                                  <td> {{ form.bhouseno }}</td>
+                                  <td> {{ form.bvillage }}</td>
+                            </tr>
+                            </tr>
+                      </tbody>
+<!---7th ROW----->
+                      <thead>
+                        <tr>
+                            <th><font color="red">11d.Additional Details</font></th>
+                            <th>9e. Landmark</th>
+                            <th><font color="red">11f. City</font></th>
+                        </tr>
+                      </thead>
+                     <tbody>
+                              <tr>
+                                  <td> {{ form.address }}</td>
+                                  <td> {{ form.landmark }}</td>
+                                  <td> {{ form.city }}</td>
+                            </tr>
+                      </tbody>
+ <!---7th ROW----->
+                      <thead>
+                        <tr>
+                            <th><font color="red">11g.State</font></th>
+                            <th><font color="red">11h. District</font></th>
+                            <th><font color="red">11i. Main Locaility</font></th>
+                        </tr>
+                      </thead>
+                     <tbody>
+                              <tr>
+                                  <td> {{ form.bstate }}</td>
+                                  <td> {{ form.bdistrict}}</td>
+                                  <td> {{ form.blocaility }}</td>
+                            </tr>
+                      </tbody>
+ <!---8th ROW----->
+                      <thead>
+                        <tr>
+                            <th><font color="red">11j.Sub Locality</font></th>
+                            <th><font color="red">11k. Exchange Code</font></th>
+                            <th><font color="red">11l. GST State Code</font></th>
+                        </tr>
+                      </thead>
+                     <tbody>
+                              <tr>
+                                  <td> {{ form.bsublocaility}}</td>
+                                  <td> {{ form.bexchangecode}}</td>
+                                  <td> {{ form.bccategory }}</td>
+                            </tr>
+                      </tbody>
+  <!---9th ROW----->
+                      <thead>
+                        <tr>
+                            <th><font color="red">11m.GSTIN</font></th>
+                         </tr>
+                      </thead>
+                     <tbody>
+                              <tr>
+                                  <td> {{ form.bgstin}}</td>
+                             </tr>
+                      </tbody>
+
+   </table>
+    <p><h5>POI & POA details</h5></p>
+                <p><h5>12. Photo ID Proof Document Type (Driving License/Voter ID Card/Passport/PAN card/Aadhaar/other specify) *</h5></p>
+      <table class="table table-hover">
+          <thead>
+            <tr>
+                <th><font color="red">12a.POI</font></th>
+                <th><font color="red">12b.Ref.No.</font></th>
+                <th><font color="red">12c.Ref.Type</font></th>
+                <th><font color="red">12d.Authority</font></th>
+                <th><font color="red">12e.Date (If Applicable)</font></th>
+             </tr>
+          </thead>
+         <tbody>
+                  <tr>
+                      <td> {{ form.poi }}</td>
+                       <td> {{ form.poiref }}</td>
+                       <td> {{ form.poitype }}</td>
+                       <td> {{ form.poiby }}</td>
+                       <td> {{ form.poidate }}</td>
+                 </tr>
+          </tbody>
+      </table>
+
+     <table class="table table-hover">
+        <thead>
+            <tr>
+                <th><font color="red">POI Proof of identity Front </font></th>
+                <th><font color="red">POI Proof of identity Back</font></th>
+              </tr>
+          </thead>
+         <tbody>
+                  <tr>
+                      <td> {{ form.adharcard }}</td>
+                       <td> {{ form.pan }}</td>
+
+                 </tr>
+          </tbody>
+       </table>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                        <div class="card card-body">
+                            <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Proof of identity Front</a>
+                            <hr>
+                            <hr>
+                            <img class="profile-pic" src="{{request.user.newcustomer.adharcard.url}}"  width="192" height="191">
+                        </div>
+                </div>
+                 <div class="col-md-6">
+                        <div class="card card-body">
+                            <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Proof of identity Back</a>
+                            <hr>
+                            <hr>
+                            <img class="profile-pic" src="{{request.user.newcustomer.pan.url}}" width="192" height="191">
+                        </div>
+                 </div>
+            </div>
+        </div>
+<br><br>
+                <p><h5>13. Address Proof Document Type (Driving License/Voter ID Card/Passport/Aadhaar/Other) *   Click if same as above13. Address Proof Document Type (Driving License/Voter ID Card/Passport/Aadhaar/Other) *
+                Click if same as above<input type="checkbox" name="sender" id="id_sender1" required </h5> </p>
+     <table class="table table-hover">
+          <thead>
+            <tr>
+                <th><font color="red">13a.POA</font></th>
+                <th><font color="red">13b.Ref.No.</font></th>
+                <th><font color="red">13c.Ref.Type</font></th>
+                <th><font color="red">13d.Authority</font></th>
+                <th><font color="red">13e.Date (If Applicable)</font></th>
+             </tr>
+          </thead>
+         <tbody>
+                  <tr>
+                     <td> {{ form.poa }}</td>
+                       <td> {{ form.poaref }}</td>
+                       <td> {{ form.poatype }}</td>
+                       <td> {{ form.poaby }}</td>
+                       <td> {{ form.poadate }}</td>
+                 </tr>
+          </tbody>
+     </table>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th><font color="red">POA Proof of identity Front </font></th>
+                <th><font color="red">POA Proof of identity Back</font></th>
+              </tr>
+          </thead>
+         <tbody>
+                  <tr>
+                      <td> {{ form.drivinglicence }}</td>
+                       <td> {{ form.electricitybill }}</td>
+
+                 </tr>
+          </tbody>
+       </table>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+        		<div class="card card-body">
+                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Proof of identity Front</a>
+                    <hr>
+                    <hr>
+                    <img class="profile-pic" src="{{request.user.newcustomer.drivinglicence.url}}"  width="192" height="191">
+            	</div>
+	    </div>
+         <div class="col-md-6">
+        		<div class="card card-body">
+                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Proof of identity Back</a>
+                    <hr>
+                    <hr>
+                    <img class="profile-pic" src="{{request.user.newcustomer.electricitybill.url}}" width="192" height="191">
+            	</div>
+         </div>
+    </div>
+</div>
+                    <!------
+
+
+<img id="output" width="200" />
+Here, we added an HTML <img> tag
+<input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;">
+<script>
+var loadFile = function(event) {
+	var image = document.getElementById('output');
+	image.src = URL.createObjectURL(event.target.files[0]);
+};
+</script>
+
+<p><input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;"></p>
+<p><label for="file" style="cursor: pointer;">Upload Image</label></p>
+<p><img id="output" width="200" /></p>
+
+<script>
+var loadFile = function(event) {
+	var image = document.getElementById('output');
+	image.src = URL.createObjectURL(event.target.files[0]);
+};
+</script>
+                        <p><label for="id_subject">Subject:</label>
+                        <input id="id_subject" type="text" name="subject" maxlength="100" required>
+                        <label for="id_message">Message:</label>
+                        <textarea name="message" id="id_message" required></textarea></p>
+                        <p><label for="id_sender">Sender:</label>
+                        <input type="email" name="sender" id="id_sender" required></p>
+                        <p><label for="id_cc_myself">Cc myself:</label>
+                        <input type="checkbox" name="cc_myself" id="id_cc_myself"></p>
+
+
+                                    {{ form.non_field_errors }}
+
+                                    {{ form.source.errors }}
+                                    {{ form.source }}
+
+                                    <table border="1">
+
+                                      <tr>
+                                        <th>{{ form.name.label_tag }}</th>
+                                        <td>
+                                          {{ form.name.errors }}
+                                          {{ form.name }}
+                                        </td>
+                                      </tr>
+
+                                      <tr>
+                                        <th>{{ form.email.label_tag }}</th>
+                                        <td>
+                                          {{ form.email.errors }}
+                                          {{ form.email }}
+                                        </td>
+
+                                        <th>{{ form.email.label_tag }}</th>
+                                        <td>
+                                          {{ form.email.errors }}
+                                          {{ form.email }}
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <th>{{ form.message.label_tag }}</th>
+                                        <td>
+                                          {{ form.message.errors }}
+                                          {{ form.message }}
+                                          <br />
+                                          {{ form.message.help_text }}
+                                        </td>
+                                      </tr>
+
+                                    </table>
+                    ------------------->
+<br><br><br>
+                 <div class="form-group row">
+                    <div class="offset-sm-2 col-sm-6">
+                        <button type="submit"  class="btn btn-primary">Submit Form</button>
+
+                    </div>
+                      <div class="contact_text">
+								<p>I agree to receive follow-ups call from DSoft Sales Teams. </p>
+								<p>Company reserves the right to accept or reject the form.</p>
+                        </div>
+                </div>
+            </form>
+     </div>
+    </div>
+
+
+ </div>
+
+
+ </body>
+{% endblock %}
+</html>

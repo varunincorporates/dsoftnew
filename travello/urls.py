@@ -62,6 +62,7 @@ urlpatterns = [
     url('add_employee', views.add_employee, name="add_employee"),
     url('add_faq', views.add_faq, name="add_faq"),
     url('add_newcustomer', views.add_newcustomer, name="add_newcustomer"),
+    url('add_newcustomers', views.add_newcustomer, name="add_newcustomer"),
     url('add_complain', views.add_complain, name="add_complain"),
     url('newsletter', views.newsletter, name="newsletter"),
     url('salesfaq', views.salesfaq, name="salesfaq"),
