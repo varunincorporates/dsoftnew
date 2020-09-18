@@ -1,10 +1,10 @@
 from django import forms
+from django.forms import DateInput
 from .models import *
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.admin import widgets
-
 
 class CreateUserForm(UserCreationForm):
     class Meta:
@@ -37,7 +37,10 @@ class FeasableForm(forms.ModelForm):
 
 
 class NewcustomerForm(forms.ModelForm):
+
      class Meta:
+        widgets = {'dob': DateInput()}
+
         model = Newcustomer
         fields = '__all__'
         labels = {
@@ -68,7 +71,7 @@ class NewcustomerForm(forms.ModelForm):
             'electricityno': _('Electricity Consumer No.'),
             'electricitybill': _('Electricity Bill Scan')
         }
-        exclude = ('profile_id',)
+        exclude = ('profile_id', 'user')
         error_messages = {
             'name': {
                 'max_length': _("This writer's name is too long."),

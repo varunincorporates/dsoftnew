@@ -1,0 +1,88 @@
+ {%  extends 'base.html' %}
+{% load static %}
+{% static "images" as baseUrl %}
+{% load crispy_forms_tags %}
+
+ <!DOCTYPE html>
+<html>
+{% block body %}
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+<head>
+    <meta charset="UTF-8">
+    <title>New Registeration Details :-</title>
+</head>
+<body>
+<center>
+<h3>Review your information</h3>
+<p><strong>Your Name:</strong>{{your_name}}</p>
+<p><strong>Last Name:</strong>{{last_name}}</p>
+<p><strong>Father/Husband Name:</strong>{{fathername}}</p>
+<p><strong>Nationality:</strong>{{nationality}}</p>
+<p><strong>Type:</strong>{{customertype}}</p>
+<p><strong>Usage:</strong>{{usage}}</p>
+<p><strong>Connection Type:</strong>{{connectiontype}}</p>
+<p><strong>Communication Method:</strong>{{communicationmethod}}</p>
+<p><strong>Mobile:</strong>{{mobileno}}</p>
+<p><strong>Alternate Number:</strong>{{mobileno1}}</p>
+<p><strong>Email:</strong>{{email}}</p>
+<p><strong>Pincode:</strong>{{pincode}}</p>
+<p><strong>House No:</strong>{{houseno}}</p>
+<p><strong>Village:</strong>>{{village}}</p>
+<p><strong>Address:</strong>{{address}}</p>
+<p><strong>Landmark:</strong>{{landmark}}</p>
+<p><strong>City:</strong>{{city}}</p>
+<p><strong>State:</strong>{{state}}</p>
+<p><strong>District:</strong>{{district}}</p>
+<p><strong>Locallity:</strong>{{locaility}}</p>
+</center>
+<br><br><br>
+
+<br><br><br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+        		<div class="card card-body">
+                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Indentity Proof (Front)</a>
+                    <hr>
+                    <hr>
+                    <img class="profile-pic" src="{{request.user.newcustomer.adharcard.url}}" >
+            	</div>
+	    </div>
+ 	    <div class="col-md-3">
+                <div class="card card-body">
+                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Indentity Proof (Back)</a>
+                    <hr>
+                    <hr>
+                    <img class="profile-pic" src="{{request.user.newcustomer.pan.url}}" >
+                </div>
+        </div>
+
+         <div class="col-md-3">
+        		<div class="card card-body">
+                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Address Proof (Front)</a>
+                    <hr>
+                    <hr>
+                    <img class="profile-pic" src="{{request.user.newcustomer.drivinglicence.url}}" >
+            	</div>
+	    </div>
+         <div class="col-md-3">
+        		<div class="card card-body">
+                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Address Proof (Back)</a>
+                    <hr>
+                    <hr>
+                    <img class="profile-pic" src="{{request.user.newcustomer.electricitybill.url}}" >
+            	</div>
+	    </div>
+    </div>
+</div>
+<div>
+<br><br><br>
+</div>
+<br><br><br>
+
+</body>
+{% endblock %}
+
+</html>

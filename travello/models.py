@@ -143,7 +143,7 @@ class Newcomplain1(models.Model):
 class Newcustomer(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, null=True, blank=True)
-    address = models.CharField(max_length=200, null=True, blank=True)
+    address = models.CharField(max_length=200, null=True, default="Pune")
     username = models.CharField(max_length=200, null=True)
     first_name = models.CharField(max_length=200, null=True)
     last_name = models.CharField(max_length=200, null=True)
@@ -160,7 +160,7 @@ class Newcustomer(models.Model):
         ('Female', 'Female'),
         ('Other', 'Other'),
     }
-    dob= models.DateTimeField(auto_now_add=False, null=True)
+    dob = models.DateTimeField(auto_now_add=False, null=True, blank=True)
     nationality = models.CharField(max_length=20, null=True, default="India")
     gender = models.CharField(max_length=20, null=True, choices=STATUS3)
     STATUS4 = {
@@ -188,13 +188,13 @@ class Newcustomer(models.Model):
         ('Monthly', 'Monthly'),
         ('Bimonthly', 'Bimonthly'),
     }
-    frequency = models.CharField(max_length=30,null=True, choices=STATUS20)
+    frequency = models.CharField(max_length=30,null=True, choices=STATUS20, default="Monthly")
     STATUS21 = {
         ('EMAIL', 'EMAIL'),
         ('Print Bill On Paper', 'Print Bill On Paper'),
         ('PAPER AND EMAIL','PAPER AND EMAIL'),
     }
-    billmedia = models.CharField(max_length=20, null=True, choices=STATUS21)
+    billmedia = models.CharField(max_length=20, null=True, choices=STATUS21, default="EMAIL")
     STATUS22 = {
         ('Unique Indentificationby Authority Of India', 'Unique Indentificationby Authority Of India'),
         ('CGHS/EGHS Card', 'CGHS/EGHS Card'),
@@ -227,7 +227,7 @@ class Newcustomer(models.Model):
         ('Ministry Of Defence', 'Ministry Of Defence'),
     }
     poiby = models.CharField(max_length=100, null=True,choices=STATUS23)
-    poidate = models.DateTimeField(auto_now_add=False, null=True)
+    poidate = models.DateTimeField(auto_now_add=False, null=True, blank=True)
 
     STATUS32 = {
         ('Unique Indentificationby Authority Of India', 'Unique Indentificationby Authority Of India'),
@@ -261,16 +261,15 @@ class Newcustomer(models.Model):
         ('Ministry Of Defence', 'Ministry Of Defence'),
     }
     poaby = models.CharField(max_length=100, null=True, choices=STATUS33)
-    poadate = models.DateTimeField(auto_now_add=False, null=True)
-
+    poadate = models.DateTimeField(auto_now_add=False, null=True, blank=True)
     billemail = models.CharField(max_length=20, null=True)
-    uesrname = models.CharField(max_length=200, null=True)
-    mobileno = models.CharField(max_length=20, null=True)
-    mobileno1 = models.CharField(max_length=20, null=True)
+    uesrname = models.CharField(max_length=200, null=True, blank=True)
+    mobileno = models.CharField(max_length=20, null=True, default="123")
+    mobileno1 = models.CharField(max_length=20, null=True, blank=True)
     pincode = models.CharField(max_length=20, null=True)
     houseno = models.CharField(max_length=100, null=True)
     village = models.CharField(max_length=100, null=True)
-    landmark = models.CharField(max_length=100, null=True)
+    landmark = models.CharField(max_length=100, null=True, blank=True)
     city = models.CharField(max_length=100, default="Pune")
     district = models.CharField(max_length=100, default="Pune")
     locaility = models.CharField(max_length=100, default="Pune")
@@ -284,16 +283,16 @@ class Newcustomer(models.Model):
     state = models.CharField(max_length=100, default="Maharashtra")
     gstin = models.CharField(max_length=15, default="27")
 
-    bpincode = models.CharField(max_length=20, null=True)
-    bhouseno = models.CharField(max_length=100, null=True)
-    bvillage = models.CharField(max_length=100, null=True)
-    blandmark = models.CharField(max_length=100, null=True)
-    bcity = models.CharField(max_length=100, default="Pune")
-    baddress = models.CharField(max_length=500, default="Pune")
-    bdistrict = models.CharField(max_length=100, default="Pune")
-    blocaility = models.CharField(max_length=100, default="Pune")
-    bsublocaility = models.CharField(max_length=100, default="Pune")
-    bexchangecode = models.CharField(max_length=100, default="Pune")
+    bpincode = models.CharField(max_length=20, null=True, blank=True)
+    bhouseno = models.CharField(max_length=100, null=True, blank=True)
+    bvillage = models.CharField(max_length=100, null=True, blank=True)
+    blandmark = models.CharField(max_length=100, null=True, blank=True)
+    bcity = models.CharField(max_length=100, default="Pune", blank=True)
+    baddress = models.CharField(max_length=500, default="Pune", blank=True)
+    bdistrict = models.CharField(max_length=100, default="Pune", blank=True)
+    blocaility = models.CharField(max_length=100, default="Pune", blank=True)
+    bsublocaility = models.CharField(max_length=100, default="Pune", blank=True)
+    bexchangecode = models.CharField(max_length=100, default="Pune", blank=True)
     STATUS48 = {
         ('Rural', 'Rural'),
         ('Urban', 'Urban'),
@@ -301,23 +300,19 @@ class Newcustomer(models.Model):
     bccategory = models.CharField(max_length=100, choices=STATUS48, default="Urban")
     bstate = models.CharField(max_length=100, default="Maharashtra")
     bgstin = models.CharField(max_length=15, default="27")
-
-
-
     email = models.EmailField(max_length=60)
     STATUS9 = {
         ('New', 'New'),
         ('Existing', 'Existing'),
     }
     billaccno = models.CharField(max_length=20,choices=STATUS9,default="New")
-
-    adharcardno = models.CharField(max_length=20)
+    adharcardno = models.CharField(max_length=20,default="1",blank=True,null=True)
     adharcard = models.ImageField(upload_to='pics', default="profile1.png")
-    panno = models.CharField(max_length=20)
+    panno = models.CharField(max_length=20,default="1", blank=True,null=True)
     pan = models.ImageField(upload_to='pics', default="profile1.png")
-    drivinglicenceno = models.CharField(max_length=20)
+    drivinglicenceno = models.CharField(max_length=20,default="1",blank=True,null=True)
     drivinglicence = models.ImageField(upload_to='pics', default="profile1.png")
-    electricityno = models.CharField(max_length=20)
+    electricityno = models.CharField(max_length=20,default="1",blank=True)
     electricitybill = models.ImageField(upload_to='pics', default="profile1.png")
     active = models.BooleanField(default=False)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
@@ -341,28 +336,30 @@ class Newcustomer(models.Model):
 
 
     def __str__(self):
+        self.fields['mobile1'].required = False
+        self.fields['landmark'].required = False
         return self.name
 
 
 
 class Newcustomer9(models.Model):
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, null=True, blank=True)
     address = models.TextField()
-    username = models.CharField(max_length=200, null=True)
+    username = models.CharField(max_length=200, null=True, blank=True)
     first_name = models.CharField(max_length=200, null=True)
     last_name = models.CharField(max_length=200, null=True)
     lastname = models.CharField(max_length=200, null=True)
     uesrname = models.CharField(max_length=200, null=True)
-    mobileno = models.CharField(max_length=20)
-    email = models.EmailField(max_length=60)
-    adharcardno = models.CharField(max_length=20)
+    mobileno = models.CharField(max_length=20, null=True)
+    email = models.EmailField(max_length=60, null=True)
+    adharcardno = models.CharField(max_length=20, null=True)
     adharcard = models.ImageField(upload_to='pics', default="profile1.png")
-    panno = models.CharField(max_length=20)
+    panno = models.CharField(max_length=20, null=True)
     pan = models.ImageField(upload_to='pics', default="profile1.png")
-    drivinglicenceno = models.CharField(max_length=20)
+    drivinglicenceno = models.CharField(max_length=20, null=True)
     drivinglicence = models.ImageField(upload_to='pics', default="profile1.png")
-    electricityno = models.CharField(max_length=20)
+    electricityno = models.CharField(max_length=20, null=True)
     electricitybill = models.ImageField(upload_to='pics', default="profile1.png")
     active = models.BooleanField(default=False)
     date_created = models.DateTimeField(auto_now_add=True, null=True)

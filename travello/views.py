@@ -28,11 +28,17 @@ def register(request):
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
-
+            email = form.cleaned_data.get('email')
+            billemail = form.cleaned_data.get('email')
+            mobileno = form.cleaned_data.get('last_name')
             group = Group.objects.get(name='customer')
             user.groups.add(group)
             Newcustomer.objects.create(
-                user=user
+                user=user,
+                email=email,
+                mobileno=mobileno,
+                name=username,
+                username=username,
             )
             messages.success(request, 'Account was created for ' + username)
 
@@ -489,13 +495,62 @@ def add_newcustomer(request):
     newcustomer = request.user.newcustomer
     form = NewcustomerForm(instance=newcustomer)
     if request.method == "POST":
+        your_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        fathername = request.POST.get('fathername')
+        nationality = request.POST.get('nationality')
+        customertype = request.POST.get('customertype')
+        usage = request.POST.get('usage')
+        connectiontype = request.POST.get('connectiontype')
+        communicationmethod = request.POST.get('communicationmethod')
+        mobileno = request.POST.get('mobileno')
+        mobileno1 = request.POST.get('mobileno1')
+        email = request.POST.get('email')
+        pincode = request.POST.get('pincode')
+        houseno = request.POST.get('houseno')
+        village = request.POST.get('village')
+        address = request.POST.get('address')
+        landmark = request.POST.get('landmark')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        district = request.POST.get('district')
+        locaility = request.POST.get('locaility')
+
         form = NewcustomerForm(request.POST, request.FILES, instance=newcustomer)
         if form.is_valid():
+            form.save(commit=True)
             contact_new_customer = request.POST.get('first_name')
             obj = form.save(commit=False)
             obj.name = contact_new_customer
             obj.save()
             messages.info(request, "Record Saved")
+            return render(request, 'travello/appointment.html',{
+                "your_name" : your_name,
+                "last_name" : last_name,
+                "fathername" : fathername,
+                "nationality" : nationality,
+                "customertype" : customertype,
+                "usage" : usage,
+                "connectiontype" : connectiontype,
+                "communicationmethod" : communicationmethod,
+                "mobileno" : mobileno,
+                "mobileno1" : mobileno1,
+                "email" : email,
+                "pincode" : pincode,
+                "houseno" : houseno,
+                "village" :  village,
+                "address" : address,
+                "landmark" : landmark,
+                "city" : city,
+                "state" :  state,
+                "district" : district,
+                "locaility" : locaility,
+            })
+
+    print('ERROR', form.errors)
+    print(form.errors)
+    messages.error(request, 'Message:')
+    messages.error(request, form.errors)
     context = {'form': form,
                "feasable": feasable,
                'myFilter': myFilter,

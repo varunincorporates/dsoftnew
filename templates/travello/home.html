@@ -70,7 +70,7 @@
 										<li><a href="managecustomer">MIS</a></li>
 									{% endif %}
 									{% if user.is_authenticated %}
-								    	<li>Hello,{{request.user}}</li>
+									<li><font color="yellow">Hello,{{request.user|title}}</font></li>
 									    <li><a href="{% url 'logout' %}">Logout</a></li>
 									{% else %}
 									   <li><a href="travello/register">Register</a></li>
@@ -209,7 +209,7 @@
 					<div class="intro_container">
 						<div class="logo">
 							{% if user.is_authenticated %}
-								<li>-<h4> Welcome {{request.user}}</h4></li>
+								<li>-<h4> Welcome {{request.user|title}}</h4></li>
 							{% endif %}
 							</div>
 						<div class="row">

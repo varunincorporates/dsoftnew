@@ -37,25 +37,26 @@
 
 <div class="container">
     <div class="row">
- 	    <div class="col-md-3">
-                <div class="card card-body">
-                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; PAN Card</a>
-                    <hr>
-                    <hr>
-                    <img class="profile-pic" src="{{request.user.newcustomer.pan.url}}" >
-                </div>
-        </div>
-         <div class="col-md-3">
+        <div class="col-md-3">
         		<div class="card card-body">
-                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Aadhaar Card</a>
+                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Indentity Proof (Front)</a>
                     <hr>
                     <hr>
                     <img class="profile-pic" src="{{request.user.newcustomer.adharcard.url}}" >
             	</div>
 	    </div>
+ 	    <div class="col-md-3">
+                <div class="card card-body">
+                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Indentity Proof (Back)</a>
+                    <hr>
+                    <hr>
+                    <img class="profile-pic" src="{{request.user.newcustomer.pan.url}}" >
+                </div>
+        </div>
+
          <div class="col-md-3">
         		<div class="card card-body">
-                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Driving Licence</a>
+                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Address Proof (Front)</a>
                     <hr>
                     <hr>
                     <img class="profile-pic" src="{{request.user.newcustomer.drivinglicence.url}}" >
@@ -63,7 +64,7 @@
 	    </div>
          <div class="col-md-3">
         		<div class="card card-body">
-                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Electricity Bill</a>
+                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Address Proof (Back)</a>
                     <hr>
                     <hr>
                     <img class="profile-pic" src="{{request.user.newcustomer.electricitybill.url}}" >
@@ -76,20 +77,47 @@
 	  <h3> {{message}}  </h3> {% now "jS F Y " %}
 	{% endfor %}
 </div> <br>
+{% if contact_new_customer %}
+        <font color="blue"> <> Thanks  {{  contact_new_customer }} </font></h2>
+        <div class="about_image"><img src="{% static 'images/family12.jpg' %}" alt=""></div>
+		<p><h4>We received your request  and our sales team will contact you shortly....</h4></p>
+	 	<br/><br/><br/>
+            <div class="card card-body">
+                 <table class="table table-hover">
+                      <thead>
+                        <tr>
+                            <th>Ref No</th>
+                            <th>Date</th>
+                        </tr>
+                      </thead>
+                     <tbody>
+                         {% for item in dest %}
+                              <tr>
+                                  <td>{{ item.id }}</td>
+                                <td>{{ item.date_created | date:"F d Y"  }}</td>
+                            </tr>
+                        {% endfor %}
+                     </tbody>
+                 </table>
+            </div>
 
-
+{% else %}
  <div class="container">
     <div class="row">
-               {% if user.is_authenticated %}
+              {% if user.is_authenticated %}
                    <div class="contact_title"> {{request.user}}  Welcome to DSoft Family.  </div>
               {% else %}
                   <div class="contact_title">Welcome to DSoft Family.  </div>
               {% endif %}
-             </div >
-            <font color="blue"><center><h2>Landline CAF Entry </h2></center></font> </h2>
-     <div  >
-            <form method="POST" enctype="multipart/form-data">
+    </div >
+    <font color="blue"><center><h2>Landline CAF Entry </h2></center></font> </h2>
+    <div  >
+        <form method="POST" enctype="multipart/form-data">
                {% csrf_token %}
+
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
                 <!---------------
                <div class="form-group">
                     <label>Title<font color="red"><h4>* </h4></font>  </label>
@@ -100,230 +128,224 @@
                     {{ form.last_name }}
                 </div>
 --------------------------------->
-                <p class="card card-body">
-                 <table class="table table-hover">
-                     <thead>
-                        <tr>
-                            <th><font color="blue">Customer details</font></th>
-                        </tr>
-                      </thead>
-                      <thead>
-                        <tr>
-                            <th><font color="red">1a.Title </font> </th>
-                            <th><font color="red">1b.First Name</font> </th>
-                            <th><font color="red">1c.Surname Name</font> </th>
-                        </tr>
-                      </thead>
-                     <tbody>
-                              <tr>
-                                  <td> {{ form.lastname }}</td>
-                                 <td>{{ form.first_name }}</td>
-                                  <td>{{ form.last_name }}</td>
-                            </tr>
-                      </tbody>
+         <p class="card card-body"></p>
+         <table class="table table-hover">
+              <thead>
+              <tr>
+                <th><font color="blue">Customer details</font></th>
+              </tr>
+              </thead>
+<!---1st ROW----->
+              <thead>
+                <tr>
+                    <th><font color="red">1a.Title </font> </th>
+                    <th><font color="red">1b.First Name</font> </th>
+                    <th><font color="red">1c.Surname Name</font> </th>
+                </tr>
+              </thead>
+             <tbody>
+                      <tr>
+                          <td> {{ form.lastname }}</td>
+                         <td>{{ form.first_name }}</td>
+                          <td>{{ form.last_name }}</td>
+                      </tr>
+              </tbody>
   <!---2ND ROW----->
-
-                      <thead>
-                        <tr>
-                            <th><font color="red">2. Father/Husband Name </font></th>
-                            <th><font color="red">3a. Gender</font></th>
-                            <th>3b. DateOfBirth DD/MM/YYYY</th>
-                        </tr>
-                      </thead>
-                     <tbody>
-                              <tr>
-                                 <td> {{ form.fathername }}</td>
-                                 <td>{{ form.gender }}</td>
-                                  <td>{{ form.dob }}</td>
-                            </tr>
-                     </tbody>
+              <thead>
+                <tr>
+                    <th><font color="red">2. Father/Husband Name </font></th>
+                    <th><font color="red">3a. Gender</font></th>
+                    <th>3b. DateOfBirth DD/MM/YYYY</th>
+                </tr>
+              </thead>
+                 <tbody>
+                     <tr>
+                         <td> {{ form.fathername }}</td>
+                         <td>{{ form.gender }}</td>
+                          <td>{{ form.username }}</td>
+                     </tr>
+                 </tbody>
  <!---3rd ROW----->
-                      <thead>
-                        <tr>
-                            <th>4. Nationality</th>
+                  <thead>
+                    <tr>
+                       <th>4. Nationality</th>
+                    </tr>
+                  </thead>
+                 <tbody>
+                         <tr>
+                            <td> {{ form.nationality }}</td>
                         </tr>
-                      </thead>
-                     <tbody>
-                              <tr>
-                                  <td> {{ form.nationality }}</td>
-                            </tr>
-                      </tbody>
+                 </tbody>
  <!---4th ROW----->
-                      <thead>
-                        <tr>
-                            <th><font color="red">5a. Customer Type</font></th>
-                            <th><font color="red">5b. Usage Code</font></th>
-                            <th><font color="red">5c. Connection Type</font></th>
-                        </tr>
-                      </thead>
-                     <tbody>
-                              <tr>
-                                  <td> {{ form.customertype }}</td>
-                                  <td> {{ form.usage }}</td>
-                                  <td> {{ form.connectiontype }}</td>
-                            </tr>
-                      </tbody>
-
+                  <thead>
+                    <tr>
+                        <th><font color="red">5a. Customer Type</font></th>
+                        <th><font color="red">5b. Usage Code</font></th>
+                        <th><font color="red">5c. Connection Type</font></th>
+                    </tr>
+                  </thead>
+                 <tbody>
+                      <tr>
+                          <td> {{ form.customertype }}</td>
+                          <td> {{ form.usage }}</td>
+                          <td> {{ form.connectiontype }}</td>
+                     </tr>
+                  </tbody>
  <!---5th ROW----->
-                      <thead>
-                        <tr>
-                            <th>6. Preferred Comm. Method.</th>
+                  <thead>
+                    <tr>
+                        <th>6. Preferred Comm. Method.</th>
+                    </tr>
+                  </thead>
+                 <tbody>
+                          <tr>
+                              <td> {{ form.communicationmethod }}</td>
                         </tr>
-                      </thead>
-                     <tbody>
-                              <tr>
-                                  <td> {{ form.communicationmethod }}</td>
-                            </tr>
-                      </tbody>
+                  </tbody>
  <!---6th ROW----->
-                      <thead>
-                        <tr>
-                            <th><font color="red">7a. Mobile Number</font></th>
-                            <th>7b. Alternative Number</th>
-                            <th><font color="red">8a. Email</font></th>
+                  <thead>
+                    <tr>
+                        <th><font color="red">7a. Mobile Number</font></th>
+                        <th>7b. Alternative Number</th>
+                        <th><font color="red">8a. Email</font></th>
+                    </tr>
+                  </thead>
+                 <tbody>
+                          <tr>
+                              <td> {{ form.mobileno }}</td>
+                              <td> {{ form.mobileno1 }}</td>
+                              <td> {{ form.email }}</td>
                         </tr>
-                      </thead>
-                     <tbody>
-                              <tr>
-                                  <td> {{ form.mobileno }}</td>
-                                  <td> {{ form.mobileno1 }}</td>
-                                  <td> {{ form.email }}</td>
-                            </tr>
-                      </tbody>
-
-                      <thead>
-                        <tr>
-                            <th><font color="blue">Installation Address Details</font></th>
-                        </tr>
-                      </thead>
+                  </tbody>
+                  <thead>
+                    <tr>
+                        <th><font color="blue">Installation Address Details</font></th>
+                    </tr>
+                  </thead>
  <!---7th ROW----->
-                      <thead>
-                        <tr>
-                            <th><font color="red">9a. Pincode</font></th>
-                            <th><font color="red">9b. House Number</font></th>
-                            <th><font color="red">9c. Village/Coloney Name</font></th>
-                        </tr>
-                      </thead>
-                     <tbody>
-                              <tr>
-                                  <td> {{ form.pincode }}</td>
-                                  <td> {{ form.houseno }}</td>
-                                  <td> {{ form.village }}</td>
-                            </tr>
-                      </tbody>
+                  <thead>
+                    <tr>
+                        <th><font color="red">9a. Pincode</font></th>
+                        <th><font color="red">9b. House Number</font></th>
+                        <th><font color="red">9c. Village/Coloney Name</font></th>
+                    </tr>
+                  </thead>
+                 <tbody>
+                      <tr>
+                          <td> {{ form.pincode }}</td>
+                          <td> {{ form.houseno }}</td>
+                          <td> {{ form.village }}</td>
+                      </tr>
+                  </tbody>
 <!---7th ROW----->
-                      <thead>
+                  <thead>
                         <tr>
                             <th><font color="red">9d.Additional Details</font></th>
                             <th>9e. Landmark</th>
                             <th><font color="red">9f. City</font></th>
                         </tr>
-                      </thead>
-                     <tbody>
-                              <tr>
-                                  <td> {{ form.address }}</td>
-                                  <td> {{ form.landmark }}</td>
-                                  <td> {{ form.city }}</td>
-                            </tr>
-                      </tbody>
+                  </thead>
+                 <tbody>
+                      <tr>
+                          <td> {{ form.address }}</td>
+                          <td> {{ form.landmark }}</td>
+                          <td> {{ form.city }}</td>
+                      </tr>
+                  </tbody>
  <!---7th ROW----->
-                      <thead>
+                  <thead>
                         <tr>
                             <th><font color="red">9g.State</font></th>
                             <th><font color="red">9h. District</font></th>
                             <th><font color="red">9i. Main Locaility</font></th>
                         </tr>
-                      </thead>
-                     <tbody>
-                              <tr>
-                                  <td> {{ form.state }}</td>
-                                  <td> {{ form.district}}</td>
-                                  <td> {{ form.locaility }}</td>
-                            </tr>
-                      </tbody>
+                  </thead>
+                 <tbody>
+                      <tr>
+                          <td> {{ form.state }}</td>
+                          <td> {{ form.district}}</td>
+                          <td> {{ form.locaility }}</td>
+                      </tr>
+                  </tbody>
  <!---8th ROW----->
-                      <thead>
+                  <thead>
                         <tr>
                             <th><font color="red">9j.Sub Locality</font></th>
                             <th><font color="red">9k. Exchange Code</font></th>
                             <th><font color="red">9l. Category</font></th>
                         </tr>
-                      </thead>
-                     <tbody>
-                              <tr>
-                                  <td> {{ form.sublocaility}}</td>
-                                  <td> {{ form.exchangecode}}</td>
-                                  <td> {{ form.ccategory }}</td>
-                            </tr>
-                      </tbody>
+                  </thead>
+                 <tbody>
+                      <tr>
+                          <td> {{ form.sublocaility}}</td>
+                          <td> {{ form.exchangecode}}</td>
+                          <td> {{ form.ccategory }}</td>
+                      </tr>
+                  </tbody>
   <!---9th ROW----->
-                      <thead>
-                        <tr>
-                            <th><font color="red">9m.GST State Code</font></th>
-                         </tr>
-                      </thead>
-                     <tbody>
-                              <tr>
-                                  <td> {{ form.gstin }}</td>
-                             </tr>
-                      </tbody>
+                  <thead>
+                    <tr>
+                        <th><font color="red">9m.GST State Code</font></th>
+                     </tr>
+                  </thead>
+                 <tbody>
+                      <tr>
+                          <td> {{ form.gstin }}</td>
+                      </tr>
+                  </tbody>
   <!---10th ROW----->
-                      <thead>
+                  <thead>
                         <tr>
                             <th><font color="blue">Billing account details</font></th>
                          </tr>
-                      </thead>
+                  </thead>
 <!---11th ROW----->
-                      <thead>
+                  <thead>
                         <tr>
                             <th><font color="red">10a. Billing account no. </font></th>
                          </tr>
-                      </thead>
-                     <tbody>
-                              <tr>
-                                  <td> {{ form.billaccno }}</td>
-                             </tr>
-                      </tbody>
-
+                  </thead>
+                 <tbody>
+                      <tr>
+                          <td> {{ form.billaccno }}</td>
+                      </tr>
+                  </tbody>
  <!---12th ROW----->
-                      <thead>
-                        <tr>
-                            <th><font color="red">10b. Bill account type </font></th>
-                            <th><font color="red">10c. Bill account sub type</font></th>
-                            <th><font color="red">10d. Billing frequency</font></th>
-                        </tr>
-                      </thead>
-                     <tbody>
-                              <tr>
-                                  <td> {{ form.accounttype }}</td>
-                                  <td> {{ form.accsubtype }}</td>
-                                  <td> {{ form.frequency}}</td>
-                            </tr>
-                      </tbody>
+                  <thead>
+                    <tr>
+                        <th><font color="red">10b. Bill account type </font></th>
+                        <th><font color="red">10c. Bill account sub type</font></th>
+                        <th><font color="red">10d. Billing frequency</font></th>
+                    </tr>
+                  </thead>
+                 <tbody>
+                  <tr>
+                      <td> {{ form.accounttype }}</td>
+                      <td> {{ form.accsubtype }}</td>
+                      <td> {{ form.frequency}}</td>
+                  </tr>
+                  </tbody>
   <!---13th ROW----->
-                      <thead>
-                        <tr>
-                            <th><font color="red">10e. Bill media</font></th>
-                            <th><font color="red">10f. Billing email address</font></th>
-                        </tr>
-                      </thead>
-                     <tbody>
-                              <tr>
-                                  <td> {{ form.billmedia }}</td>
-                                  <td> {{ form.billemail }}</td>
-                            </tr>
-                      </tbody>
-                     <thead>
-                     <tr>
-
-                     </tr>
-                     </thead>
-                 </table>
-   <p><strong> Select Email option to get a discount of RS.10/- in every bill for 10 bills.</strong></p>
-    <p><label for="id_sender"><strong>Check if Billing Address same as installation address:</strong></label>
-    <input type="checkbox" name="sender" id="id_sender" required></p>
+                  <thead>
+                    <tr>
+                        <th><font color="red">10e. Bill media</font></th>
+                        <th><font color="red">10f. Billing email address</font></th>
+                    </tr>
+                  </thead>
+                 <tbody>
+                      <tr>
+                          <td> {{ form.billmedia }}</td>
+                          <td> {{ form.billemail }}</td>
+                      </tr>
+                  </tbody>
+     </table>
+                <!------
+                   <p><strong> Select Email option to get a discount of RS.10/- in every bill for 10 bills.</strong></p>
+                    <p><label for="id_sender"><strong>Check if Billing Address same as installation address:</strong></label>
+                    <input type="checkbox" name="sender" id="id_sender" required></p>
+                   ------>
    <table class="table table-hover">
-                     <thead>
+                        <thead>
                         <tr>
                             <th><font color="blue">Billing Address Details</font></th>
                         </tr>
@@ -384,11 +406,11 @@
                         </tr>
                       </thead>
                      <tbody>
-                              <tr>
-                                  <td> {{ form.bsublocaility}}</td>
-                                  <td> {{ form.bexchangecode}}</td>
-                                  <td> {{ form.bccategory }}</td>
-                            </tr>
+                          <tr>
+                              <td> {{ form.bsublocaility}}</td>
+                              <td> {{ form.bexchangecode}}</td>
+                              <td> {{ form.bccategory }}</td>
+                          </tr>
                       </tbody>
   <!---9th ROW----->
                       <thead>
@@ -397,15 +419,15 @@
                          </tr>
                       </thead>
                      <tbody>
-                              <tr>
-                                  <td> {{ form.bgstin}}</td>
-                             </tr>
+                          <tr>
+                              <td> {{ form.bgstin}}</td>
+                          </tr>
                       </tbody>
 
-   </table>
+    </table>
     <p><h5>POI & POA details</h5></p>
-                <p><h5>12. Photo ID Proof Document Type (Driving License/Voter ID Card/Passport/PAN card/Aadhaar/other specify) *</h5></p>
-      <table class="table table-hover">
+    <p><h5>12. Photo ID Proof Document Type (Driving License/Voter ID Card/Passport/PAN card/Aadhaar/other specify) *</h5></p>
+    <table class="table table-hover">
           <thead>
             <tr>
                 <th><font color="red">12a.POI</font></th>
@@ -424,9 +446,8 @@
                        <td> {{ form.poidate }}</td>
                  </tr>
           </tbody>
-      </table>
-
-     <table class="table table-hover">
+    </table>
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th><font color="red">POI Proof of identity Front </font></th>
@@ -434,13 +455,16 @@
               </tr>
           </thead>
          <tbody>
-                  <tr>
-                      <td> {{ form.adharcard }}</td>
-                       <td> {{ form.pan }}</td>
-
-                 </tr>
+             <tr>
+              <td> {{ form.adharcard }}</td>
+               <td> {{ form.pan }}</td>
+             </tr>
+             <tr>
+                <td>Max Image Size Should be : 200  KB</td>
+                <td>Max Image Size Should be : 200  KB</td>
+             </tr>
           </tbody>
-       </table>
+    </table>
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
@@ -451,10 +475,10 @@
                             <img class="profile-pic" src="{{request.user.newcustomer.adharcard.url}}"  width="192" height="191">
                         </div>
                 </div>
-                 <div class="col-md-6">
+                <div class="col-md-6">
                         <div class="card card-body">
                             <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Proof of identity Back</a>
-                            <hr>
+                             <hr>
                             <hr>
                             <img class="profile-pic" src="{{request.user.newcustomer.pan.url}}" width="192" height="191">
                         </div>
@@ -462,9 +486,11 @@
             </div>
         </div>
 <br><br>
-                <p><h5>13. Address Proof Document Type (Driving License/Voter ID Card/Passport/Aadhaar/Other) *   Click if same as above13. Address Proof Document Type (Driving License/Voter ID Card/Passport/Aadhaar/Other) *
-                Click if same as above<input type="checkbox" name="sender" id="id_sender1" required </h5> </p>
-     <table class="table table-hover">
+                <!-----
+                <p><h5>13. Address Proof Document Type (Driving License/Voter ID Card/Passport/Aadhaar/Other) *</h5></p>
+                <p><h5>Click if same as above<input type="checkbox" name="sender" id="id_sender1" required></h5></p>
+                ----->
+    <table class="table table-hover">
           <thead>
             <tr>
                 <th><font color="red">13a.POA</font></th>
@@ -483,44 +509,45 @@
                        <td> {{ form.poadate }}</td>
                  </tr>
           </tbody>
-     </table>
+    </table>
     <table class="table table-hover">
         <thead>
             <tr>
                 <th><font color="red">POA Proof of identity Front </font></th>
                 <th><font color="red">POA Proof of identity Back</font></th>
               </tr>
-          </thead>
-         <tbody>
+        </thead>
+        <tbody>
                   <tr>
                       <td> {{ form.drivinglicence }}</td>
                        <td> {{ form.electricitybill }}</td>
-
+                  </tr>
+                 <tr>
+                    <td>Max Image Size Should be : 200  KB</td>
+                    <td>Max Image Size Should be : 200  KB</td>
                  </tr>
-          </tbody>
+        </tbody>
        </table>
-
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-6">
-        		<div class="card card-body">
-                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Proof of identity Front</a>
-                    <hr>
-                    <hr>
-                    <img class="profile-pic" src="{{request.user.newcustomer.drivinglicence.url}}"  width="192" height="191">
-            	</div>
-	    </div>
-         <div class="col-md-6">
-        		<div class="card card-body">
-                    <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Proof of identity Back</a>
-                    <hr>
-                    <hr>
-                    <img class="profile-pic" src="{{request.user.newcustomer.electricitybill.url}}" width="192" height="191">
-            	</div>
-         </div>
-    </div>
-</div>
+       <div class="container">
+          <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-body">
+                        <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Proof of Address Front</a>
+                        <hr>
+                        <hr>
+                        <img class="profile-pic" src="{{request.user.newcustomer.drivinglicence.url}}"  width="192" height="191">
+                    </div>
+	            </div>
+                  <div class="col-md-6">
+                        <div class="card card-body">
+                            <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Proof of Address Back</a>
+                            <hr>
+                            <hr>
+                            <img class="profile-pic" src="{{request.user.newcustomer.electricitybill.url}}" width="192" height="191">
+                        </div>
+                  </div>
+          </div>
+       </div>
                     <!------
 
 
@@ -594,25 +621,30 @@ var loadFile = function(event) {
 
                                     </table>
                     ------------------->
-<br><br><br>
+                 <br><br><br>
                  <div class="form-group row">
-                    <div class="offset-sm-2 col-sm-6">
-                        <button type="submit"  class="btn btn-primary">Submit Form</button>
-
-                    </div>
-                      <div class="contact_text">
-								<p>I agree to receive follow-ups call from DSoft Sales Teams. </p>
-								<p>Company reserves the right to accept or reject the form.</p>
+                    <div class="card card-body">
+                        <div class="offset-sm-2 col-sm-16">
+                            <h2><button type="submit"  class="btn btn-primary"><h2>Submit Form</h2></button></h2>
                         </div>
-                </div>
+
+                     <div class="contact_text">
+                         <p><strong>I agree to receive follow-ups call from DSoft Sales Teams.</strong> </p>
+                         <p><strong>Company reserves the right to accept or reject the form. T&C Apply.</strong></p>
+                     </div>
+                    </div>
+
+                 </div><br><br><br>
+
             </form>
-     </div>
+      </div>
     </div>
+{% endif %}
 
-
- </div>
 
 
  </body>
+
 {% endblock %}
+
 </html>
