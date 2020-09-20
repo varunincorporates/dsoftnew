@@ -848,3 +848,202 @@ class Newcustomer2(models.Model):
     def __str__(self):
         return self.name
 
+
+
+
+class Newcustomer3(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200, null=True, blank=True)
+    address = models.CharField(max_length=200, null=True, default="Pune")
+    username = models.CharField(max_length=200, null=True, blank=True)
+    first_name = models.CharField(max_length=200, null=True)
+    last_name = models.CharField(max_length=200, null=True)
+    STATUS2 = {
+        ('MR', 'MR'),
+        ('MS', 'MS'),
+        ('MISS', 'MISS'),
+        ('DR', 'DR'),
+    }
+    fathername = models.CharField(max_length=200, null=True)
+    lastname = models.CharField(max_length=200, null=True, choices=STATUS2)
+    STATUS3 = {
+        ('Male', 'Male'),
+        ('Female', 'Female'),
+        ('Other', 'Other'),
+    }
+    dob = models.DateTimeField(null=True, blank=True)
+    nationality = models.CharField(max_length=20, null=True, default="India")
+    gender = models.CharField(max_length=20, null=True, choices=STATUS3)
+    STATUS4 = {
+        ('Individual', 'Individual'),
+        ('Corporate', 'Corporate'),
+    }
+    customertype = models.CharField(max_length=20, null=True, choices=STATUS4, default="Individual")
+    STATUS5 = {
+        ('Business', 'Business'),
+        ('Residental', 'Residental'),
+    }
+    usage = models.CharField(max_length=20, null=True, choices=STATUS5, default="Residental")
+    STATUS6 = {
+        ('POSTPAID', 'POSTPAID'),
+        ('PREPAID', 'PREPAID'),
+    }
+    connectiontype = models.CharField(max_length=20, null=True, choices=STATUS6, default="POSTPAID")
+    STATUS7 = {
+        ('Email', 'Email'),
+        ('Mobile', 'Mobile'),
+    }
+    communicationmethod = models.CharField(max_length=20, null=True, choices=STATUS7, default="Email")
+    accsubtype = models.CharField(max_length=100, null=True)
+    STATUS20 = {
+        ('Monthly', 'Monthly'),
+        ('Bimonthly', 'Bimonthly'),
+    }
+    frequency = models.CharField(max_length=30, null=True, choices=STATUS20, default="Monthly")
+    STATUS21 = {
+        ('EMAIL', 'EMAIL'),
+        ('Print Bill On Paper', 'Print Bill On Paper'),
+        ('PAPER AND EMAIL', 'PAPER AND EMAIL'),
+    }
+    billmedia = models.CharField(max_length=20, null=True, choices=STATUS21, default="EMAIL")
+    STATUS22 = {
+        ('Unique Indentificationby Authority Of India', 'Unique Indentificationby Authority Of India'),
+        ('CGHS/EGHS Card', 'CGHS/EGHS Card'),
+        ('Driving Licence', 'Driving Licence'),
+        ('Voter ID Card', 'Voter ID Card'),
+        ('Goverment ID Card', 'Goverment ID Card'),
+        ('Certificate Issued By MLA MP GR A Officer', 'Certificate Issued By MLA MP GR A Officer'),
+        ('PAN Card', 'PAN Card'),
+        ('Photo ID by Village Panchayath', 'Photo ID by Village Panchayath'),
+        ('Pass Book Of Bank or PO', 'Pass Book Of Bank or PO'),
+        ('Passport', 'Passport'),
+        ('Ration Card with Photo', 'Ration Card with Photo'),
+        ('Photo ID Card by Edu Institute', 'Photo ID Card by Edu Institute'),
+        ('Smart Card by CSD Defence', 'Smart Card by CSD Defence'),
+    }
+    poi = models.CharField(max_length=50, null=True, choices=STATUS22)
+    poitype = models.CharField(max_length=100, null=True)
+    poiref = models.CharField(max_length=100, null=True)
+    STATUS23 = {
+        ('UIDAI Government Of India', 'UIDAI Government Of India'),
+        ('The Central Govt Health Department', 'The Central Govt Health Department'),
+        ('RTO', 'RTO'),
+        ('ERO', 'ERO'),
+        ('Government of India', 'Government of India'),
+        ('Issued By MLA MP GR A Officer', 'Issued By MLA MP GR A Officer'),
+        ('Income Tax Department', 'Income Tax Department'),
+        ('Village Panchayath', 'Village Panchayath'),
+        ('Bank Branch Manager or PO', 'Pass Book Of Bank or PO'),
+        ('Passport Authority', 'Passport Authority'),
+        ('Ministry Of Defence', 'Ministry Of Defence'),
+    }
+    poiby = models.CharField(max_length=100, null=True, choices=STATUS23)
+    poidate = models.DateTimeField(auto_now_add=False, null=True, blank=True)
+
+    STATUS32 = {
+        ('Unique Indentificationby Authority Of India', 'Unique Indentificationby Authority Of India'),
+        ('CGHS/EGHS Card', 'CGHS/EGHS Card'),
+        ('Driving Licence', 'Driving Licence'),
+        ('Voter ID Card', 'Voter ID Card'),
+        ('Goverment ID Card', 'Goverment ID Card'),
+        ('Certificate Issued By MLA MP GR A Officer', 'Certificate Issued By MLA MP GR A Officer'),
+        ('PAN Card', 'PAN Card'),
+        ('Photo ID by Village Panchayath', 'Photo ID by Village Panchayath'),
+        ('Pass Book Of Bank or PO', 'Pass Book Of Bank or PO'),
+        ('Passport', 'Passport'),
+        ('Ration Card with Photo', 'Ration Card with Photo'),
+        ('Photo ID Card by Edu Institute', 'Photo ID Card by Edu Institute'),
+        ('Smart Card by CSD Defence', 'Smart Card by CSD Defence'),
+    }
+    poa = models.CharField(max_length=50, null=True, choices=STATUS32)
+    poatype = models.CharField(max_length=100, null=True)
+    poaref = models.CharField(max_length=100, null=True)
+    STATUS33 = {
+        ('UIDAI Government Of India', 'UIDAI Government Of India'),
+        ('The Central Govt Health Department', 'The Central Govt Health Department'),
+        ('RTO', 'RTO'),
+        ('ERO', 'ERO'),
+        ('Government of India', 'Government of India'),
+        ('Issued By MLA MP GR A Officer', 'Issued By MLA MP GR A Officer'),
+        ('Income Tax Department', 'Income Tax Department'),
+        ('Village Panchayath', 'Village Panchayath'),
+        ('Bank Branch Manager or PO', 'Pass Book Of Bank or PO'),
+        ('Passport Authority', 'Passport Authority'),
+        ('Ministry Of Defence', 'Ministry Of Defence'),
+    }
+    poaby = models.CharField(max_length=100, null=True, choices=STATUS33)
+    poadate = models.DateTimeField(auto_now_add=False, null=True, blank=True)
+    billemail = models.CharField(max_length=20, null=True)
+    uesrname = models.CharField(max_length=200, null=True, blank=True)
+    mobileno = models.CharField(max_length=20, null=True, default="123")
+    mobileno1 = models.CharField(max_length=20, null=True, blank=True)
+    pincode = models.CharField(max_length=20, null=True)
+    houseno = models.CharField(max_length=100, null=True)
+    village = models.CharField(max_length=100, null=True)
+    landmark = models.CharField(max_length=100, null=True, blank=True)
+    city = models.CharField(max_length=100, default="Pune")
+    district = models.CharField(max_length=100, default="Pune")
+    locaility = models.CharField(max_length=100, default="Pune")
+    sublocaility = models.CharField(max_length=100, default="Pune")
+    exchangecode = models.CharField(max_length=100, default="Pune")
+    STATUS8 = {
+        ('Rural', 'Rural'),
+        ('Urban', 'Urban'),
+    }
+    ccategory = models.CharField(max_length=100, choices=STATUS8, default="Urban")
+    state = models.CharField(max_length=100, default="Maharashtra")
+    gstin = models.CharField(max_length=15, default="27")
+
+    bpincode = models.CharField(max_length=20, null=True, blank=True)
+    bhouseno = models.CharField(max_length=100, null=True, blank=True)
+    bvillage = models.CharField(max_length=100, null=True, blank=True)
+    blandmark = models.CharField(max_length=100, null=True, blank=True)
+    bcity = models.CharField(max_length=100, default="Pune", blank=True)
+    baddress = models.CharField(max_length=500, default="Pune", blank=True)
+    bdistrict = models.CharField(max_length=100, default="Pune", blank=True)
+    blocaility = models.CharField(max_length=100, default="Pune", blank=True)
+    bsublocaility = models.CharField(max_length=100, default="Pune", blank=True)
+    bexchangecode = models.CharField(max_length=100, default="Pune", blank=True)
+    STATUS48 = {
+        ('Rural', 'Rural'),
+        ('Urban', 'Urban'),
+    }
+    bccategory = models.CharField(max_length=100, choices=STATUS48, default="Urban")
+    bstate = models.CharField(max_length=100, default="Maharashtra")
+    bgstin = models.CharField(max_length=15, default="27")
+    email = models.EmailField(max_length=60)
+    STATUS9 = {
+        ('New', 'New'),
+        ('Existing', 'Existing'),
+    }
+    billaccno = models.CharField(max_length=20, choices=STATUS9, default="New")
+    adharcardno = models.CharField(max_length=20, default="1", blank=True, null=True)
+    adharcard = models.ImageField(upload_to='pics', default="profile1.png")
+    panno = models.CharField(max_length=20, default="1", blank=True, null=True)
+    pan = models.ImageField(upload_to='pics', default="profile1.png")
+    drivinglicenceno = models.CharField(max_length=20, default="1", blank=True, null=True)
+    drivinglicence = models.ImageField(upload_to='pics', default="profile1.png")
+    electricityno = models.CharField(max_length=20, default="1", blank=True)
+    electricitybill = models.ImageField(upload_to='pics', default="profile1.png")
+    active = models.BooleanField(default=True)
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    profile_id = models.IntegerField(null=True)
+    STATUS10 = {
+        ('BB Over Wifi', 'BB Over Wifi'),
+        ('VPT', 'VPT'),
+        ('MMVC PostPaid', 'MMVC PostPaid'),
+        ('PT', 'PT'),
+        ('Pubic Institution', 'Pubic Institution'),
+        ('Retired BSNL Employee', 'Retired BSNL Employee'),
+        ('Central Government', 'Central Government'),
+        ('Foreign Embassy', 'Foreign Embassy'),
+        ('Individual', 'Individual'),
+        ('Public Utilities', 'Public Utilities'),
+        ('Service', 'Service'),
+        ('State Government', 'State Government'),
+        ('Bharat Air Fibre', 'Bharat Air Fibre'),
+    }
+    accounttype = models.CharField(max_length=100, choices=STATUS10, default='Service')
+
+    def __str__(self):
+        return self.name
