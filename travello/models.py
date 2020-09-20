@@ -35,6 +35,25 @@ class Employee(models.Model):
         return self.name, self.mobile, self.note
 
 
+class Vendor(models.Model):
+    name = models.CharField(max_length=50, blank=False)
+    email = models.EmailField(max_length=60)
+    mobile = models.CharField(max_length=20)
+    address = models.TextField()
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    STATUS = {
+        ('Working', 'Working'),
+        ('Suspended', 'Suspended'),
+        ('OnContract', 'OnContract'),
+        ('Temporary', 'Temporary'),
+    }
+    status = models.CharField(max_length=200, null=True, choices=STATUS)
+    note = models.CharField(max_length=1000, null=True)
+
+    def __str__(self):
+        return self.name, self.mobile, self.note
+
+
 class Employee1(models.Model):
     name = models.CharField(max_length=50, blank=False)
     email = models.EmailField(max_length=60)
@@ -144,7 +163,7 @@ class Newcustomer(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, null=True, blank=True)
     address = models.CharField(max_length=200, null=True, default="Pune")
-    username = models.CharField(max_length=200, null=True)
+    username = models.CharField(max_length=200, null=True, blank=True)
     first_name = models.CharField(max_length=200, null=True)
     last_name = models.CharField(max_length=200, null=True)
     STATUS2 = {
@@ -160,7 +179,7 @@ class Newcustomer(models.Model):
         ('Female', 'Female'),
         ('Other', 'Other'),
     }
-    dob = models.DateTimeField(auto_now_add=False, null=True, blank=True)
+    dob = models.DateTimeField(null=True, blank=True)
     nationality = models.CharField(max_length=20, null=True, default="India")
     gender = models.CharField(max_length=20, null=True, choices=STATUS3)
     STATUS4 = {
@@ -314,7 +333,7 @@ class Newcustomer(models.Model):
     drivinglicence = models.ImageField(upload_to='pics', default="profile1.png")
     electricityno = models.CharField(max_length=20,default="1",blank=True)
     electricitybill = models.ImageField(upload_to='pics', default="profile1.png")
-    active = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     profile_id = models.IntegerField(null=True)
     STATUS10 = {
@@ -336,8 +355,6 @@ class Newcustomer(models.Model):
 
 
     def __str__(self):
-        self.fields['mobile1'].required = False
-        self.fields['landmark'].required = False
         return self.name
 
 
@@ -511,6 +528,23 @@ class Myorder(models.Model):
         return self.name,  self.status
 
 
+class My(models.Model):
+    STATUS = {
+        ('Pending', 'Pending'),
+        ('Out for delivery', 'Out for delivery'),
+        ('Progress', 'Progress'),
+        ('Installed', 'Installed'),
+    }
+    name = models.ForeignKey(Newcustomer, null=True, on_delete=models.CASCADE)
+
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    status = models.CharField(max_length=200, null=True, choices=STATUS)
+    note = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name,  self.status
+
+
 class Installation(models.Model):
     name = models.ForeignKey(Newcustomer, null=True, on_delete=models.CASCADE)
     building = models.ForeignKey(Feasable, null=True, on_delete=models.CASCADE)
@@ -525,22 +559,40 @@ class Installation(models.Model):
     ontmacid = models.CharField(max_length=100, null=True, blank=True)
     router = models.CharField(max_length=100, null=True, blank=True)
     dateapproval = models.DateTimeField(null=True, blank=True)
+    timeapproval = models.TimeField(null=True, blank=True)
     dateococ = models.DateTimeField(null=True, blank=True)
+    timeococ = models.TimeField(null=True, blank=True)
     dateinstalled = models.DateTimeField(null=True, blank=True)
+    timeinstalled = models.TimeField(null=True, blank=True)
     datepayment = models.DateTimeField(null=True, blank=True)
+    timepayment = models.TimeField(null=True, blank=True)
     datewo = models.DateTimeField(null=True, blank=True)
+    timewo = models.TimeField(null=True, blank=True)
     rno = models.CharField(max_length=100, null=True, blank=True)
     mode = models.CharField(max_length=100, null=True, blank=True)
     status = models.CharField(max_length=100, null=True, blank=True)
     remarks = models.TextField(null=True, blank=True)
     cablingby = models.CharField(max_length=100, null=True, blank=True)
     cablingdate = models.DateTimeField(null=True, blank=True)
+    cablingtime = models.TimeField(null=True, blank=True)
     visitby = models.CharField(max_length=100, null=True, blank=True)
     visitdate = models.DateTimeField(null=True, blank=True)
     feedbackdate = models.DateTimeField(null=True, blank=True)
     isp = models.CharField(max_length=100, null=True, blank=True)
     marketing = models.CharField(max_length=100, null=True, blank=True)
+    macid = models.CharField(max_length=100, null=True, blank=True)
+    ontdetails = models.CharField(max_length=100, null=True, blank=True)
+    ontsrno = models.CharField(max_length=100, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    STATUS = {
+        ('InProgress', 'Inprogress'),
+        ('Live', 'Live'),
+        ('Disconnected', 'Disconnected'),
+        ('Restored', 'Restored'),
+        ('Suspended', 'Suspended'),
+        ('Complain', 'Complain'),
+    }
+    status = models.CharField(max_length=100, null=True, blank=True,default="InProgress", choices=STATUS)
 
     def __str__(self):
         return self.name
@@ -576,6 +628,7 @@ class Installation2(models.Model):
     isp = models.CharField(max_length=100, null=True, blank=True)
     marketing = models.CharField(max_length=100, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
 
     def __str__(self):
         return self.name

@@ -34,7 +34,7 @@
  <body>
  <br>
  <a class="btn btn-primary  btn-sm btn-block" href="">Simply Amazing Products</a>
-
+ <p><strong>Your Customer ID for correspondence is {{request.user.newcustomer.id}} for username {{request.user.username}} you have last login at {{request.user.last_login}} </strong></p>
 <div class="container">
     <div class="row">
         <div class="col-md-3">
@@ -132,7 +132,9 @@
          <table class="table table-hover">
               <thead>
               <tr>
-                <th><font color="blue">Customer details</font></th>
+                <th><font color="blue">Customer details </font></th>
+                   <td>{{ form.id }}</td>
+                   <td>{{ form.user.id }}</td>
               </tr>
               </thead>
 <!---1st ROW----->
@@ -162,7 +164,7 @@
                      <tr>
                          <td> {{ form.fathername }}</td>
                          <td>{{ form.gender }}</td>
-                          <td>{{ form.username }}</td>
+                          <td>{{ form.dob }}</td>
                      </tr>
                  </tbody>
  <!---3rd ROW----->

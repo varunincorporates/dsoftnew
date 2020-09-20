@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     'django_filters',
     'embed_video',
     'crispy_forms',
-]
+ ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

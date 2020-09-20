@@ -15,6 +15,7 @@
 <body>
 <center>
 <h3>Review your information</h3>
+<div class="news_post_text">
 <p><strong>Your Name:</strong>{{your_name}}</p>
 <p><strong>Last Name:</strong>{{last_name}}</p>
 <p><strong>Father/Husband Name:</strong>{{fathername}}</p>
@@ -35,6 +36,7 @@
 <p><strong>State:</strong>{{state}}</p>
 <p><strong>District:</strong>{{district}}</p>
 <p><strong>Locallity:</strong>{{locaility}}</p>
+</div>
 </center>
 <br><br><br>
 
@@ -48,7 +50,12 @@
                     <hr>
                     <hr>
                     <img class="profile-pic" src="{{request.user.newcustomer.adharcard.url}}" >
-            	</div>
+                    <p>POI:{{poi}}</p>
+                    <p>REF:{{poiref}}</p>
+                    <p>TYPE:{{poitype}}</p>
+                    <p>BY:{{poiby}}</p>
+                    <p>DATE:{{poidate}}</p>
+                </div>
 	    </div>
  	    <div class="col-md-3">
                 <div class="card card-body">
@@ -65,6 +72,11 @@
                     <hr>
                     <hr>
                     <img class="profile-pic" src="{{request.user.newcustomer.drivinglicence.url}}" >
+                    <p>POA:{{poa}}</p>
+                    <p>REF:{{poaref}}</p>
+                    <p>TYPE:{{poatype}}</p>
+                    <p>BY:{{poaby}}</p>
+                     <p>DATE:{{poadate}}</p>
             	</div>
 	    </div>
          <div class="col-md-3">
@@ -73,6 +85,12 @@
                     <hr>
                     <hr>
                     <img class="profile-pic" src="{{request.user.newcustomer.electricitybill.url}}" >
+                    <p>Billing Acc No:{{billaccno}}</p>
+                    <p>Acc Type:{{accounttype}}</p>
+                    <p>Acc Sub Type:{{accsubtype}}</p>
+                    <p>Frequency:{{frequency}}</p>
+                    <p>Bill Media:{{billmedia}}</p>
+                    <p>Bill Email:{{billemail}}</p>
             	</div>
 	    </div>
     </div>

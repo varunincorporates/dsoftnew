@@ -250,6 +250,7 @@ def dashboard(request):
     total_orders = orders.count()
     delivered = orders.filter(status='Delivered').count()
     pending = orders.filter(status='Pending').count()
+
     context = {
         'orders': page,
         'customers': page1,
@@ -418,6 +419,28 @@ def display_employee(request):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
+def display_vendor(request):
+    items = Vendor.objects.all()
+    context = {
+        'items': items,
+        'header': 'Vendor',
+    }
+    return render(request, 'travello/employee.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'admin', 'staff' ])
+def display_assign(request):
+    items = Myassignment.objects.all()
+    context = {
+        'items': items,
+        'header': 'Assignment',
+    }
+    return render(request, 'travello/employee.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def display_faq(request):
     items = Salesfaq.objects.all().order_by('serial')
     context = {
@@ -515,16 +538,35 @@ def add_newcustomer(request):
         state = request.POST.get('state')
         district = request.POST.get('district')
         locaility = request.POST.get('locaility')
+        poi = request.POST.get('poi')
+        poiref = request.POST.get('poiref')
+        poitype = request.POST.get('poitype')
+        poiby = request.POST.get('poiby')
+        poidate = request.POST.get('poidate')
+        poa = request.POST.get('poa')
+        poaref = request.POST.get('poaref')
+        poatype = request.POST.get('poatype')
+        poaby = request.POST.get('poaby')
+        poadate = request.POST.get('poadate')
+        billaccno = request.POST.get('billaccno')
+        accounttype   = request.POST.get('accounttype')
+        accsubtype  = request.POST.get('accsubtype')
+        frequency  = request.POST.get('frequency')
+        billmedia  = request.POST.get('billmedia')
+        billemail = request.POST.get('billemail')
+
 
         form = NewcustomerForm(request.POST, request.FILES, instance=newcustomer)
         if form.is_valid():
             form.save(commit=True)
+            contact_id = request.POST.get('id')
             contact_new_customer = request.POST.get('first_name')
             obj = form.save(commit=False)
             obj.name = contact_new_customer
             obj.save()
             messages.info(request, "Record Saved")
             return render(request, 'travello/appointment.html',{
+                "id" : contact_id,
                 "your_name" : your_name,
                 "last_name" : last_name,
                 "fathername" : fathername,
@@ -545,6 +587,22 @@ def add_newcustomer(request):
                 "state" :  state,
                 "district" : district,
                 "locaility" : locaility,
+                "poi" : poi,
+                "poiref" : poiref,
+                "poitype" : poitype,
+                "poiby" : poiby,
+                "poa": poa,
+                "poaref": poaref,
+                "poatype": poatype,
+                "poaby": poaby,
+                "poadate": poadate,
+                "poidate": poidate,
+                "billaccno": billaccno,
+                "accounttype": accounttype,
+                "accsubtype" : accsubtype,
+                "frequency" : frequency,
+                "billmedia" : billmedia,
+                "billemail" : billemail,
             })
 
     print('ERROR', form.errors)
@@ -633,6 +691,18 @@ def add_plan(request):
 @allowed_users(allowed_roles=[ 'admin', 'staff' ])
 def add_employee(request):
     return add_item(request, EmployeeForm, 'Employee', 'display_employee')
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'admin', 'staff' ])
+def add_vendor(request):
+    return add_item(request, VendorForm, 'Vendor', 'display_vendor')
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'admin', 'staff' ])
+def add_assign(request):
+    return add_item(request, MyassignmentForm, 'Assignment', 'display_assign')
 
 
 @login_required(login_url='login')
@@ -804,8 +874,20 @@ def edit_pay(request, pk):
         installation = Installation.objects.get(name=customer.id)
         dk = installation.id
         return edit_device(request, dk, Installation, InstallpayForm, '/customer/' + str(pk),
-                           'PAYMENT REALISED DETAILS FOR  ' + installation.name.name)
+                           'PAYMENT REALISED DETAILS FOR  ' + installation.name.first_name +" "+ installation.name.last_name)
     messages.info(request, "Approval Pending")
+    return redirect('/customer/' + str(pk))
+
+
+def edit_status(request, pk):
+    customer = Newcustomer.objects.get(id=pk)
+    if Installation.objects.filter(name=customer.id).exists():
+        customer = Newcustomer.objects.get(id=pk)
+        installation = Installation.objects.get(name=customer.id)
+        dk = installation.id
+        return edit_device(request, dk, Installation, InstallstatusForm, '/customer/' + str(pk),
+                           'STATUS DETAILS FOR  ' + installation.name.first_name +" "+ installation.name.last_name)
+    messages.info(request, "STATUS Pending")
     return redirect('/customer/' + str(pk))
 
 
@@ -1057,3 +1139,29 @@ def newsletter(request):
     else:
         dest = Destination.objects.all()
         return render(request, 'travello/home.html', {"dest": dest, })
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[ 'admin', 'staff' ])
+def edit_myassignment(request, pk):
+    InstallationFormSet = inlineformset_factory(Newcustomer , Myassignment,
+                                                fields=(
+                                                    'employee', 'vendor', 'note'),
+                                                extra=1)
+    customer = Newcustomer.objects.get(id=pk)
+    if Myassignment.objects.filter(name=customer.id).exists():
+        customer = Newcustomer.objects.get(id=pk)
+        myassignment = Myassignment.objects.get(name=customer.id)
+        dk = myassignment.id
+        return edit_device(request, dk, Myassignment, MyassignmentForm, '/customer/' + str(pk),
+                           'APPROVAL FROM FRONT END FOR -  ' + myassignment.name.name)
+
+    formset = InstallationFormSet(queryset=Myassignment.objects.none(), instance=customer)
+    if request.method == 'POST':
+        formset = InstallationFormSet(request.POST, instance=customer)
+        if formset.is_valid():
+            formset.save()
+            return redirect('/customer/' + str(pk))
+    header = customer.name
+    context = {'form': formset, 'header': header}
+    return render(request, 'travello/installation_form.html', context)

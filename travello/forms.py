@@ -6,6 +6,19 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.admin import widgets
 
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
+class ReadOnly(forms.DateInput):
+    input_type = 'readonly'
+
+
+class TimeInput(forms.DateInput):
+    input_type = 'time'
+
+
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
@@ -37,9 +50,9 @@ class FeasableForm(forms.ModelForm):
 
 
 class NewcustomerForm(forms.ModelForm):
-
      class Meta:
-        widgets = {'dob': DateInput()}
+
+        widgets = {'dob': DateInput(), 'poidate': DateInput(), 'poadate': DateInput()}
 
         model = Newcustomer
         fields = '__all__'
@@ -83,9 +96,13 @@ class CustomerForm(forms.ModelForm):
     class Meta:
         model = Newcustomer
         fields = (
-           'first_name','last_name', 'mobileno' , 'address', 'email', 'adharcardno', 'adharcard', 'panno', 'pan', 'drivinglicenceno',
-            'drivinglicence', 'electricityno', 'electricitybill')
+           'first_name','last_name', 'mobileno' , 'address', 'email',
+            'poi','poiref','poitype','poiby','poidate',
+            'poa', 'poaref', 'poatype', 'poaby', 'poadate','active',
+        )
         labels = {
+            'poi': _('Proof Of Identity'),
+            'poa': _('Proof Of Address'),
             'pan': _('PAN_Scan'),
             'panno': _('PAN.No.'),
             'adharcardno': _('AadhaarNo'),
@@ -120,6 +137,12 @@ class EmployeeForm(forms.ModelForm):
         fields = '__all__'
 
 
+class VendorForm(forms.ModelForm):
+    class Meta:
+        model = Vendor
+        fields = '__all__'
+
+
 class FaqForm(forms.ModelForm):
     class Meta:
         model = Salesfaq
@@ -129,7 +152,7 @@ class FaqForm(forms.ModelForm):
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Myorder
-        fields = ('name',  'note')
+        fields = '__all__'
 
 
 class ComplainForm(forms.ModelForm):
@@ -174,16 +197,14 @@ class ComplainForm1(forms.ModelForm):
         }
 
 
-class DateInput(forms.DateInput):
-    input_type = 'date'
 
 
 
 class InstallationForm(forms.ModelForm):
     class Meta:
-        widgets = {'dateapproval': DateInput()}
+        widgets = {'dateapproval': DateInput() , 'timeapproval': TimeInput() }
         model = Installation
-        fields = ('phone', 'building', 'flatno', 'type', 'voip', 'userid', 'dateapproval', 'remarks')
+        fields = ('phone', 'building', 'flatno', 'type', 'voip', 'userid', 'dateapproval', 'timeapproval','remarks')
         labels = {
             'phone': _('PhoneNumber'),
             'building': _('BuildingName'),
@@ -192,7 +213,9 @@ class InstallationForm(forms.ModelForm):
             'userid': _('UserID'),
             'remarks': _('Comments'),
             'dateapproval': _('ApprovalDate'),
+            'timeapproval': _('ApprovalTime'),
             'dateococ': _('OCOC_Date'),
+
         }
 
 
@@ -229,9 +252,9 @@ class InstallForm(forms.ModelForm):
 
 class InstallococForm(forms.ModelForm):
     class Meta:
-        widgets = {'dateococ': DateInput()}
+        widgets = {'dateococ': DateInput(), 'timeococ': TimeInput()}
         model = Installation
-        fields = ('phone', 'building', 'flatno', 'type', 'voip', 'userid', 'dateococ', 'remarks')
+        fields = ('phone', 'building', 'flatno', 'type', 'voip', 'userid', 'dateococ','timeococ', 'remarks')
         labels = {
             'phone': _('PhoneNumber'),
             'building': _('BuildingName'),
@@ -240,20 +263,22 @@ class InstallococForm(forms.ModelForm):
             'userid': _('UserID'),
             'remarks': _('Comments'),
             'dateococ': _('OCOC_Date'),
+            'timeococ': _('OCOC Time'),
         }
 
 
 class InstallcableForm(forms.ModelForm):
     class Meta:
-        widgets = {'cablingdate': DateInput()}
+        widgets = {'cablingdate': DateInput(), 'cablingtime': TimeInput()}
         model = Installation
-        fields = ('phone', 'building', 'flatno', 'cablingby', 'cablingdate', 'remarks')
+        fields = ('phone', 'building', 'flatno', 'cablingby', 'cablingdate',  'cablingtime', 'remarks')
         labels = {
             'phone': _('PhoneNumber'),
             'building': _('BuildingName'),
             'flatno': _('FlatNo'),
             'cablingby': _('CablingDoneBy'),
             'cablingdate': _('CablingDate'),
+            'cablingtime': _('CablingTime'),
             'remarks': _('Comments'),
             'dateococ': _('OCOC_Date'),
         }
@@ -261,25 +286,52 @@ class InstallcableForm(forms.ModelForm):
 
 class InstallpayForm(forms.ModelForm):
     class Meta:
-        widgets = {'datepayment': DateInput()}
+        widgets = {'datepayment': DateInput(), 'timepayment': TimeInput() }
+
         model = Installation
-        fields = ('phone', 'building', 'flatno', 'datepayment', 'remarks')
+        fields = ('phone', 'building', 'flatno', 'macid', 'ontdetails','ontsrno', 'datepayment', 'timepayment', 'remarks')
         labels = {
             'phone': _('PhoneNumber'),
             'building': _('BuildingName'),
             'flatno': _('FlatNo'),
             'cablingby': _('CablingDoneBy'),
             'datepayment': _('PaymentRealisedDate'),
+            'timepayment': _('PaymentRealisedTime'),
             'remarks': _('Comments'),
             'dateococ': _('OCOC_Date'),
+            'macid': _('MacID'),
+            'ontdetails': _('ONT_Details'),
+            'ontsrno': _('ONT_SrNo'),
         }
+
+
+class InstallstatusForm(forms.ModelForm):
+    class Meta:
+        widgets = {'datepayment': DateInput(), 'timepayment': TimeInput() }
+
+        model = Installation
+        fields = ('status', 'remarks')
+        labels = {
+            'phone': _('PhoneNumber'),
+            'building': _('BuildingName'),
+            'flatno': _('FlatNo'),
+            'cablingby': _('CablingDoneBy'),
+            'datepayment': _('PaymentRealisedDate'),
+            'timepayment': _('PaymentRealisedTime'),
+            'remarks': _('Comments'),
+            'dateococ': _('OCOC_Date'),
+            'macid': _('MacID'),
+            'ontdetails': _('ONT_Details'),
+            'ontsrno': _('ONT_SrNo'),
+        }
+
 
 
 class InstalldateForm(forms.ModelForm):
     class Meta:
-        widgets = {'dateinstalled': DateInput(), }
+        widgets = {'dateinstalled': DateInput(), 'timeinstalled': TimeInput()}
         model = Installation
-        fields = ('phone', 'building', 'flatno', 'dateinstalled', 'remarks')
+        fields = ('phone', 'building', 'flatno', 'dateinstalled', 'timeinstalled','remarks')
         labels = {
             'phone': _('PhoneNumber'),
             'building': _('BuildingName'),
@@ -288,14 +340,15 @@ class InstalldateForm(forms.ModelForm):
             'datepayment': _('PaymentRealisedDate'),
             'remarks': _('Comments'),
             'dateinstalled': _('Installation_Date'),
+            'timeinstalled': _('Installation_Time'),
         }
 
 
 class InstallwoForm(forms.ModelForm):
     class Meta:
-        widgets = {'datewo': DateInput(), 'visitdate': DateInput()}
+        widgets = {'datewo': DateInput(), 'visitdate': DateInput(), 'timewo': TimeInput() }
         model = Installation
-        fields = ('phone', 'building', 'flatno', 'visitby', 'visitdate', 'datewo', 'remarks')
+        fields = ('phone', 'building', 'flatno', 'visitby', 'visitdate', 'datewo', 'timewo', 'remarks')
         labels = {
             'phone': _('PhoneNumber'),
             'building': _('BuildingName'),
@@ -304,6 +357,7 @@ class InstallwoForm(forms.ModelForm):
             'datepayment': _('PaymentRealisedDate'),
             'remarks': _('Comments'),
             'datewo': _('WorkOrderCompletedDate'),
+            'timewo': _('WorkOrderCompletedTime'),
             'visitby': _('VisitBy'),
             'visitdate': _('DateOfVisit'),
         }
