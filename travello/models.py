@@ -291,7 +291,7 @@ class Newcustomer(models.Model):
     landmark = models.CharField(max_length=100, null=True, blank=True)
     city = models.CharField(max_length=100, default="Pune")
     district = models.CharField(max_length=100, default="Pune")
-    locaility = models.CharField(max_length=100, default="Pune")
+    locaility = models.CharField(max_length=100, default="Pune", null=True, blank=True)
     sublocaility = models.CharField(max_length=100, default="Pune")
     exchangecode  = models.CharField(max_length=100, default="Pune")
     STATUS8 = {
