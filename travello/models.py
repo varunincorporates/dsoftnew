@@ -512,20 +512,20 @@ class Order(models.Model):
 
 
 class Myorder(models.Model):
+    name = models.ForeignKey(Newcustomer, null=True, on_delete=models.CASCADE)
+    product = models.ForeignKey(Plan, null=True, on_delete=models.SET_NULL)
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
     STATUS = {
         ('Pending', 'Pending'),
         ('Out for delivery', 'Out for delivery'),
         ('Progress', 'Progress'),
         ('Installed', 'Installed'),
     }
-    name = models.ForeignKey(Newcustomer, null=True, on_delete=models.CASCADE)
-    product = models.ForeignKey(Plan, null=True, on_delete=models.SET_NULL)
-    date_created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
     note = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return self.name,  self.status
+        return str(self.name),  str(self.status)
 
 
 class My(models.Model):
