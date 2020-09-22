@@ -204,7 +204,7 @@ class InstallationForm(forms.ModelForm):
     class Meta:
         widgets = {'dateapproval': DateInput() , 'timeapproval': TimeInput() }
         model = Installation
-        fields = ('phone', 'building', 'flatno', 'type', 'voip', 'userid', 'dateapproval', 'timeapproval','remarks')
+        fields = ('phone', 'building', 'flatno', 'type', 'voip', 'userid', 'dateapproval',  'remarks')
         labels = {
             'phone': _('PhoneNumber'),
             'building': _('BuildingName'),
