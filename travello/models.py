@@ -1,10 +1,11 @@
+from django.core.files.images import get_image_dimensions
 from django.db import models
 
 # Create your models here.
 from django.db import models
 from embed_video.fields import EmbedVideoField
 from django.contrib.auth.models import User, auth
-
+from django.forms import ValidationError
 
 class Newsletter(models.Model):
     user1 = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
@@ -356,6 +357,46 @@ class Newcustomer(models.Model):
 
     def __str__(self):
         return self.name
+
+    def clean(self):
+        if not self.electricitybill:
+            raise ValidationError("No image!")
+        else:
+            w, h = get_image_dimensions(self.electricitybill)
+            if w >= 1000:
+                raise ValidationError(
+                    "The POA Address Proof Back image is %i pixel wide. It's supposed to be 200KB" % w)
+            if h >= 800:
+                raise ValidationError(
+                    "The POA Address Proof Back image is %i pixel high. It's supposed to be 200KB" % h)
+
+        if not self.drivinglicence:
+            raise ValidationError("No image!")
+        else:
+            w, h = get_image_dimensions(self.drivinglicence)
+            if w >= 1000:
+                raise ValidationError("The POA Address Proof Front image is %i pixel wide. It's supposed to be 200KB" % w)
+            if h >= 800:
+                raise ValidationError("The POA Address Proof Front image is %i pixel high. It's supposed to be 200KB" % h)
+
+            if not self.adharcard:
+                raise ValidationError("No image!")
+            else:
+                w, h = get_image_dimensions(self.adharcard)
+                if w >= 1000:
+                    raise ValidationError("The POI Identity Proof Front image is %i pixel wide. It's supposed to be 200KB" % w)
+                if h >= 800:
+                    raise ValidationError("The POI Identity Proof Front image is %i pixel high. It's supposed to be 200KB" % h)
+
+            if not self.pan:
+                raise ValidationError("No image!")
+            else:
+                w, h = get_image_dimensions(self.pan)
+                if w >= 1000:
+                    raise ValidationError("The POI Identity Proof Back image is %i pixel wide. It's supposed to be 200KB" % w)
+                if h >= 800:
+                    raise ValidationError("The POI Identity Proof Back image is %i pixel high. It's supposed to be 200KB" % h)
+
 
 
 

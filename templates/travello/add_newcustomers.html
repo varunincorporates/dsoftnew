@@ -74,7 +74,7 @@
 </div>
 <div>
 	{% for message in messages %}
-	  <h3> {{message}}  </h3> {% now "jS F Y " %}
+    <h4> <font color="red"> {{message}} </font> </h4> {% now "jS F Y " %}
 	{% endfor %}
 </div> <br>
 {% if contact_new_customer %}
@@ -471,7 +471,7 @@
             <div class="row">
                 <div class="col-md-6">
                         <div class="card card-body">
-                            <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Proof of identity Front</a>
+                            <a class="btn btn-warning" href="#"> &#8592; Proof of identity Front</a>
                             <hr>
                             <hr>
                             <img class="profile-pic" src="{{request.user.newcustomer.adharcard.url}}"  width="192" height="191">
@@ -479,7 +479,7 @@
                 </div>
                 <div class="col-md-6">
                         <div class="card card-body">
-                            <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Proof of identity Back</a>
+                            <a class="btn btn-warning" href="#"> &#8592; Proof of identity Back</a>
                              <hr>
                             <hr>
                             <img class="profile-pic" src="{{request.user.newcustomer.pan.url}}" width="192" height="191">
@@ -534,7 +534,7 @@
           <div class="row">
                 <div class="col-md-6">
                     <div class="card card-body">
-                        <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Proof of Address Front</a>
+                        <a class="btn btn-warning" href="#"> &#8592; Proof of Address Front</a>
                         <hr>
                         <hr>
                         <img class="profile-pic" src="{{request.user.newcustomer.drivinglicence.url}}"  width="192" height="191">
@@ -542,7 +542,7 @@
 	            </div>
                   <div class="col-md-6">
                         <div class="card card-body">
-                            <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Proof of Address Back</a>
+                            <a class="btn btn-warning" href="#"> &#8592; Proof of Address Back</a>
                             <hr>
                             <hr>
                             <img class="profile-pic" src="{{request.user.newcustomer.electricitybill.url}}" width="192" height="191">
