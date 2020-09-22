@@ -41,6 +41,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django_session_timeout.middleware.SessionTimeoutMiddleware',
 ]
 
 ROOT_URLCONF = 'telusko.urls'
@@ -140,3 +142,8 @@ MAILCHIP_DATA_CENTER='us17'
 MAILCHIP_EMAIL_LIST_ID=''
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+
+SESSION_EXPIRE_SECONDS = 300  # 300 seconds = 5 minutes
+
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
