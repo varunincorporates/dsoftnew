@@ -365,9 +365,9 @@ class InstallwoForm(forms.ModelForm):
 
 class InstallfeedForm(forms.ModelForm):
     class Meta:
-        widgets = {'feedbackdate': DateInput(), 'visitdate': DateInput()}
+        widgets = {'feedbackdate': DateInput(), 'feedbacktime': DateInput()}
         model = Installation
-        fields = ('phone', 'building', 'flatno', 'feedbackdate', 'remarks')
+        fields = ('phone', 'building', 'flatno', 'feedbackdate','feedbacktime', 'remarks')
         labels = {
             'phone': _('PhoneNumber'),
             'building': _('BuildingName'),
@@ -378,4 +378,5 @@ class InstallfeedForm(forms.ModelForm):
             'datewo': _('WorkOrderCompletedDate'),
             'visitby': _('VisitBy'),
             'feedbackdate': _('CustomerFeedbackDate'),
+            'feedbacktime': _('CustomerFeedbacktime'),
         }

@@ -620,6 +620,7 @@ class Installation(models.Model):
     visitby = models.CharField(max_length=100, null=True, blank=True)
     visitdate = models.DateTimeField(null=True, blank=True)
     feedbackdate = models.DateTimeField(null=True, blank=True)
+    feedbacktime = models.TimeField(null=True, blank=True)
     isp = models.CharField(max_length=100, null=True, blank=True)
     marketing = models.CharField(max_length=100, null=True, blank=True)
     macid = models.CharField(max_length=100, null=True, blank=True)
