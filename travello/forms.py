@@ -202,9 +202,9 @@ class ComplainForm1(forms.ModelForm):
 
 class InstallationForm(forms.ModelForm):
     class Meta:
-        widgets = {'dateapproval': DateInput() , 'timeapproval': TimeInput() }
+        widgets = {'dateapproval': DateInput() , 'time1approval': TimeInput() }
         model = Installation
-        fields = ('phone', 'building', 'flatno', 'type', 'voip', 'userid', 'dateapproval',  'remarks')
+        fields = ('phone', 'building', 'flatno', 'type', 'voip', 'userid', 'dateapproval','time1approval',  'remarks')
         labels = {
             'phone': _('PhoneNumber'),
             'building': _('BuildingName'),
@@ -213,7 +213,7 @@ class InstallationForm(forms.ModelForm):
             'userid': _('UserID'),
             'remarks': _('Comments'),
             'dateapproval': _('ApprovalDate'),
-            'timeapproval': _('ApprovalTime'),
+            'time1approval': _('ApprovalTime'),
             'dateococ': _('OCOC_Date'),
 
         }

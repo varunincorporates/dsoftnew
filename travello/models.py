@@ -601,6 +601,7 @@ class Installation(models.Model):
     router = models.CharField(max_length=100, null=True, blank=True)
     dateapproval = models.DateTimeField(null=True, blank=True)
     timeapproval = models.TimeField(null=True, blank=True)
+    time1approval = models.TimeField(null=True, blank=True)
     dateococ = models.DateTimeField(null=True, blank=True)
     timeococ = models.TimeField(null=True, blank=True)
     dateinstalled = models.DateTimeField(null=True, blank=True)
