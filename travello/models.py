@@ -606,6 +606,7 @@ class Installation(models.Model):
     timeococ = models.TimeField(null=True, blank=True)
     dateinstalled = models.DateTimeField(null=True, blank=True)
     timeinstalled = models.TimeField(null=True, blank=True)
+    time1installed = models.TimeField(null=True, blank=True)
     datepayment = models.DateTimeField(null=True, blank=True)
     timepayment = models.TimeField(null=True, blank=True)
     datewo = models.DateTimeField(null=True, blank=True)

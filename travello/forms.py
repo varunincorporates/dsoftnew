@@ -329,9 +329,9 @@ class InstallstatusForm(forms.ModelForm):
 
 class InstalldateForm(forms.ModelForm):
     class Meta:
-        widgets = {'dateinstalled': DateInput(), 'timeinstalled': TimeInput()}
+        widgets = {'dateinstalled': DateInput(), 'time1installed': TimeInput()}
         model = Installation
-        fields = ('phone', 'building', 'flatno', 'dateinstalled', 'timeinstalled','remarks')
+        fields = ('phone', 'building', 'flatno', 'dateinstalled', 'time1installed','remarks')
         labels = {
             'phone': _('PhoneNumber'),
             'building': _('BuildingName'),
@@ -340,7 +340,7 @@ class InstalldateForm(forms.ModelForm):
             'datepayment': _('PaymentRealisedDate'),
             'remarks': _('Comments'),
             'dateinstalled': _('Installation_Date'),
-            'timeinstalled': _('Installation_Time'),
+            'time1installed': _('Installation_Time'),
         }
 
 
