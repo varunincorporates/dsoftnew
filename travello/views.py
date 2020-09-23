@@ -1,5 +1,7 @@
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
+
 from telusko import settings
 from .decorators import unauthenticated_user
 from .forms import *
@@ -67,8 +69,12 @@ def loginPage(request):
 
 
 def logoutUser(request):
+    if request.session:
+        messages.success(request, 'Successfully Logged Out')
+    else:
+        messages.error(request, 'Session Expired Please Login Again')
     logout(request)
-    return redirect('login')
+    return redirect(reverse('login'))
 
 
 def index(request):

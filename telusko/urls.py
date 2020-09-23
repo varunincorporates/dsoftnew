@@ -22,6 +22,7 @@ urlpatterns = [
   path('', include('travello.urls')),
   path('admin/', admin.site.urls),
   path('travello/', include('travello.urls')),
+  path('accounts/', include('accounts.urls')),
 
 ]
 
