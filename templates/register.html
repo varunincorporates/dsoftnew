@@ -1,152 +1,191 @@
-{%  extends 'base.html' %}
-{% load static %}
+ {% load static %}
+{% static "images" as baseUrl %}
 
+<!DOCTYPE html>
+<html>
 
-{% block body %}
 <head>
- <title>Register</title>
+	<title>Login</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+	<meta charset="utf-8">
+    <meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
+    <meta name="author" content="Vincent Garreau" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+   <link rel="stylesheet" media="screen" href="{% static 'css/style1.css' %}">
+	<style>
+		body,
+		html {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			background: #7abecc !important;
+		}
+		.user_card {
+			width: 350px;
+			margin-top: auto;
+			margin-bottom: auto;
+			background: #74cfbf;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			padding: 10px;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+
+		}
+
+		.form_container {
+			margin-top: 20px;
+		}
+
+		#form-title{
+			color: #fff;
+		}
+		.login_btn {
+			width: 100%;
+			background: #33ccff !important;
+			color: white !important;
+		}
+		.login_btn:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+		.login_container {
+			padding: 0 2rem;
+		}
+		.input-group-text {
+			background: #f7ba5b !important;
+			color: white !important;
+			border: 0 !important;
+			border-radius: 0.25rem 0 0 0.25rem !important;
+		}
+		.input_user,
+		.input_pass:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+		body
+	overflow hidden
+	background #111
+
+	</style>
+
 </head>
+<body>
+<div class="count-particles">
+  <span class="js-count-particles">--</span> particles
+	<h2><strong>DSoft</strong></h2>
+</div>
+<br><br>
+<div id="particles-js" >
+	<div class="container">
+		<div class="d-flex justify-content-center  ">
+			<div >
+				<div class="d-flex justify-content-center">
+					<h3 id="form-title"><strong>DSoft Register Account</strong></h3>
+				</div>
+				<div  class="d-flex justify-content-center form_container">
 
-	<div class="menu">
-		<div class="menu_header d-flex flex-row align-items-center justify-content-start">
-			<div class="menu_logo"><a href="index.html">Travello</a></div>
-			<div class="menu_close_container ml-auto"><div class="menu_close"><div></div><div></div></div></div>
-		</div>
-		<div class="menu_content">
-			<ul>
-				<li><a href="inex.html">Home</a></li>
-				<li><a href="about.html">About us</a></li>
-				<li><a href="#">Services</a></li>
-				<li><a href="news.html">News</a></li>
-				<li><a href="contact.html">Contact</a></li>
-			</ul>
-		</div>
-		<div class="menu_social">
-			<div class="menu_phone ml-auto">Call us: 00-56 445 678 33</div>
-			<ul class="d-flex flex-row align-items-start justify-content-start">
-				<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-			</ul>
-		</div>
-	</div>
+					<form method="POST" action="">
+						{% csrf_token %}
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+							{{form.username}}
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-envelope-square"></i></span>
+							</div>
+							{{form.email}}
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-phone-square"></i></span>
+							</div>
+							{{form.last_name}}
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+							{{form.password1}}
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+							{{form.password2}}
+						</div>
 
-	<!-- Home -->
 
+				   		<div class="d-flex justify-content-center mt-3 login_container">
+				 			<input class="btn login_btn" type="submit" value="Register Account">
+				   		</div>
 
-
-
-	  <!-- ***** Breadcrumb Area Start ***** -->
-  <div class="breadcumb-area bg-img bg-gradient-overlay" style="background-image: url({% static 'img/bg-img/12.jpg' %});">
-    <div class="container h-100">
-      <div class="row h-100 align-items-center">
-        <div class="col-12">
-          <h2 class="title">Registration</h2>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="breadcumb--con">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="home"><i class="fa fa-home"></i> Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Register</li>
-            </ol>
-          </nav>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- ***** Breadcrumb Area End ***** -->
-
-<!-- Book An Oppointment Area Start -->
-  <section class="book-an-oppointment-area section-padding-100 bg-img bg-gradient-overlay jarallax clearfix" style="background-image: url({% static 'images/prof01.jpg' %});">
-    <div class="container">
-      <div class="row">
-        <!-- Section Heading -->
-        <div class="col-12">
-          <div class="section-heading text-center white">
-            <h2>New User Registration</h2>
-			  <div class="contact_text">
-				  <p><strong>Your details will not be shared. Registration will help us to be in touch with you.</strong></p>
-				  <p><strong>We've got everything covered for your needs.</strong></p>
-			   </div>
-            <div class="line"></div>
-          </div>
-        </div>
-      </div>
-	 <form action="register" method="post"  id="contact_form" class="contact_form">
-      {% csrf_token  %}
-      <div class="row">
-        <div class="col-12">
-          <!-- Appointment Form -->
-          <div class="appointment-form">
-            <form action="#" method="post">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group mb-30">
-			    	 <div><strong>Your Name</strong></div>
-                    <input type="text" name="first_name" class="form-control" placeholder="Your Name" required>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group mb-30">
-					<div><strong>Your Phone</strong></div>
-                    <input type="text" name="last_name" class="form-control" placeholder="Your Phone" required>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group mb-30">
-					  <div><strong>Your Email</strong></div>
-                    <input type="email" name="email" class="form-control" placeholder="Your Email" required>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group mb-30">
-					<div><strong>LogIn Name</strong></div>
-                    <input type="text" name="username" class="form-control" placeholder="LogIn Name ">
-                  </div>
-                </div>
-				 <div class="col-md-6">
-					  <div class="form-group mb-30">
-						 <div><strong>Password:</strong></div>
-						<div><input type="password" name="password1" class="contact_input contact_input_email inpt" placeholder="Password" required="required"><div class="input_border"></div></div>
-					</div>
-				 </div>
-				<div class="col-md-6">
-					 <div class="form-group mb-30">
-						<div><strong>Confirm Password:</strong></div>
-						<div><input type="password" name="password2" class="contact_input contact_input_subject inpt" placeholder="Confirm Password" required="required"><div class="input_border"></div></div>
-					</div>
+					</form>
 				</div>
 
-                <div class="col-12 text-center">
-		  		  <button class="contact_button">Submit</button>
-                </div>
-              </div>
-            </form>
-          </div>
-		   <div>
-				{% for message in messages %}
-				  <h3> {{message}}  </h3>
-				{% endfor %}
-			</div> <br>
-        </div>
-      </div>
- 	</form>
-    </div>
-  </section>
-<br><br>
+				{{form.errors}}
 
-  <!-- Book An Oppointment Area End -->
+				<div class="mt-4">
+					<div class="d-flex justify-content-center links">
+						Already have an account? <a href="login" class="ml-2">Login</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<script>
+						/* Because i didnt set placeholder values in forms.py they will be set here using vanilla Javascript
+		//We start indexing at one because CSRF_token is considered and input field
+		 */
 
-{% endblock %}
+		//Query All input fields
+		var form_fields = document.getElementsByTagName('input')
+		form_fields[1].placeholder='Username..';
+		form_fields[2].placeholder='Email..';
+		form_fields[3].placeholder='Mobile Number...';
+		form_fields[4].placeholder='Enter password...';
+		form_fields[5].placeholder='Re-enter Password...';
 
 
 
+		for (var field in form_fields){
+			form_fields[field].className += ' form-control'
+		}
+	</script>
+
+<script src="{% static 'particles.js' %}"></script>
+<script src="{% static 'js/app.js' %}"></script>
+
+<!-- stats.js -->
+<script src="{% static 'js/lib/stats.js' %}"></script>
+<script>
+  var count_particles, stats, update;
+  stats = new Stats;
+  stats.setMode(0);
+  stats.domElement.style.position = 'absolute';
+  stats.domElement.style.left = '0px';
+  stats.domElement.style.top = '0px';
+  document.body.appendChild(stats.domElement);
+  count_particles = document.querySelector('.js-count-particles');
+  update = function() {
+    stats.begin();
+    stats.end();
+    if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+      count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+    }
+    requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+</script>
+</body>
+</html>

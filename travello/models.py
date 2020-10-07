@@ -363,39 +363,39 @@ class Newcustomer(models.Model):
             raise ValidationError("No image!")
         else:
             w, h = get_image_dimensions(self.electricitybill)
-            if w >= 1000:
-                raise ValidationError(
-                    "The POA Address Proof Back image is %i pixel wide. It's supposed to be 200KB" % w)
-            if h >= 800:
-                raise ValidationError(
-                    "The POA Address Proof Back image is %i pixel high. It's supposed to be 200KB" % h)
+            #if w >= 7000:
+            #    raise ValidationError(
+            #        "The POA Address Proof Back image is %i pixel wide. It's supposed to be 200KB" % w)
+            #if h >= 7000:
+            #    raise ValidationError(
+            #        "The POA Address Proof Back image is %i pixel high. It's supposed to be 200KB" % h)
 
         if not self.drivinglicence:
             raise ValidationError("No image!")
         else:
             w, h = get_image_dimensions(self.drivinglicence)
-            if w >= 1000:
-                raise ValidationError("The POA Address Proof Front image is %i pixel wide. It's supposed to be 200KB" % w)
-            if h >= 800:
-                raise ValidationError("The POA Address Proof Front image is %i pixel high. It's supposed to be 200KB" % h)
+            #if w >= 7000:
+            #    raise ValidationError("The POA Address Proof Front image is %i pixel wide. It's supposed to be 200KB" % w)
+            #if h >= 7000:
+            #    raise ValidationError("The POA Address Proof Front image is %i pixel high. It's supposed to be 200KB" % h)
 
             if not self.adharcard:
                 raise ValidationError("No image!")
             else:
                 w, h = get_image_dimensions(self.adharcard)
-                if w >= 1000:
-                    raise ValidationError("The POI Identity Proof Front image is %i pixel wide. It's supposed to be 200KB" % w)
-                if h >= 800:
-                    raise ValidationError("The POI Identity Proof Front image is %i pixel high. It's supposed to be 200KB" % h)
+                #if w >= 7000:
+                #    raise ValidationError("The POI Identity Proof Front image is %i pixel wide. It's supposed to be 200KB" % w)
+                #if h >= 7000:
+                #    raise ValidationError("The POI Identity Proof Front image is %i pixel high. It's supposed to be 200KB" % h)
 
             if not self.pan:
                 raise ValidationError("No image!")
             else:
                 w, h = get_image_dimensions(self.pan)
-                if w >= 1000:
-                    raise ValidationError("The POI Identity Proof Back image is %i pixel wide. It's supposed to be 200KB" % w)
-                if h >= 800:
-                    raise ValidationError("The POI Identity Proof Back image is %i pixel high. It's supposed to be 200KB" % h)
+                #if w >= 7000:
+                #    raise ValidationError("The POI Identity Proof Back image is %i pixel wide. It's supposed to be 200KB" % w)
+                #if h >= 7000:
+                #    raise ValidationError("The POI Identity Proof Back image is %i pixel high. It's supposed to be 200KB" % h)
 
 
 
@@ -558,9 +558,10 @@ class Myorder(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     STATUS = {
         ('Pending', 'Pending'),
-        ('Out for delivery', 'Out for delivery'),
+        ('Delivered', 'Delivered'),
         ('Progress', 'Progress'),
         ('Installed', 'Installed'),
+        ('Cancelled', 'Cancelled'),
     }
     status = models.CharField(max_length=200, null=True, choices=STATUS)
     note = models.TextField(null=True, blank=True)
@@ -572,8 +573,9 @@ class Myorder(models.Model):
 class My(models.Model):
     STATUS = {
         ('Pending', 'Pending'),
-        ('Out for delivery', 'Out for delivery'),
+        ('Delivered', 'Delivered'),
         ('Progress', 'Progress'),
+        ('Cancelled', 'Cancelled'),
         ('Installed', 'Installed'),
     }
     name = models.ForeignKey(Newcustomer, null=True, on_delete=models.CASCADE)

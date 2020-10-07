@@ -105,9 +105,12 @@
  <div class="container">
     <div class="row">
               {% if user.is_authenticated %}
-                   <div class="contact_title"> {{request.user}}  Welcome to DSoft Family.  </div>
+                   <div class="contact_title"> {{request.user}}  Welcome to DSoft Giga Fiber Family.
+                   <p></p><br>
+                    Please provide your details and we will reach out to you soon</div><br>
               {% else %}
-                  <div class="contact_title">Welcome to DSoft Family.  </div>
+                  <div class="contact_title">Thank you for your interest in DSOFT Giga Fiber </div>
+                  <div>Please provide your details and we will reach out to you soon</div>
               {% endif %}
     </div >
     <font color="blue"><center><h2>Landline CAF Entry </h2></center></font> </h2>
@@ -631,6 +634,10 @@ var loadFile = function(event) {
                         </div>
 
                      <div class="contact_text">
+                         <p strong>Terms and conditions</p>
+                         <p strong>1. This is an invitation by you to bring DSOFT Giga Fiber to your neighborhood.</p>
+                         <p strong>2. Your data shall be governed by the Privacy Policy provided on the dsoft.app website.</p>
+                         <p strong>3. Enable WhatsApp assistance.</p>
                          <p><strong>I agree to receive follow-ups call from DSoft Sales Teams.</strong> </p>
                          <p><strong>Company reserves the right to accept or reject the form. T&C Apply.</strong></p>
                      </div>
